@@ -1,40 +1,45 @@
 
 import { useState } from 'react'
 import Papa from 'papaparse'
+//in parse, we need to build an array full of objects. each object needs to represent an index of the array>
 
 export default function ParseSpike() {
 
     //state to hold file
-    const [file, setFile] = useState('')
-    const [parse, setParse] = useState('')
+    const [parse, setParse] = useState('');
+    const [isReady, setIsReady] = useState(false)
 
-    function showFile(event){
-        const newFile = (event.target.files[0]);
-        //use parser here
-        console.log(event.target.files[0])
-        console.log('newFile is:', newFile)
+    function parseFile(event) {
         Papa.parse(event.target.files[0], {
-            complete: function(results){
+            complete: function (results) {
                 console.log(results)
-                setParse(results);
+                setParse(results.data);
+                setIsReady(true)
             }
         })
-        console.log('results from parse', parse);
+
+    }
+    console.log('log outside of parseFile', parse)
+
+
+
+    function packageData(parsedData) {
+            console.log('in package with data', parsedData)
+            console.log('done parsing')
     }
 
-    console.log('parse data:', parse.data)
     return (
         <>
-        <div className="App">
-            <form>
-                <input
-                    type="file"
-                    value={file}
-                    id="fileItem"
-                    onChange={(event)=>showFile(event)}>
-                </input>
-
-            </form>
+            <div className="App">
+                <form>
+                    <input
+                        type="file"
+                        id="fileItem"
+                        onChange={(event) => parseFile(event)}>
+                    </input>
+                    {isReady? <button onClick={()=>packageData(parse)}>Ready</button> : <span></span>}
+                    {JSON.stringify(parse)}
+                </form>
             </div>
         </>
     )

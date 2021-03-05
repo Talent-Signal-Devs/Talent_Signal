@@ -1,7 +1,7 @@
 
 import { useState } from 'react'
 import Papa from 'papaparse'
-//in parse, we need to build an array full of objects. each object needs to represent an index of the array>
+import {useDispatch} from 'react-redux'
 
 export default function ParseSpike() {
 
@@ -9,6 +9,8 @@ export default function ParseSpike() {
     //isReady to conditionally render submit button
     const [parse, setParse] = useState('');
     const [isReady, setIsReady] = useState(false)
+
+    const dispatch = useDispatch()
 
     //parses CSV and sets state to store value of parsed data
     function parseFile(event) {
@@ -24,7 +26,7 @@ export default function ParseSpike() {
 
 
 //Packing data for server from a manual button click
-    function packageData(parsedData) {
+    function manualPackage(parsedData) {
             console.log('in packageData', parsedData)
             const parsedReport = [];
         for(let payment of parsedData){
@@ -51,6 +53,8 @@ export default function ParseSpike() {
         parsedReport.push(studentInfo)
         }
         console.log('in packageData with parsedReport:', parsedReport)
+        //sending to saga, to be used in server
+        dispatch({type: 'ADD_NEW_CSV_MANUAL', payload: parsedReport})
     }
 
 //parses and packages data automatically when papaparse is finished
@@ -82,6 +86,8 @@ export default function ParseSpike() {
         parsedReport.push(studentInfo)
         }
         console.log('in autoPackage with parsedReport:', parsedReport)
+        //sending to saga
+        dispatch({type: 'ADD_NEW_CSV_AUTO', payload: parsedReport})
         }
     }
 
@@ -98,7 +104,7 @@ export default function ParseSpike() {
                         id="fileItem"
                         onChange={(event) => parseFile(event)}>
                     </input>
-                    {isReady? <button onClick={()=>packageData(parse)}>Send data to server</button> : <button onClick={()=>packageData(parse)} disabled>Send data to server</button>}
+                    {isReady? <button onClick={()=>manualPackage(parse)}>Send data to server</button> : <button onClick={()=>manualPackage(parse)} disabled>Send data to server</button>}
                 </form>
             </div>
         </>

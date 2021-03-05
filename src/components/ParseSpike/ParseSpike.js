@@ -23,19 +23,70 @@ export default function ParseSpike() {
     }
 
 
-//I'm intending this function to package up and send the data to a saga/reducer
-//have it running on a conditionally rendered button to deal withy async timing of setting state varaible
-//
+//Packing data for server from a manual button click
     function packageData(parsedData) {
-            console.log('in package with data', parsedData)
+            console.log('in packageData', parsedData)
+            const parsedReport = [];
+        for(let payment of parsedData){
+            const studentInfo = {
+                id: payment[0],
+                date: payment[1],
+                date_scheduled: payment[2],
+                income: payment[3],
+                amount: payment[4],
+                payment_status: payment[5],
+                pending_date: payment[6],
+                complete_date: payment[7],
+                student: payment[8],
+                provider: payment[9],
+                product: payment[10],
+                contract_id: payment[11],
+                fee: payment[12],
+                paid_by_sponsor: payment[13],
+                sponsor: payment[14],
+                full_prepayment: payment[15],
+                sponsor_name: payment[16],
+                count: payment[17]
+            }
+        parsedReport.push(studentInfo)
+        }
+        console.log('in packageData with parsedReport:', parsedReport)
     }
 
-//could also run function automatically
+//parses and packages data automatically when papaparse is finished
     function autoPackage(ready){
         if(ready){
         console.log('in autoPackage', parse)
+        const parsedReport = [];
+        for(let payment of parse){
+            const studentInfo = {
+                id: payment[0],
+                date: payment[1],
+                date_scheduled: payment[2],
+                income: payment[3],
+                amount: payment[4],
+                payment_status: payment[5],
+                pending_date: payment[6],
+                complete_date: payment[7],
+                student: payment[8],
+                provider: payment[9],
+                product: payment[10],
+                contract_id: payment[11],
+                fee: payment[12],
+                paid_by_sponsor: payment[13],
+                sponsor: payment[14],
+                full_prepayment: payment[15],
+                sponsor_name: payment[16],
+                count: payment[17]
+            }
+        parsedReport.push(studentInfo)
+        }
+        console.log('in autoPackage with parsedReport:', parsedReport)
         }
     }
+
+    //when setIsReady runs and turns the value to true, setParse will also have have run
+    //autoPackage then will take the parsed data and create an array of objects from it
     autoPackage(isReady)
 
     return (
@@ -47,8 +98,7 @@ export default function ParseSpike() {
                         id="fileItem"
                         onChange={(event) => parseFile(event)}>
                     </input>
-                    {isReady? <button onClick={()=>packageData(parse)}>Ready</button> : <span></span>}
-                    {JSON.stringify(parse)}
+                    {isReady? <button onClick={()=>packageData(parse)}>Send data to server</button> : <button onClick={()=>packageData(parse)} disabled>Send data to server</button>}
                 </form>
             </div>
         </>

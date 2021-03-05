@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import LoginPage from '../LoginPage/LoginPage';
-// IMPORT ADMIN DASHBOARD COMP HERE
+import AdminDashboard from '../AdminDashboard/AdminDashboard'
 import {useSelector} from 'react-redux';
 
 // A Custom Wrapper Component -- This will keep our code DRY.

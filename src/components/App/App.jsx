@@ -14,8 +14,6 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ProtectedAdmin from '../ProtectedAdmin/ProtectedAdmin';
 
-import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
@@ -25,7 +23,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import CoachDashboard from '../CoachDashboard/CoachDashboard';
 
 // Admin Components 
-
+import AdminDashboard from '../AdminDashboard/AdminDashboard'
 
 import './App.css';
 
@@ -52,9 +50,6 @@ function App() {
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
 
-          
-
-          
 
           {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
@@ -78,7 +73,13 @@ function App() {
             <CoachDashboard/>
           </ProtectedRoute>
           
-
+          {/* Admins only suckas */}
+          <ProtectedAdmin
+            exact
+            path = '/admin/dashboard'
+          >
+            <AdminDashboard/>
+          </ProtectedAdmin>
          
 
           {/* If none of the other routes matched, we will show a 404. */}

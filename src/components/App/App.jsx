@@ -54,6 +54,8 @@ function App() {
           {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
+
+
           <ProtectedRoute
             // with authRedirect:
             // - if logged in, redirects to "/user"
@@ -64,6 +66,17 @@ function App() {
           >
             <LoginPage />
           </ProtectedRoute>
+
+          <ProtectedRoute
+            exact 
+            path="/register"
+            authRedirect="/coach/dashboard"
+          >
+            <RegisterPage/>
+
+          </ProtectedRoute>
+
+
 
           {/* Coach Component Routes */}
           <ProtectedRoute

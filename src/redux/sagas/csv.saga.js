@@ -14,7 +14,7 @@ function* csvSubmitManual(action) {
 //fires from autoPackage
 function* csvSubmitAuto(action) {
   try {
-    console.log('in csvSubmitAuto with:', action.payload)
+    yield axios.post('/api/csv', action.payload)
 
   } catch (error) {
     console.log('error in csvSubmit:', error);

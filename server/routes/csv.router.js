@@ -59,7 +59,10 @@ router.post('/', (req, res) => {
     //               $do$`
 
     const query = `INSERT INTO payments (payment_id, product_id, due_date, scheduled_date, amount, payment_status, pending_date, complete_date, contract_id, payment_fee)
-                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+                    ON CONFLICT (payment_id)
+                    DO
+                      UPDATE SET product_id = $2, due_date = $3, scheduled_date = $4, amount = $5, payment_status = $6, pending_date = $7, complete_date = $8, contract_id = $9, payment_fee = $10`
 
     pool
     .query(query, [payment_id, product_id, due_date, scheduled_date, amount, payment_status, pending_date, complete_date, contract_id, payment_fee])

@@ -27,7 +27,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE "payments" (
 	"id" serial NOT NULL,
-	"payment_id" TEXT NOT NULL,
+	"payment_id" TEXT NOT NULL UNIQUE,
 	"due_date" TEXT NOT NULL,
 	"scheduled_date" TEXT NOT NULL,
 	"amount" TEXT NOT NULL,

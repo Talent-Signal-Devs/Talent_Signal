@@ -10,7 +10,8 @@ router.get('/', (req, res) => {
 });
 
 
-router.post('/', rejectUnauthenticated, async (req, res) => {
+router.post('/', (req, res) => {
+  console.log(req.body)
   // POST route code here
 });
 

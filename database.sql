@@ -48,6 +48,10 @@ CREATE TABLE "client" (
 	"status" varchar(255) NOT NULL,
 	"contract_id" varchar(255) NOT NULL,
 	"user_id" int NOT NULL,
+	"first_name" TEXT NOT NULL,
+	"last_name" TEXT NOT NULL,
+	"email" TEXT NOT NULL,
+	"phone" TEXT NOT NULL,
 	"end_date" TEXT NOT NULL,
 	CONSTRAINT "client_pk" PRIMARY KEY ("id")
 ) WITH (
@@ -75,4 +79,5 @@ CREATE TABLE "payouts" (
 ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
 ALTER TABLE "payouts" ADD CONSTRAINT "payouts_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+
 

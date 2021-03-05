@@ -1,11 +1,11 @@
--- CREATE DATABASE "first-look"
+-- CREATE DATABASE "talent_signal"
 
 
 -- USER is a reserved keyword with Postgres
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
-CREATE TABLE "users" (
+CREATE TABLE "user" (
 	"id" serial NOT NULL,
 	"username" varchar(255) NOT NULL UNIQUE,
 	"password" varchar(255) NOT NULL,
@@ -15,7 +15,10 @@ CREATE TABLE "users" (
 	"email" varchar(255) NOT NULL,
 	"phone" int NOT NULL,
 	"is_approved" BOOLEAN NOT NULL DEFAULT 'False',
-	CONSTRAINT "users_pk" PRIMARY KEY ("id")
+	"start_date" TEXT NOT NULL,
+	"business_name" TEXT NOT NULL,
+	"program_id" TEXT NOT NULL,
+	CONSTRAINT "user_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
@@ -45,6 +48,10 @@ CREATE TABLE "client" (
 	"status" varchar(255) NOT NULL,
 	"contract_id" varchar(255) NOT NULL,
 	"user_id" int NOT NULL,
+	"first_name" TEXT NOT NULL,
+	"last_name" TEXT NOT NULL,
+	"email" TEXT NOT NULL,
+	"phone" TEXT NOT NULL,
 	"end_date" TEXT NOT NULL,
 	CONSTRAINT "client_pk" PRIMARY KEY ("id")
 ) WITH (
@@ -69,6 +76,8 @@ CREATE TABLE "payouts" (
 
 
 
-ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
+ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
-ALTER TABLE "payouts" ADD CONSTRAINT "payouts_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
+ALTER TABLE "payouts" ADD CONSTRAINT "payouts_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+
+

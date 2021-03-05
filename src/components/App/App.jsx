@@ -19,11 +19,16 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
+
 // Coach Components 
 import CoachDashboard from '../CoachDashboard/CoachDashboard';
 
 // Admin Components 
 import AdminDashboard from '../AdminDashboard/AdminDashboard'
+
+// spike component
+import ParseSpike from '../ParseSpike/ParseSpike'
+
 
 import './App.css';
 
@@ -37,6 +42,9 @@ function App() {
   return (
     <Router>
       <div>
+        <Route>
+          <ParseSpike path="/parsespike" exact/>
+        </Route>
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}

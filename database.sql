@@ -36,6 +36,8 @@ CREATE TABLE "payments" (
 	"complete_date" TEXT NOT NULL,
 	"contract_id" TEXT NOT NULL,
 	"payment_fee" TEXT NOT NULL,
+  "product_id" TEXT NOT NULL
+
 	CONSTRAINT "payments_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE

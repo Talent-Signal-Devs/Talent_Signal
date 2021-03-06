@@ -9,15 +9,15 @@ CREATE TABLE "user" (
 	"id" serial NOT NULL,
 	"username" varchar(255) NOT NULL UNIQUE,
 	"password" varchar(255) NOT NULL,
-	"clearance" int NOT NULL DEFAULT '0',
-	"first_name" varchar(255) NOT NULL,
-	"last_name" varchar(255) NOT NULL,
-	"email" varchar(255) NOT NULL,
-	"phone" int NOT NULL,
-	"is_approved" BOOLEAN NOT NULL DEFAULT 'False',
-	"start_date" TEXT NOT NULL,
-	"business_name" TEXT NOT NULL,
-	"program_id" TEXT NOT NULL,
+	"clearance" int  DEFAULT '0',
+	"first_name" varchar(255) ,
+	"last_name" varchar(255) ,
+	"email" varchar(255) ,
+	"phone" int ,
+	"is_approved" BOOLEAN  DEFAULT 'False',
+	"start_date" TEXT ,
+	"business_name" TEXT ,
+	"program_id" TEXT ,
 	CONSTRAINT "user_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -36,7 +36,7 @@ CREATE TABLE "payments" (
 	"complete_date" TEXT NOT NULL,
 	"contract_id" TEXT NOT NULL,
 	"payment_fee" TEXT NOT NULL,
-  "product_id" TEXT NOT NULL
+  "product_id" TEXT NOT NULL,
 
 	CONSTRAINT "payments_pk" PRIMARY KEY ("id")
 ) WITH (

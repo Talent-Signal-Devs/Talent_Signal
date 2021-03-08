@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import {useSelector} from 'react-redux';
+// Icons
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import GroupIcon from '@material-ui/icons/Group';
+import PaymentIcon from '@material-ui/icons/Payment';
+
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -24,11 +29,11 @@ function Nav() {
         {/* Coach Nav Bar */}
         {user.clearance == 0 && (
           <>
-            <Link className ="navLink" to="/coaches/clients">
-              Clients
+            <Link className ="navLink" to="/coach/clientList">
+              <AccountCircleIcon/>Clients
             </Link>
-            <Link className="navLink" to="/coaches/payouts">
-              Payouts
+            <Link className="navLink" to="/coach/payoutDetails">
+              <PaymentIcon/>Payouts
             </Link>
             <LogOutButton className="navLink" />
           </>
@@ -37,14 +42,14 @@ function Nav() {
         {/* Admin Nav Bar */}
         {user.clearance > 0 && (
           <>
-            <Link className ="navLink" to="/admin/coaches">
-              Coaches
+            <Link className ="navLink" to="/admin/coachList">
+              <GroupIcon/> Coaches
             </Link>
-            <Link className ="navLink" to="/admin/clients">
-              Clients
+            <Link className ="navLink" to="/admin/clientList">
+              <AccountCircleIcon/>Clients
             </Link>
             <Link className="navLink" to="/admin/payouts">
-              Payouts
+              <PaymentIcon/>Payouts
             </Link>
             <LogOutButton className="navLink" />
           </>

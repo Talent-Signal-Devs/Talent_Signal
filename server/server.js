@@ -30,6 +30,7 @@ app.use('/api/csv', csvRouter)
 
 // Serve static files
 app.use(express.static('build'));
+app.use(bodyParser.json({limit: '500kb'}));
 
 // App Set //
 const PORT = process.env.PORT || 5000;

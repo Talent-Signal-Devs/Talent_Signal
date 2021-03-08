@@ -59,6 +59,11 @@ export default function ParseSpike() {
 
 //parses and packages data automatically when papaparse is finished
     function autoPackage(ready){
+        //prevents error if no file uploaded
+        if(!ready){
+            setParse('');
+            return;
+        }
         if(ready){
         console.log('in autoPackage', parse)
         const parsedReport = [];
@@ -102,6 +107,7 @@ export default function ParseSpike() {
                     <input
                         type="file"
                         id="fileItem"
+                        accept=".csv"
                         onChange={(event) => parseFile(event)}>
                     </input>
                     {isReady? <button onClick={()=>manualPackage(parse)}>Send data to server</button> : <button onClick={()=>manualPackage(parse)} disabled>Send data to server</button>}

@@ -29,10 +29,10 @@ function Nav() {
         {/* Coach Nav Bar */}
         {user.clearance == 0 && (
           <>
-            <Link className ="navLink" to="/coaches/clientList">
+            <Link className ="navLink" to="/coach/clientList">
               <AccountCircleIcon/>Clients
             </Link>
-            <Link className="navLink" to="/coaches/payoutDetails">
+            <Link className="navLink" to="/coach/payoutDetails">
               <PaymentIcon/>Payouts
             </Link>
             <LogOutButton className="navLink" />

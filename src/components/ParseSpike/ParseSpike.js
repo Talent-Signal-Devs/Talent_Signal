@@ -57,49 +57,6 @@ export default function ParseSpike() {
         dispatch({type: 'ADD_NEW_CSV_MANUAL', payload: parsedReport})
     }
 
-//parses and packages data automatically when papaparse is finished
-    function autoPackage(ready){
-        //prevents error if no file uploaded
-        if(!ready){
-            setParse('');
-            return;
-        }
-        if(ready){
-        console.log('in autoPackage', parse)
-        const parsedReport = [];
-        for(let payment of parse){
-            const studentInfo = {
-                id: payment[0],
-                date: payment[1],
-                date_scheduled: payment[2],
-                income: payment[3],
-                amount: payment[4],
-                payment_status: payment[5],
-                pending_date: payment[6],
-                complete_date: payment[7],
-                student: payment[8],
-                provider: payment[9],
-                product: payment[10],
-                contract_id: payment[11],
-                fee: payment[12],
-                paid_by_sponsor: payment[13],
-                sponsor: payment[14],
-                full_prepayment: payment[15],
-                sponsor_name: payment[16],
-                count: payment[17]
-            }
-        parsedReport.push(studentInfo)
-        }
-        console.log('in autoPackage with parsedReport:', parsedReport)
-        //sending to saga
-        dispatch({type: 'ADD_NEW_CSV_AUTO', payload: parsedReport})
-        }
-    }
-
-    //when setIsReady runs and turns the value to true, setParse will also have have run
-    //autoPackage then will take the parsed data and create an array of objects from it
-    autoPackage(isReady)
-
     return (
         <>
             <div className="App">

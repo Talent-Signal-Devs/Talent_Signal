@@ -12,6 +12,7 @@ const userRouter = require('./routes/user.router');
 const csvRouter = require('./routes/csv.router');
 const adminClientRouter = require('./routes/adminClient.router');
 const adminCoachRouter = require('./routes/adminCoach.router');
+const adminPaymentRouter = require('./routes/adminPayment.router');
 
 
 // Body parser middleware
@@ -30,6 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/csv', csvRouter);
 app.use('/api/admin/client', adminClientRouter);
 app.use('/api/admin/coach', adminCoachRouter);
+app.use('/api/admin/payment', adminPaymentRouter)
 
 
 // Serve static files

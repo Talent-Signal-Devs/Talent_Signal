@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux"
 import FormControl from "@material-ui/core/FormControl"
 import InputLabel from "@material-ui/core/InputLabel"
 import Select from "@material-ui/core/Select"
@@ -18,48 +18,73 @@ const useStyles = makeStyles(() => ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        width: "80%"
-    }
+        width: "80%",
+    },
 }))
 
 const UserForm = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
 
-    const [userType, setUserType] = useState("")
+    const [userType, setUserType] = useState('')
     const [newCoach, setNewCoach] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        programID: "",
-        startDate: "",
-        business: "",
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        programID: '',
+        startDate: '',
+        business: '',
     })
     const [newClient, setNewClient] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        coach: "",
-        contractID: "",
-        contractStatus: "",
-        coachingStatus: "",
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        coach: '',
+        contractID: '',
+        contractStatus: '',
+        coachingStatus: '',
     })
 
     const addUser = (e) => {
         e.preventDefault()
         console.log(userType)
-        console.log(newCoach)
-        dispatch({ type: 'ADD_NEW_COACH', payload: newCoach})
+        if (userType === "coach") {
+            dispatch({ type: 'ADD_NEW_COACH', payload: newCoach })
+            setNewCoach({
+                firstName: '',
+                lastName: '',
+                email: '',
+                phone: '',
+                programID: '',
+                startDate: '',
+                business: '',
+            })
+        } else if (userType === 'client') {
+            dispatch({ type: 'ADD_NEW_CLIENT', payload: newClient})
+            setNewClient({
+                firstName: '',
+                lastName: '',
+                email: '',
+                phone: '',
+                coach: '',
+                contractID: '',
+                contractStatus: '',
+                coachingStatus: '',
+            })
+        }
     }
 
     const handleCoachChange = (e) => {
         const value = e.target.value
-        setNewCoach({ ...newCoach, [e.target.name]: value})
+        setNewCoach({ ...newCoach, [e.target.name]: value })
     }
 
-    const handleClientChange = () => {}
+    const handleClientChange = (e) => {
+        const value = e.target.value
+        setNewClient({ ...newClient, [e.target.name]: value})
+    }
 
     return (
         <>
@@ -129,21 +154,25 @@ const UserForm = () => {
                         <>
                             <TextField
                                 required
+                                name="firstName"
                                 label="First Name"
                                 onChange={handleClientChange}
                             />
                             <TextField
                                 required
+                                name="lastName"
                                 label="Last Name"
                                 onChange={handleClientChange}
                             />
                             <TextField
                                 required
+                                name="email"
                                 label="Email"
                                 onChange={handleClientChange}
                             />
                             <TextField
                                 required
+                                name="phone"
                                 label="Phone"
                                 onChange={handleClientChange}
                             />
@@ -151,22 +180,22 @@ const UserForm = () => {
                                 <InputLabel id="coach-select-label">
                                     Select a Coach
                                 </InputLabel>
-                            <Select
-                                labelId="coach-select-label"
-                                id="coach-select"
-                                name="coach"
-                                value={newClient.coach}
-                                onChange={(e) =>
-                                    setNewClient({
-                                        ...newClient,
-                                        [e.target.name]: e.target.value,
-                                    })
-                                }
-                            >
-                                <MenuItem value={"coach"}>Coach 1</MenuItem>
-                                <MenuItem value={"client"}>Coach 2</MenuItem>
-                            </Select>
-                        </FormControl>
+                                <Select
+                                    labelId="coach-select-label"
+                                    id="coach-select"
+                                    name="coach"
+                                    value={newClient.coach}
+                                    onChange={(e) =>
+                                        setNewClient({
+                                            ...newClient,
+                                            [e.target.name]: e.target.value,
+                                        })
+                                    }
+                                >
+                                    <MenuItem value={"coach"}>Coach 1</MenuItem>
+                                    <MenuItem value={"client"}>Coach 2</MenuItem>
+                                </Select>
+                            </FormControl>
                             {/* <FormControl>
                                 <InputLabel id="contract-status-label">
                                     Contract Status

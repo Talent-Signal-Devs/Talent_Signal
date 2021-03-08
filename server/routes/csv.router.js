@@ -5,8 +5,11 @@ const {
     rejectUnauthenticated,
   } = require('../modules/authentication-middleware');
 
+
+//needs auth 3/8
+//will get total owed to coach AND aggregate all row ids in array.
+//ON POST when data comes back, loop over ID array to update each row with date paid and invoice number
 router.get('/', (req, res) => {
-  // GET route code here
   const queryText = `
       SELECT "user_id", SUM("amount") as "total_owed", ARRAY_AGG("id") AS "clients" FROM  "payments"
       WHERE "payment_status" = 'complete' AND "is_paid" = 'False'

@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
-import {useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function AdminClientList(props) {
-  
-  const store = useSelector((store) => store);
+
+  const clients = useSelector((store) => store.adminClientReducer);
   const [heading, setHeading] = useState('Admin Client List');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_ADMIN_CLIENTS' });
+  })
 
   return (
     <div>

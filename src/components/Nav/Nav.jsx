@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import {useSelector} from 'react-redux';
+// Icons
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import GroupIcon from '@material-ui/icons/Group';
+import PaymentIcon from '@material-ui/icons/Payment';
+
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -25,10 +30,10 @@ function Nav() {
         {user.clearance == 0 && (
           <>
             <Link className ="navLink" to="/coaches/clients">
-              Clients
+              <AccountCircleIcon/>Clients
             </Link>
             <Link className="navLink" to="/coaches/payouts">
-              Payouts
+              <PaymentIcon/>Payouts
             </Link>
             <LogOutButton className="navLink" />
           </>
@@ -38,13 +43,13 @@ function Nav() {
         {user.clearance > 0 && (
           <>
             <Link className ="navLink" to="/admin/coaches">
-              Coaches
+              <GroupIcon/> Coaches
             </Link>
             <Link className ="navLink" to="/admin/clients">
-              Clients
+              <AccountCircleIcon/>Clients
             </Link>
             <Link className="navLink" to="/admin/payouts">
-              Payouts
+              <PaymentIcon/>Payouts
             </Link>
             <LogOutButton className="navLink" />
           </>

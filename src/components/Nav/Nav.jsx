@@ -37,6 +37,9 @@ function Nav() {
         {/* Admin Nav Bar */}
         {user.clearance > 0 && (
           <>
+            <Link className ="navLink" to="/admin/addUser">
+              Add User
+            </Link>
             <Link className ="navLink" to="/admin/coaches">
               Coaches
             </Link>

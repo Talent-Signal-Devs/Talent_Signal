@@ -29,6 +29,9 @@ import AdminDashboard from '../AdminDashboard/AdminDashboard'
 // spike component
 import ParseSpike from '../ParseSpike/ParseSpike'
 
+//Add User Component
+import UserForm from '../UserForm/UserForm'
+
 
 import './App.css';
 
@@ -102,6 +105,9 @@ function App() {
             <AdminDashboard/>
           </ProtectedAdmin>
          
+          <Route path="/addUser" >
+          <UserForm />
+          </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

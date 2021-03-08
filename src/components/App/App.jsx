@@ -21,13 +21,13 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 
-// Coach Components 
+// Coach Components
 import CoachDashboard from '../CoachDashboard/CoachDashboard';
 import CoachPayoutDetails from '../CoachPayoutDetails/CoachPayoutDetails';
 import CoachClientList from '../CoachClientList/CoachClientList';
 import CoachClientDetails from '../CoachClientDetails/CoachClientDetails';
 
-// Admin Components 
+// Admin Components
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
 import AdminAddUser from '../AdminAddUser/AdminAddUser';
 import AdminClientList from '../AdminClientList/AdminClientList';
@@ -92,7 +92,7 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            exact 
+            exact
             path="/register"
             authRedirect="/coach/dashboard"
           >
@@ -104,12 +104,12 @@ function App() {
 
           {/* -------- Coach Component Routes ---------- */}
           <ProtectedRoute
-            exact 
+            exact
             path = '/coach/dashboard'
           >
             <CoachDashboard/>
           </ProtectedRoute>
-          
+
           <ProtectedRoute
           exact
           path='/coach/payoutDetails'>
@@ -173,7 +173,7 @@ function App() {
             <AdminPayouts/>
           </ProtectedAdmin>
 
-         
+
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

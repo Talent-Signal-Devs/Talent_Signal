@@ -36,6 +36,7 @@ app.use('/api/admin/payment', adminPaymentRouter)
 
 // Serve static files
 app.use(express.static('build'));
+app.use(bodyParser.json({limit: '500kb'}));
 
 // App Set //
 const PORT = process.env.PORT || 5000;

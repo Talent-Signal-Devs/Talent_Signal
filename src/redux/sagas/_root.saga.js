@@ -3,6 +3,7 @@ import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import csvSaga from './csv.saga'
+import userForm from './userFrom.saga'
 
 
 // rootSaga is the primary saga.
@@ -18,6 +19,6 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     csvSaga(), //saga to handle new csv information
-
+    userForm() //saga to handle new user form data
   ]);
 }

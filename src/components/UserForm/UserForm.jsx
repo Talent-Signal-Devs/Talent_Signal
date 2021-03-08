@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useDispatch } from 'react-redux'
 import FormControl from "@material-ui/core/FormControl"
 import InputLabel from "@material-ui/core/InputLabel"
 import Select from "@material-ui/core/Select"
@@ -23,6 +24,7 @@ const useStyles = makeStyles(() => ({
 
 const UserForm = () => {
     const classes = useStyles()
+    const dispatch = useDispatch()
 
     const [userType, setUserType] = useState("")
     const [newCoach, setNewCoach] = useState({
@@ -49,6 +51,7 @@ const UserForm = () => {
         e.preventDefault()
         console.log(userType)
         console.log(newCoach)
+        dispatch({ type: 'ADD_NEW_COACH', payload: newCoach})
     }
 
     const handleCoachChange = (e) => {

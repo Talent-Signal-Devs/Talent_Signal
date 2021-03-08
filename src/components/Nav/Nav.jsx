@@ -7,38 +7,49 @@ import {useSelector} from 'react-redux';
 function Nav() {
   const user = useSelector((store) => store.user);
 
-  let loginLinkData = {
-    path: '/login',
-    text: 'Login / Register',
-  };
-
-  if (user.id != null) {
-    loginLinkData.path = '/user';
-    loginLinkData.text = 'Home';
-  }
-
   return (
     <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
+      <Link to="/coach/dashboard">
+        <h2 className="nav-title">Talent Signal Application</h2>
       </Link>
       <div>
-        <Link className="navLink" to={loginLinkData.path}>
-          {loginLinkData.text}
-        </Link>
-
-        {user.id && (
+       
+       {/* Only shows when logged in */}
+       {/* DELETE ME WHEN DONE WITH TESTING */}
+       {!user.id && (
+         <Link className="navLink" to ="/register">
+           Register
+         </Link>
+       )}
+        {/* Coach Nav Bar */}
+        {user.clearance == 0 && (
           <>
-            <Link className="navLink" to="/info">
-              Info Page
+            <Link className ="navLink" to="/coaches/clients">
+              Clients
+            </Link>
+            <Link className="navLink" to="/coaches/payouts">
+              Payouts
+            </Link>
+            <LogOutButton className="navLink" />
+          </>
+        )}
+        
+        {/* Admin Nav Bar */}
+        {user.clearance > 0 && (
+          <>
+            <Link className ="navLink" to="/admin/coaches">
+              Coaches
+            </Link>
+            <Link className ="navLink" to="/admin/clients">
+              Clients
+            </Link>
+            <Link className="navLink" to="/admin/payouts">
+              Payouts
             </Link>
             <LogOutButton className="navLink" />
           </>
         )}
 
-        <Link className="navLink" to="/about">
-          About
-        </Link>
       </div>
     </div>
   );

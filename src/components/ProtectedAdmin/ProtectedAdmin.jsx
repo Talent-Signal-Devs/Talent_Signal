@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import LoginPage from '../LoginPage/LoginPage';
-import AdminDashboard from '../AdminDashboard/AdminDashboard'
+import CoachDashboard from '../CoachDashboard/CoachDashboard'
 import {useSelector} from 'react-redux';
 
 // A Custom Wrapper Component -- This will keep our code DRY.
@@ -31,13 +31,14 @@ function ProtectedRoute(props) {
   let ComponentToShow;
 
   
-  if (user.id && user.clearance == 0) {
+  if (user.id && user.clearance > 0) {
     // if the user is logged in and not an admin (only logged in users have ids)
     // show the component that is protected
     ComponentToShow = ComponentToProtect;
-  } else if (user.clearance > 0) {
-    // WHEN CREATE ADMIN DASHBOARD, ADD IT HERE. 
-    ComponentToShow = AdminDashboard
+  } else if (user.id) {
+    // If it's a coach, send them to their dashboard
+    // WHEN CREATE COACH DASHBOARD, ADD IT HERE. 
+    ComponentToShow = CoachDashboard
   } else {
     // if they are not logged in, check the loginMode on Redux State
     // if the mode is 'login', show the LoginPage

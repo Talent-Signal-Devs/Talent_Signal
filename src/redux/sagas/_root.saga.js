@@ -2,7 +2,8 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
-import csvSaga from './csv.saga'
+import csvSaga from './csv.saga';
+import adminSaga from './admin.saga';
 
 
 // rootSaga is the primary saga.
@@ -18,6 +19,7 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     csvSaga(), //saga to handle new csv information
+    adminSaga(), // saga to populate admin related reducers
 
   ]);
 }

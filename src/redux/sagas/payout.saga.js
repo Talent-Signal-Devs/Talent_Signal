@@ -2,19 +2,19 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 //fires from manualPackage
-function* csvSubmitManual(action) {
+function* getPayoutDetails() {
   try {
     console.log('in csvSumbitManual with', action.payload)
-    yield axios.post('/api/csv', action.payload)
-    yield put({type: 'GET_PAYMENT'})
+    yield axios.get('/api/csv')
+    const response = yield put({type: 'SET_PAYMENT', payload: response.data})
 
   } catch (error) {
     console.log('error in csvSubmit:', error);
   }
 }
 
-function* csvSaga() {
-  yield takeLatest('ADD_NEW_CSV_MANUAL', csvSubmitManual);
+function* payoutSaga() {
+  yield takeLatest('GET_PAYMENT', getPayoutDetails);
 }
 
-export default csvSaga;
+export default payoutSaga;

@@ -4,6 +4,7 @@ import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import csvSaga from './csv.saga';
 import adminSaga from './admin.saga';
+import payoutSaga from './payout.saga'
 
 
 // rootSaga is the primary saga.
@@ -20,6 +21,7 @@ export default function* rootSaga() {
     userSaga(),
     csvSaga(), //saga to handle new csv information
     adminSaga(), // saga to populate admin related reducers
+    payoutSaga(), //saga to return information on invoices paid and not paid
 
   ]);
 }

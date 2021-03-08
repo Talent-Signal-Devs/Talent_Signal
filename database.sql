@@ -34,13 +34,13 @@ CREATE TABLE "payments" (
 	"product_id" TEXT NOT NULL,
 	"due_date" TEXT NOT NULL,
 	"scheduled_date" TEXT NOT NULL,
-	"amount" TEXT NOT NULL,
+	"amount" DOUBLE PRECISION NOT NULL,
 	"payment_status" TEXT NOT NULL,
 	"pending_date" TEXT NOT NULL,
 	"complete_date" TEXT NOT NULL,
 	"contract_id" TEXT NOT NULL,
 	"payment_fee" TEXT NOT NULL,
-	"user_id" int,
+	"user_id" INT,
 	"is_paid" BOOLEAN NOT NULL DEFAULT 'False',
 	"confirmation_number" TEXT,
 	"payout_date" TEXT,
@@ -67,27 +67,9 @@ CREATE TABLE "client" (
   OIDS=FALSE
 );
 
-
-
-CREATE TABLE "payouts" (
-	"id" serial NOT NULL,
-	"user_id" int NOT NULL,
-	"amount" TEXT NOT NULL,
-	"date" TEXT NOT NULL,
-	"is_paid" BOOLEAN NOT NULL DEFAULT 'True',
-	"confirmation_number" TEXT NOT NULL,
-	CONSTRAINT "payouts_pk" PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
-
-
 ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
-ALTER TABLE "payments" ADD CONSTRAINT "payouts_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+ALTER TABLE "payments" ADD CONSTRAINT "payments_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
 
 

@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 function CoachDashboard(props) {
-  
-  const coachPayments = useSelector((store) => store.coachPayment.reducer);
+  const dispatch = useDispatch();
+
+  const coachPayments = useSelector((store) => store.coachPaymentReducer);
   const [heading, setHeading] = useState('Coach Dashboard');
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COACH_PAYMENTS' });
-  })
+  }, [])
 
   
   return (

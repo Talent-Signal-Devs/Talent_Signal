@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     WHERE "client".user_id = $1 and "payments".is_paid = true
     GROUP BY "payments".payout_date , "payments".confirmation_number;`;
 
-    pool.query(sqlText, req.user.id)
+    pool.query(sqlText, [req.user.id])
     .then((result) => {
         res.send(result.rows);
     })

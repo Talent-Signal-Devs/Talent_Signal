@@ -39,6 +39,10 @@ import AdminPayouts from '../AdminPayouts/AdminPayouts';
 // spike component
 import ParseSpike from '../ParseSpike/ParseSpike'
 
+//Add User Component
+import UserForm from '../UserForm/UserForm'
+
+
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import './App.css';
 
@@ -136,6 +140,10 @@ function App() {
           >
             <AdminDashboard/>
           </ProtectedAdmin>
+         
+          <Route path="/addUser" >
+          <UserForm />
+          </Route>
 
           <ProtectedAdmin
           exact

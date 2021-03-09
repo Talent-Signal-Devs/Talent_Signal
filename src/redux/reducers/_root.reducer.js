@@ -3,6 +3,8 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 import adminClientReducer from './adminClient.reducer';
 import adminCoachReducer from './adminCoach.reducer';
+import payout from './payout.reducer';
+import clientDetailsReducer from './clientDetails.reducer';
 
 import coachPaymentReducer from './coachPayment.reducer';
 
@@ -25,6 +27,7 @@ const rootReducer = combineReducers({
   coachPaymentReducer, // contains coach payout info for coach dashboard view
 
   payout,//stores information for AdminPayouts Component
+  clientDetailsReducer, // stores a selected client's information for the admin client details view
 
 
 });

@@ -54,6 +54,7 @@ function LoginForm() {
       <div>
         <label htmlFor="email">
           Email:
+        </label>
           <InputBase
             className = {classes.input}
             type="text"

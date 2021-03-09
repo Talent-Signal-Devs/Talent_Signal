@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
   const queryText = `
   SELECT ARRAY_AGG("user_id") AS "user_id_array", CONCAT("users".first_name, ' ', "users".last_name) AS "full_name",
   SUM("amount") as "total_owed", ARRAY_AGG("payments".id) AS "clients" FROM  "users"
-  JOIN "client" ON "user".id = "client".user_id
+  JOIN "client" ON "users".id = "client".user_id
   JOIN "payments" ON "client".contract_id = "payments".contract_id
   WHERE "payment_status" = 'complete' AND "is_paid" = 'False'
   GROUP BY "full_name";

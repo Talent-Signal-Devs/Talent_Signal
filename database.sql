@@ -8,15 +8,14 @@
 
 
 --NEW DB STRUCTER (elimiates payouts table)
-CREATE TABLE "user" (
+CREATE TABLE "users" (
 	"id" serial NOT NULL,
-	"username" varchar(255) NOT NULL UNIQUE,
-	"password" varchar(255) NOT NULL,
-	"clearance" int  DEFAULT '0',
-	"first_name" varchar(255) ,
-	"last_name" varchar(255) ,
-	"email" varchar(255) ,
-	"phone" int ,
+	"password" VARCHAR(255) NOT NULL,
+	"clearance" Int  DEFAULT '0',
+	"first_name" VARCHAR(255) ,
+	"last_name" VARCHAR(255) ,
+	"email" VARCHAR(255) UNIQUE,
+	"phone" VARCHAR(11) ,
 	"is_approved" BOOLEAN  DEFAULT 'False',
 	"start_date" TEXT ,
 	"business_name" TEXT ,
@@ -34,13 +33,12 @@ CREATE TABLE "payments" (
 	"product_id" TEXT NOT NULL,
 	"due_date" TEXT NOT NULL,
 	"scheduled_date" TEXT NOT NULL,
-	"amount" TEXT NOT NULL,
+	"amount" DOUBLE PRECISION NOT NULL,
 	"payment_status" TEXT NOT NULL,
 	"pending_date" TEXT NOT NULL,
 	"complete_date" TEXT NOT NULL,
 	"contract_id" TEXT NOT NULL,
 	"payment_fee" TEXT NOT NULL,
-	"user_id" int,
 	"is_paid" BOOLEAN NOT NULL DEFAULT 'False',
 	"confirmation_number" TEXT,
 	"payout_date" TEXT,
@@ -56,7 +54,7 @@ CREATE TABLE "client" (
 	"id" serial NOT NULL,
 	"status" varchar(255) NOT NULL,
 	"contract_id" varchar(255) NOT NULL,
-	"user_id" int NOT NULL,
+	"user_id" Int NOT NULL,
 	"first_name" TEXT NOT NULL,
 	"last_name" TEXT NOT NULL,
 	"email" TEXT NOT NULL,
@@ -67,27 +65,7 @@ CREATE TABLE "client" (
   OIDS=FALSE
 );
 
-
-
-CREATE TABLE "payouts" (
-	"id" serial NOT NULL,
-	"user_id" int NOT NULL,
-	"amount" TEXT NOT NULL,
-	"date" TEXT NOT NULL,
-	"is_paid" BOOLEAN NOT NULL DEFAULT 'True',
-	"confirmation_number" TEXT NOT NULL,
-	CONSTRAINT "payouts_pk" PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
-
-
-ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
-
-ALTER TABLE "payments" ADD CONSTRAINT "payouts_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 
 
 

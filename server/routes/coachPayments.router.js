@@ -1,4 +1,5 @@
 const express = require('express');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
 
@@ -7,7 +8,7 @@ const router = express.Router();
 // the amount refers to total payment received. the coach only receives 75% of this. 
 // In this data, we will also receive the confirmation number which we can use to get the details for that month. 
 // for the monthly breakdown, select * from payments with the confirmation id. and also some stuff to get the client info up there as well. 
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT "payments".payout_date, SUM("amount" * 0.75) as "total_paid", ARRAY_AGG("payments".id), "payments".confirmation_number FROM "payments"
     JOIN "client" ON "client".contract_id = "payments".contract_id
     JOIN "users" ON "client".user_id = "users".id
@@ -24,10 +25,28 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+  const confirmation_number = req.params.id
+  const sqlText = `SELECT "payments".payout_date, SUM("amount" * 0.75) as "total_paid", ARRAY_AGG("payments".id), "payments".confirmation_number FROM "payments"
+  JOIN "client" ON "client".contract_id = "payments".contract_id
+  JOIN "users" ON "client".user_id = "users".id
+  WHERE "client".user_id = $1 and "payments".is_paid = true
+  GROUP BY "payments".payout_date , "payments".confirmation_number;`;
+
+  pool.query(sqlText, [req.user.id])
+  .then((result) => {
+      res.send(result.rows);
+  })
+  .catch((error) => {
+      console.log('error getting coaches payments details ', error);
+      res.sendStatus(500);
+  })
+});
+
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated,(req, res) => {
     // POST route code here
 });
 

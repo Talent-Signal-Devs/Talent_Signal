@@ -6,8 +6,10 @@ const router = express.Router();
 // get route to get the client information for the admin
 router.get('/', rejectUnauthenticated, (req, res) => {
     // GET route code here
-    const sqlText = `SELECT "client".*, "payments".* FROM "client"
-                     JOIN "payments" ON "payments".contract_id = "client".contract_id;`;
+    const sqlText = `SELECT "client".*, "payments".*, "user".first_name AS "coach_first_name", "user".last_name AS "coach_last_name" FROM "client"
+                     JOIN "payments" ON "payments".contract_id = "client".contract_id
+                     JOIN "user" ON "user".id = "client".user_id
+                     ORDER BY "client".last_name;`;
     
     pool.query(sqlText)
     .then((result) => {

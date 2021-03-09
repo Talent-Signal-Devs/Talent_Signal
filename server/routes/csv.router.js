@@ -7,7 +7,7 @@ const {
 
 
 //needs auth 3/8
-//will get total owed to coach AND aggregate all row ids in array.
+//will get total owed to coach AND agg all row ids in array.
 //ON POST when data comes back, loop over ID array to update each row with date paid and invoice number
 router.get('/', (req, res) => {
   const queryText = `
@@ -28,6 +28,22 @@ router.get('/', (req, res) => {
   })
 
 });
+
+router.put('/pay', (req, res)=> {
+  const newPayment = req.body
+  const newDate = new Date()
+  const serverDate = newDate.toISOString();
+  console.log('in new payment with', newPayment)
+  for (let row of req.body.clients){
+    const queryText = `
+      UPDATE "payments"
+      SET "payout_date" = $1, confirmation_number = $2, "is_paid" = NOT "is_paid"
+      WHERE "id" = $3
+  `
+  pool.query(queryText, [serverDate, req.body.confirmation_number, row])
+  }
+  res.sendStatus(200)
+})
 
 
 router.post('/', (req, res) => {
@@ -87,6 +103,7 @@ router.post('/', (req, res) => {
     pool
     .query(query, [payment_id, product_id, due_date, scheduled_date, amount, payment_status, pending_date, complete_date, contract_id, payment_fee])
   }
+  res.send(200)
 
 });
 

@@ -11,12 +11,24 @@ function* getPayoutDetails() {
     yield put({type: 'SET_PAYMENT', payload: response.data})
 
   } catch (error) {
-    console.log('error in csvSubmit:', error);
+    console.error('error in csvSubmit:', error);
   }
 }
 
+function* payCoach(action){
+    try{
+        console.log('in payCoach with payload', action.payload)
+        yield axios.put('/api/csv/pay', action.payload)
+        yield put({type: 'GET_PAYMENT'})
+    } catch(error){
+        console.error('there was a problem in payCoach')
+    }
+}
+
+
 function* payoutSaga() {
   yield takeLatest('GET_PAYMENT', getPayoutDetails);
+  yield takeLatest('PAY_COACH', payCoach);
 }
 
 export default payoutSaga;

@@ -5,6 +5,10 @@ const {
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
+const accountSid = process.env.TWILIO_ACCOUNT_SID
+const authToken = process.env.TWILIO_AUTH_TOKEN
+
+const client = require('twilio')(accountSid, authToken)
 
 const router = express.Router();
 
@@ -20,18 +24,32 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/register', (req, res, next) => {
   const email = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
+  const code = req.body.code
 
-  const queryText = `INSERT INTO "users" (email, password)
-    VALUES ($1, $2) RETURNING id`;
-  pool
-    .query(queryText, [email, password])
-    .then((results) => {
-      console.log(results.rows)
-      res.sendStatus(201)})
+  client.verify
+    .services('VAef954ff50685181185cb8c27ccccd58b')
+    .verificationChecks.create({ to: email, code: code })
+    .then(verification_check => {
+      if (verification_check.status === "approved") {
+        const queryText = `UPDATE "users" 
+                            SET password = $1, is_approved = $2
+                            RETURNING id`;
+        pool
+          .query(queryText, [password, 'TRUE'])
+          .then((results) => {
+            console.log(results.rows)
+            res.sendStatus(201)
+          })
+          .catch((err) => {
+            console.log('User registration failed: ', err);
+            res.sendStatus(500);
+          });
+      }
+    })
     .catch((err) => {
-      console.log('User registration failed: ', err);
-      res.sendStatus(500);
-    });
+      console.log(err)
+    })
+
 });
 
 // Handles login form authenticate/login POST

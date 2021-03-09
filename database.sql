@@ -5,7 +5,6 @@
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
-<<<<<<< HEAD
 CREATE TABLE "users" (
 	"id" serial NOT NULL,
 	"email" varchar(255) UNIQUE,
@@ -14,19 +13,6 @@ CREATE TABLE "users" (
 	"first_name" varchar(255) ,
 	"last_name" varchar(255) ,
 	"phone" varchar(11) ,
-=======
-
-
---NEW DB STRUCTER (elimiates payouts table)
-CREATE TABLE "users" (
-	"id" serial NOT NULL,
-	"password" VARCHAR(255) NOT NULL,
-	"clearance" Int  DEFAULT '0',
-	"first_name" VARCHAR(255) ,
-	"last_name" VARCHAR(255) ,
-	"email" VARCHAR(255) UNIQUE,
-	"phone" VARCHAR(11) ,
->>>>>>> master
 	"is_approved" BOOLEAN  DEFAULT 'False',
 	"start_date" TEXT ,
 	"business_name" TEXT ,

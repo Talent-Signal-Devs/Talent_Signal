@@ -35,6 +35,7 @@ else {
 
 router.put('/pay', rejectUnauthenticated, async(req, res)=> {
   //opens connection
+  if(req.user.clearance === 1){
   const connection = await pool.connect();
   try{
   const newPayment = req.body
@@ -59,16 +60,24 @@ finally{
   //ends server connection
   connection.release();
 }
+  }
+  else{
+    res.sendStatus(403)
+  }
 })
 
 
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, async(req, res) => {
+  if(req.user.clearance == 1){
+  const connection = await pool.connect();
+  try{
   const csv = req.body
   csv.shift()
   csv.pop()
   // console.log(csv)
 
   for (payment of csv) {
+
     console.log(payment)
 
       let payment_id = payment.id
@@ -119,7 +128,18 @@ router.post('/', (req, res) => {
     pool
     .query(query, [payment_id, product_id, due_date, scheduled_date, amount, payment_status, pending_date, complete_date, contract_id, payment_fee])
   }
-  // res.send(200)
+  res.sendStatus(200)
+}catch(error){
+  console.error('error parsing csv', error);
+
+}
+finally{
+  connection.release();
+}
+  }
+  else{
+    res.sendStatus(403)
+  }
 
 });
 

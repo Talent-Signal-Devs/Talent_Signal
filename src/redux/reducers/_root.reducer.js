@@ -3,6 +3,7 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 import adminClientReducer from './adminClient.reducer';
 import adminCoachReducer from './adminCoach.reducer';
+import payout from './payout.reducer'
 
 
 // rootReducer is the primary reducer for our entire project
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   adminClientReducer, // contains clients and their info for the admin view
   adminCoachReducer, // contains coaches and their info for the admin view
+  payout,//stores information for AdminPayouts Component
 
 });
 

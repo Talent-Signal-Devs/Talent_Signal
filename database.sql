@@ -65,7 +65,7 @@ CREATE TABLE "client" (
   OIDS=FALSE
 );
 
-ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 
 
 

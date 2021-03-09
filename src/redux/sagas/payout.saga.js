@@ -19,7 +19,7 @@ function* payCoach(action){
     try{
         console.log('in payCoach with payload', action.payload)
         yield axios.put('/api/csv/pay', action.payload)
-        yield put({type: 'GET_PAYMENT'})
+        yield put({type: 'GET'})
     } catch(error){
         console.error('there was a problem in payCoach')
     }

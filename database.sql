@@ -8,15 +8,14 @@
 
 
 --NEW DB STRUCTER (elimiates payouts table)
-CREATE TABLE "user" (
+CREATE TABLE "users" (
 	"id" serial NOT NULL,
-	"username" varchar(255) NOT NULL UNIQUE,
-	"password" varchar(255) NOT NULL,
-	"clearance" int  DEFAULT '0',
-	"first_name" varchar(255) ,
-	"last_name" varchar(255) ,
-	"email" varchar(255) ,
-	"phone" int ,
+	"password" VARCHAR(255) NOT NULL,
+	"clearance" Int  DEFAULT '0',
+	"first_name" VARCHAR(255) ,
+	"last_name" VARCHAR(255) ,
+	"email" VARCHAR(255) UNIQUE,
+	"phone" VARCHAR(11) ,
 	"is_approved" BOOLEAN  DEFAULT 'False',
 	"start_date" TEXT ,
 	"business_name" TEXT ,
@@ -67,8 +66,6 @@ CREATE TABLE "client" (
 );
 
 ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
-
-ALTER TABLE "payments" ADD CONSTRAINT "payments_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
 
 

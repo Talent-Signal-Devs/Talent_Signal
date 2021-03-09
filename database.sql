@@ -12,7 +12,7 @@ CREATE TABLE "users" (
 	"clearance" int  DEFAULT '0',
 	"first_name" varchar(255) ,
 	"last_name" varchar(255) ,
-	"phone" int ,
+	"phone" varchar(11) ,
 	"is_approved" BOOLEAN  DEFAULT 'False',
 	"start_date" TEXT ,
 	"business_name" TEXT ,

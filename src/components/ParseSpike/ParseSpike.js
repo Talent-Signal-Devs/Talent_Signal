@@ -2,7 +2,10 @@
 import { useState } from 'react'
 import Papa from 'papaparse'
 import {useDispatch} from 'react-redux'
-import AdminPayouts from '../AdminPayouts/AdminPayouts'
+
+
+
+
 export default function ParseSpike() {
 
     //state to hold file
@@ -69,7 +72,7 @@ export default function ParseSpike() {
                     </input>
                     {isReady? <button onClick={()=>manualPackage(parse)}>Send data to server</button> : <button onClick={()=>manualPackage(parse)} disabled>Send data to server</button>}
                 </form>
-                <AdminPayouts />
+                
             </div>
         </>
     )

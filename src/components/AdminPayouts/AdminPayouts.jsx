@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux'
+import ParseSpike from '../ParseSpike/ParseSpike'
 
 
 function AdminPayouts() {
@@ -34,8 +35,12 @@ function AdminPayouts() {
 
 
   return (
+
     <div>
+
+
       <h2>MADE IT</h2>
+      <ParseSpike />
       <button onClick={()=>dispatchGet()}>GET STUFF</button>
       <table>
         <thead>
@@ -49,10 +54,10 @@ function AdminPayouts() {
         <tbody>
           {payout.map((debt)=>{
             return(
-              <tr key={debt.user_id_array[0]}>
+              <tr key={debt.user_id}>
               <td>{debt.full_name}</td>
               <td>{debt.total_owed}</td>
-              <td><button onClick={()=>payNow(debt.user_id_array[0], debt.clients)}>PAY NOW</button></td>
+              <td><button onClick={()=>payNow(debt.user_id, debt.clients)}>PAY NOW</button></td>
               </tr>
             )
           })}

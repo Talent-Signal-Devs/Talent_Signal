@@ -72,9 +72,6 @@ function App() {
     <ThemeProvider theme ={theme}>
     <Router>
       <div>
-        <Route>
-          <ParseSpike path="/parsespike" exact/>
-        </Route>
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/login */}
@@ -140,7 +137,7 @@ function App() {
           >
             <AdminDashboard/>
           </ProtectedAdmin>
-         
+
           <Route path="/addUser" >
           <UserForm />
           </Route>

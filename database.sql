@@ -5,16 +5,6 @@
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
-<<<<<<< HEAD
-CREATE TABLE "users" (
-	"id" serial NOT NULL,
-	"email" varchar(255) UNIQUE,
-	"password" varchar(255),
-	"clearance" int  DEFAULT '0',
-	"first_name" varchar(255) ,
-	"last_name" varchar(255) ,
-	"phone" varchar(11) ,
-=======
 
 
 --NEW DB STRUCTER (elimiates payouts table)
@@ -87,7 +77,7 @@ ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFEREN
 CREATE TABLE "user" (
 	"id" serial NOT NULL,
 	"username" varchar(255) NOT NULL UNIQUE,
-	"password" varchar(255) NOT NULL,
+	"password" varchar(255),
 	"clearance" int NOT NULL DEFAULT '0',
 	"first_name" varchar(255) NOT NULL,
 	"last_name" varchar(255) NOT NULL,

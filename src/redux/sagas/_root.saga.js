@@ -8,6 +8,7 @@ import adminSaga from './admin.saga';
 import coachSaga from './coach.saga';
 
 import payoutSaga from './payout.saga'
+import userForm from './userForm.saga'
 
 
 
@@ -24,6 +25,7 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     csvSaga(), //saga to handle new csv information
+    userForm(), //saga to handle new user form data
     adminSaga(), // saga to populate admin related reducers
 
     coachSaga(), // saga to handle all coach related requests

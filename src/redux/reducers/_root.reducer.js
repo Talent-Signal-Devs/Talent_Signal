@@ -8,7 +8,7 @@ import clientDetailsReducer from './clientDetails.reducer';
 
 import coachPaymentReducer from './coachPayment.reducer';
 
-import payout from './payout.reducer'
+
 
 
 

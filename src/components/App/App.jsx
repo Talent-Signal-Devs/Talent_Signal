@@ -112,7 +112,7 @@ function App() {
 
           <ProtectedRoute
           exact
-          path='/coach/payoutDetails'>
+          path='/coach/payoutDetails/:id'>
             <CoachPayoutDetails/>
           </ProtectedRoute>
 

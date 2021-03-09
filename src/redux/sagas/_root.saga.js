@@ -4,6 +4,7 @@ import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import csvSaga from './csv.saga';
 import adminSaga from './admin.saga';
+import coachSaga from './coach.saga';
 
 
 // rootSaga is the primary saga.
@@ -20,6 +21,7 @@ export default function* rootSaga() {
     userSaga(),
     csvSaga(), //saga to handle new csv information
     adminSaga(), // saga to populate admin related reducers
+    coachSaga(), // saga to handle all coach related requests
 
   ]);
 }

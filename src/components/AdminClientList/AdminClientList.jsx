@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'aliceblue',
     '&:hover': {
       opacity: '80%',
-      backgroundColor: 'lightgray'
+      backgroundColor: 'lightblue'
     }
   },
   table: {
@@ -42,7 +42,7 @@ function AdminClientList(props) {
   }, []);
 
   const handleRowClick = () => {
-    // history.push('/clientDetails');
+    history.push('/admin/clientDetails');
   }
 
   return (
@@ -65,15 +65,12 @@ function AdminClientList(props) {
             </TableHead>
             <TableBody>
               {clients.map((client) => (
-
                 <TableRow key={client.id} onClick={handleRowClick} className={classes.tableRow}>
                   <TableCell>{client.first_name} {client.last_name}</TableCell>
                   <TableCell>{client.contract_id}</TableCell>
                   <TableCell>{client.coach_first_name} {client.coach_last_name}</TableCell>
                   <TableCell>{client.status}</TableCell>
                 </TableRow>
-
-
               ))}
             </TableBody>
           </Table>

@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 
 function AdminClientList(props) {
@@ -14,7 +21,32 @@ function AdminClientList(props) {
 
   return (
     <div>
-      <h2>{heading}</h2>
+      <div>
+        <h2>{heading}</h2>
+      </div>
+      <div>
+        <TableContainer component={Paper} />
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Contract ID</TableCell>
+              <TableCell>Coach</TableCell>
+              <TableCell>Coaching Status</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {clients.map((client) => (
+              <TableRow key={client.id}>
+                <TableCell>{client.first_name} {client.last_name}</TableCell>
+                <TableCell>{client.contract_id}</TableCell>
+                <TableCell>{client.coach_first_name} {client.coach_last_name}</TableCell>
+                <TableCell>{client.status}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

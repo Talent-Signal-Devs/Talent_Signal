@@ -34,4 +34,10 @@ describe('Testing user routes', () => {
         const response = await agent.get('/api/admin/coach');
         expect(response.statusCode).toBe(200);
     })
+
+    test('get route for admin payout view, should return coaches and payouts', async () => {
+        const agent = testServer.agent(app);
+        const response = await agent.get('/api/admin/payment');
+        expect(response.statusCode).toBe(200);
+    })
 })

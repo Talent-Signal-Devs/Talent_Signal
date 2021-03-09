@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
+
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ProtectedAdmin from '../ProtectedAdmin/ProtectedAdmin';
 
@@ -20,11 +21,20 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 
-// Coach Components 
+// Coach Components
 import CoachDashboard from '../CoachDashboard/CoachDashboard';
+import CoachPayoutDetails from '../CoachPayoutDetails/CoachPayoutDetails';
+import CoachClientList from '../CoachClientList/CoachClientList';
+import CoachClientDetails from '../CoachClientDetails/CoachClientDetails';
 
-// Admin Components 
-import AdminDashboard from '../AdminDashboard/AdminDashboard'
+// Admin Components
+import AdminDashboard from '../AdminDashboard/AdminDashboard';
+import AdminAddUser from '../AdminAddUser/AdminAddUser';
+import AdminClientList from '../AdminClientList/AdminClientList';
+import AdminClientDetails from '../AdminClientDetails/AdminClientDetails';
+import AdminCoachList from '../AdminCoachList/AdminCoachList';
+import AdminCoachDetails from '../AdminCoachDetails/AdminCoachDetails';
+import AdminPayouts from '../AdminPayouts/AdminPayouts';
 
 // spike component
 import ParseSpike from '../ParseSpike/ParseSpike'
@@ -33,7 +43,23 @@ import ParseSpike from '../ParseSpike/ParseSpike'
 import UserForm from '../UserForm/UserForm'
 
 
+import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import './App.css';
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#0026ff"
+    },
+    secondary: {
+      main: "#f4f4f4"
+    },
+    background: {
+      primary: "#eeeeee"
+    }
+  }
+})
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +69,7 @@ function App() {
   }, [dispatch]);
 
   return (
+    <ThemeProvider theme ={theme}>
     <Router>
       <div>
         <Route>
@@ -50,26 +77,16 @@ function App() {
         </Route>
         <Nav />
         <Switch>
-          {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+          {/* Visiting localhost:3000 will redirect to localhost:3000/login */}
           <Redirect exact from="/" to="/login" />
-
-          {/* Visiting localhost:3000/about will show the about page. */}
-         
-
-          {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-
 
           {/* When a value is supplied for the authRedirect prop the user will
             be redirected to the path supplied when logged in, otherwise they will
             be taken to the component and path supplied. */}
 
-
           <ProtectedRoute
             // with authRedirect:
-            // - if logged in, redirects to "/user"
+            // - if logged in, redirects to "/coach/dashboard"
             // - else shows LoginPage at /login
             exact
             path="/login"
@@ -79,7 +96,7 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            exact 
+            exact
             path="/register"
             authRedirect="/coach/dashboard"
           >
@@ -89,15 +106,34 @@ function App() {
 
 
 
-          {/* Coach Component Routes */}
+          {/* -------- Coach Component Routes ---------- */}
           <ProtectedRoute
-            exact 
+            exact
             path = '/coach/dashboard'
           >
             <CoachDashboard/>
           </ProtectedRoute>
-          
-          {/* Admins only suckas */}
+
+          <ProtectedRoute
+          exact
+          path='/coach/payoutDetails'>
+            <CoachPayoutDetails/>
+          </ProtectedRoute>
+
+          <ProtectedRoute
+          exact
+          path='/coach/clientList'>
+            <CoachClientList/>
+          </ProtectedRoute>
+
+          <ProtectedRoute
+          exact
+          path='/coach/clientDetails'>
+            <CoachClientDetails/>
+          </ProtectedRoute>
+
+
+          {/* -------- Admin Component Routes ---------- */}
           <ProtectedAdmin
             exact
             path = '/admin/dashboard'
@@ -109,6 +145,44 @@ function App() {
           <UserForm />
           </Route>
 
+          <ProtectedAdmin
+          exact
+          path='/admin/addUser'>
+            <AdminAddUser/>
+          </ProtectedAdmin>
+
+          <ProtectedAdmin
+          exact
+          path='/admin/clientList'>
+            <AdminClientList/>
+          </ProtectedAdmin>
+
+          <ProtectedAdmin
+          exact
+          path='/admin/clientDetails'>
+            <AdminClientDetails/>
+          </ProtectedAdmin>
+
+          <ProtectedAdmin
+          exact
+          path='/admin/coachList'>
+            <AdminCoachList/>
+          </ProtectedAdmin>
+
+          <ProtectedAdmin
+          exact
+          path='/admin/coachDetails'>
+            <AdminCoachDetails/>
+          </ProtectedAdmin>
+
+          <ProtectedAdmin
+          exact
+          path='/admin/payouts'>
+            <AdminPayouts/>
+          </ProtectedAdmin>
+
+
+
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
@@ -117,6 +191,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </ThemeProvider>
   );
 }
 

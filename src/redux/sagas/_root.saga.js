@@ -2,7 +2,9 @@ import { all } from 'redux-saga/effects';
 import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
-import csvSaga from './csv.saga'
+import csvSaga from './csv.saga';
+import adminSaga from './admin.saga';
+import payoutSaga from './payout.saga'
 import userForm from './userForm.saga'
 
 
@@ -19,6 +21,9 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     csvSaga(), //saga to handle new csv information
-    userForm() //saga to handle new user form data
+    userForm(), //saga to handle new user form data
+    adminSaga(), // saga to populate admin related reducers
+    payoutSaga(), //saga to return information on invoices paid and not paid
+
   ]);
 }

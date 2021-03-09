@@ -1,12 +1,14 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-//fires from manualPackage
+//GETs all unpaid dues from DB
 function* getPayoutDetails() {
   try {
-    console.log('in csvSumbitManual with', action.payload)
-    yield axios.get('/api/csv')
-    const response = yield put({type: 'SET_PAYMENT', payload: response.data})
+    console.log('in getPayoutDetails DO YOU WORK!!')
+    const response = yield axios.get('/api/csv')
+    console.log('server response getting payouts', response.data)
+    //goes to payout reducer
+    yield put({type: 'SET_PAYMENT', payload: response.data})
 
   } catch (error) {
     console.log('error in csvSubmit:', error);

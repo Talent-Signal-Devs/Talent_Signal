@@ -11,11 +11,11 @@ const {
 //ON POST when data comes back, loop over ID array to update each row with date paid and invoice number
 router.get('/', (req, res) => {
   const queryText = `
-      SELECT "user_id", SUM("amount") as "total_owed", ARRAY_AGG("payments".id) AS "clients" FROM  "user"
-      JOIN "client" ON "user".id = "client".user_id
-      JOIN "payments" ON "client".contract_id = "payments".contract_id
-      WHERE "payment_status" = 'complete' AND "is_paid" = 'False'
-      GROUP BY "user_id";
+  SELECT ARRAY_AGG("user_id"), CONCAT("user".first_name, ' ', "user".last_name) AS "full_name", SUM("amount") as "total_owed", ARRAY_AGG("payments".id) AS "clients" FROM  "user"
+  JOIN "client" ON "user".id = "client".user_id
+  JOIN "payments" ON "client".contract_id = "payments".contract_id
+  WHERE "payment_status" = 'complete' AND "is_paid" = 'False'
+  GROUP BY "full_name";
   `
   pool.query(queryText).then((response)=>{
     console.log(response);

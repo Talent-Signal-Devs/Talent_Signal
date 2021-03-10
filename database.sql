@@ -49,14 +49,15 @@ CREATE TABLE "payments" (
 
 CREATE TABLE "client" (
 	"id" serial NOT NULL,
-	"status" varchar(255) NOT NULL,
+	"contract_status" varchar(255) NOT NULL,
 	"contract_id" varchar(255) NOT NULL,
 	"user_id" Int NOT NULL,
 	"first_name" TEXT NOT NULL,
 	"last_name" TEXT NOT NULL,
 	"email" TEXT NOT NULL,
-	"phone" TEXT NOT NULL,
-	"end_date" TEXT NOT NULL,
+	"phone" TEXT,
+	"end_date" TEXT,
+	"coaching_status" varchar(255) NOT NULL,
 	CONSTRAINT "client_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE

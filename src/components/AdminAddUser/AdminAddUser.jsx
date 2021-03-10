@@ -70,7 +70,7 @@ function AdminAddUser(props) {
         lastName: '',
         email: '',
         phone: '',
-        coach: '',
+        coachID: '',
         contractID: '',
         contractStatus: '',
         coachingStatus: '',
@@ -92,13 +92,13 @@ function AdminAddUser(props) {
             })
         } else if (userType === 'client') {
             console.log(newClient)
-            // dispatch({ type: 'ADD_NEW_CLIENT', payload: newClient})
+            dispatch({ type: 'ADD_NEW_CLIENT', payload: newClient})
             setNewClient({
                 firstName: '',
                 lastName: '',
                 email: '',
                 phone: '',
-                coach: '',
+                coachID: '',
                 contractID: '',
                 contractStatus: '',
                 coachingStatus: '',
@@ -211,9 +211,14 @@ function AdminAddUser(props) {
                                 className={classes.input}
                             />
                             <TextField
-                                required
                                 name="phone"
                                 label="Phone"
+                                onChange={handleClientChange}
+                                className={classes.input}
+                            />
+                            <TextField
+                                name="contractID"
+                                label="Contract ID"
                                 onChange={handleClientChange}
                                 className={classes.input}
                             />
@@ -224,8 +229,8 @@ function AdminAddUser(props) {
                                 <Select
                                     labelId="coach-select-label"
                                     id="coach-select"
-                                    name="coach"
-                                    value={newClient.coach}
+                                    name="coachID"
+                                    value={newClient.coachID}
                                     onChange={(e) =>
                                         setNewClient({
                                             ...newClient,
@@ -243,7 +248,7 @@ function AdminAddUser(props) {
                                     })}
                                 </Select>
                             </FormControl>
-                            {/* <FormControl>
+                            <FormControl className={classes.input}>
                                 <InputLabel id="contract-status-label">
                                     Contract Status
                                 </InputLabel>
@@ -254,7 +259,7 @@ function AdminAddUser(props) {
                                 value={newClient.contractStatus}
                                 onChange={(e) =>
                                     setNewClient({
-                                        ...state,
+                                        ...newClient,
                                         [e.target.name]: e.target.value,
                                     })
                                 }
@@ -264,7 +269,7 @@ function AdminAddUser(props) {
                                 <MenuItem value={"closed"}>Closed</MenuItem>
                             </Select>
                         </FormControl>
-                            <FormControl>
+                            <FormControl className={classes.input}>
                                 <InputLabel id="coaching-status-label">
                                     Coaching Status
                                 </InputLabel>
@@ -275,7 +280,7 @@ function AdminAddUser(props) {
                                 value={newClient.coachingStatus}
                                 onChange={(e) =>
                                     setNewClient({
-                                        ...state,
+                                        ...newClient,
                                         [e.target.name]: e.target.value,
                                     })
                                 }
@@ -283,7 +288,7 @@ function AdminAddUser(props) {
                                 <MenuItem value={"coach"}>In Coaching</MenuItem>
                                 <MenuItem value={"client"}>Working</MenuItem>
                             </Select>
-                        </FormControl> */}
+                        </FormControl>
                         </>
                     )}
 

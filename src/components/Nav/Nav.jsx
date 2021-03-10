@@ -45,7 +45,7 @@ function Nav() {
             <Link className ="navLink" to="/admin/addUser">
               Add User
             </Link>
-            <Link className ="navLink" to="/admin/coaches">
+            <Link className ="navLink" to="/admin/coachList">
               Coaches
             </Link>
             <Link className ="navLink" to="/admin/clientList">

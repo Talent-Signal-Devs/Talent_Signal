@@ -23,8 +23,9 @@ function* fetchAdminCoaches() {
 function* getClientDetails(action) {
     try {
         const client = action.payload;
-        const response = yield axios.get(`/api/admin/client/${client.id}`);
-        yield put({ type: 'SET_CLIENT_DETAILS', payload: response.data })
+        console.log(client)
+        const response = yield axios.get(`/api/admin/client/${client}`);
+        yield put({ type: 'SET_CLIENT_DETAILS', payload: response.data[0] })
     } catch (error) {
         console.log('error getting client details', error);
     }

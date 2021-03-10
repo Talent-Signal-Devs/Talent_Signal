@@ -10,13 +10,12 @@
 --NEW DB STRUCTER (elimiates payouts table)
 CREATE TABLE "users" (
 	"id" serial NOT NULL,
-	"password" VARCHAR(255) NOT NULL,
+	"password" VARCHAR(255),
 	"clearance" Int  DEFAULT '0',
 	"first_name" VARCHAR(255) ,
 	"last_name" VARCHAR(255) ,
 	"email" VARCHAR(255) UNIQUE,
 	"phone" VARCHAR(11) ,
->>>>>>> master
 	"is_approved" BOOLEAN  DEFAULT 'False',
 	"start_date" TEXT ,
 	"business_name" TEXT ,

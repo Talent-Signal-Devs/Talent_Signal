@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux'
+import {useHistory} from 'react-router-dom'
 import './AdminPayouts.css'
 
 
@@ -8,6 +9,7 @@ import './AdminPayouts.css'
 function AdminPayouts() {
 
   const dispatch = useDispatch()
+  const history = useHistory();
 
   //holds data from DB on all payments not yet paid
   const coachPayouts = useSelector((store) => store.payout);
@@ -45,6 +47,7 @@ function AdminPayouts() {
   return (
 
     <div>
+      <button onClick={()=>history.push('/admin/upload')}>Upload</button>
       {visible?
       <div className="modal">
           <input

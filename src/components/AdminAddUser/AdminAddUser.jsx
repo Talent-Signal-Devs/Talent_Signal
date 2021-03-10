@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useSelector} from 'react-redux';
 import { useDispatch } from "react-redux"
 import FormControl from "@material-ui/core/FormControl"
@@ -44,8 +44,13 @@ const useStyles = makeStyles(() => ({
 
 function AdminAddUser(props) {
   
-  const store = useSelector((store) => store);
+  const coaches = useSelector((store) => store.adminCoachReducer);
   const [heading, setHeading] = useState('Admin Add User');
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_ADMIN_COACHES' });
+  }, []);
+
 
   const classes = useStyles()
     const dispatch = useDispatch()
@@ -86,7 +91,8 @@ function AdminAddUser(props) {
                 business: '',
             })
         } else if (userType === 'client') {
-            dispatch({ type: 'ADD_NEW_CLIENT', payload: newClient})
+            console.log(newClient)
+            // dispatch({ type: 'ADD_NEW_CLIENT', payload: newClient})
             setNewClient({
                 firstName: '',
                 lastName: '',
@@ -227,8 +233,14 @@ function AdminAddUser(props) {
                                         })
                                     }
                                 >
-                                    <MenuItem value={"coach"}>Coach 1</MenuItem>
-                                    <MenuItem value={"client"}>Coach 2</MenuItem>
+                                    {coaches.map((coach) => {
+                                      return <MenuItem 
+                                                key={coach.id} 
+                                                value={coach.id}
+                                              >
+                                                {coach.first_name} {coach.last_name}
+                                              </MenuItem>
+                                    })}
                                 </Select>
                             </FormControl>
                             {/* <FormControl>

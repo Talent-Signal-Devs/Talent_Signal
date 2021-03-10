@@ -7,21 +7,12 @@
 -- Otherwise you will have errors!
 CREATE TABLE "users" (
 	"id" serial NOT NULL,
-<<<<<<< HEAD
 	"password" VARCHAR(255),
 	"clearance" Int  DEFAULT '0',
 	"first_name" VARCHAR(255) ,
 	"last_name" VARCHAR(255) ,
 	"email" VARCHAR(255) UNIQUE,
 	"phone" VARCHAR(11) ,
-=======
-	"email" varchar(255) UNIQUE,
-	"password" varchar(255),
-	"clearance" int  DEFAULT '0',
-	"first_name" varchar(255) ,
-	"last_name" varchar(255) ,
-	"phone" varchar(11) ,
->>>>>>> 17f3d4fb3778710fb43938eb748989788eabf675
 	"is_approved" BOOLEAN  DEFAULT 'False',
 	"start_date" TEXT ,
 	"business_name" TEXT ,
@@ -60,12 +51,12 @@ CREATE TABLE "client" (
 	"id" serial NOT NULL,
 	"status" varchar(255) NOT NULL,
 	"contract_id" varchar(255) NOT NULL,
-	"user_id" Int NOT NULL,
+	"user_id" Int,
 	"first_name" TEXT NOT NULL,
 	"last_name" TEXT NOT NULL,
 	"email" TEXT NOT NULL,
 	"phone" TEXT NOT NULL,
-	"end_date" TEXT NOT NULL,
+	"end_date" TEXT,
 	CONSTRAINT "client_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -73,6 +64,23 @@ CREATE TABLE "client" (
 
 ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 
+--Remove NOT NULL contraint from both the USERS and CLIENT tables
+
+INSERT INTO "users" ("password", "first_name", "last_name", "email", "phone", "start_date", "business_name", "program_id")
+VALUES ('password', 'Prince', 'Rogers Nelson', 'prince@npg.com', '7779311', 'ISO timestamp', 'NPG', '1')
+('password', 'Morris', 'Day', 'morris@time.com', '7779311', 'ISO timestamp', 'The Time', '1');
+
+INSERT INTO "client" ("status", "contract_id", "first_name", "last_name", "email", "phone", "end_date")
+VALUES
+('coaching', 'drfinkcontract1234', 'Doctor', 'Fink', 'drfink@npg.com', '11111111', 'END?'),
+('coaching', 'wendymalvoincontract09', 'Wendy', 'Malvoin', 'wendy@npg.com', '2222222', 'END?'),
+('coaching', 'lisacolemancontract45678', 'Lisa', 'Coleman', 'lisa@npg.com', '3333333', 'END?'),
+('coaching', 'jimmyjamharriscontract4567', 'Jimmy Jam', 'Harris', 'jj@thetime.com', '4444444', 'END?'),
+('coaching', 'terrylewiscontract0987', 'Terry', 'Lewis', 'terry@thetime.com', '5555555', 'END?'),
+('coaching', 'jeromebentoncontract7779311', 'Jerome', 'Benton', 'jerome@thetime.com', '6666666', 'END?')
+
+--After running both insert statements, manually insert the "users".id value into the "client".user_id
+--Where the client matches the coach. Prince gets Dr. Fink, Wendy, and Lisa. Morris gets Jimmy Jam, Terry, and Jerome
 
 
 

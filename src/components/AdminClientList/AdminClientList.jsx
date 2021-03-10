@@ -41,10 +41,9 @@ function AdminClientList(props) {
     dispatch({ type: 'FETCH_ADMIN_CLIENTS' });
   }, []);
 
-  const handleRowClick = (client) => {
-    console.log(client);
-    dispatch({ type: 'GET_CLIENT_DETAILS', payload: client })
-    history.push('/admin/clientDetails');
+  const handleRowClick = (input) => {
+    // dispatch({type: 'GET_CLIENT_DETAILS', payload: input})
+    history.push(`/admin/clientDetails/${input}`);
   }
 
   return (
@@ -67,7 +66,7 @@ function AdminClientList(props) {
             </TableHead>
             <TableBody>
               {clients.map((client) => (
-                <TableRow key={client.id} onClick={() => {handleRowClick(client)}} className={classes.tableRow}>
+                <TableRow key={client.id} onClick={() => {handleRowClick(client.id)}} className={classes.tableRow}>
                   <TableCell>{client.first_name} {client.last_name}</TableCell>
                   <TableCell>{client.contract_id}</TableCell>
                   <TableCell>{client.coach_first_name} {client.coach_last_name}</TableCell>

@@ -41,7 +41,7 @@ function AdminPayouts() {
   }
 
   useEffect(()=>{
-    setTimeout(dispatch({ type: 'GET_PAYMENT' }), 300);
+    setTimeout(()=>dispatch({ type: 'GET_PAYMENT' }), 300);
   }, [])
 
   return (

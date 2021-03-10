@@ -48,6 +48,9 @@ const useStyles = makeStyles(() => ({
     input: {
       width: "25ch",
       margin: "10px"
+    },
+    button: {
+      margin: "5px"
     }
 }))
 
@@ -124,6 +127,28 @@ function AdminAddUser(props) {
     const handleClientChange = (e) => {
         const value = e.target.value
         setNewClient({ ...newClient, [e.target.name]: value})
+    }
+
+    const handleCancel = () => {
+      setNewCoach({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        programID: '',
+        startDate: '',
+        business: '',
+    })
+    setNewClient({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      coachID: '',
+      contractID: '',
+      contractStatus: '',
+      coachingStatus: '',
+  })
     }
 
   return (
@@ -315,7 +340,8 @@ function AdminAddUser(props) {
                         </div>
                     )}
                   <div className={classes.buttonContainer}>
-                    <Button type="submit">Add User</Button>
+                    <Button type="submit" variant="contained" color="primary" className={classes.button}>Add User</Button>
+                    <Button onClick={handleCancel} variant="contained" color="secondary" className={classes.button}>Cancel</Button>
                   </div>
                 </form>
             </div>

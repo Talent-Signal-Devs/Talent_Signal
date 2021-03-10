@@ -37,7 +37,7 @@ CREATE TABLE "payments" (
 	"contract_id" TEXT NOT NULL,
 	"payment_fee" TEXT NOT NULL,
 	"is_paid" BOOLEAN NOT NULL DEFAULT 'False',
-	"confirmation_number" TEXT,
+	"confirmation_number" INT DEFAULT 0,
 	"payout_date" TEXT,
 
 	CONSTRAINT "payments_pk" PRIMARY KEY ("id")

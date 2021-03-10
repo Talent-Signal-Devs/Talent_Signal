@@ -1,20 +1,20 @@
-
 import { useState } from 'react'
 import Papa from 'papaparse'
 import {useDispatch} from 'react-redux'
+import {useHistory} from 'react-router-dom'
 
 
 
 
-export default function ParseSpike() {
+export default function AdminUpload() {
 
     //state to hold file
     //isReady to conditionally render submit button
     const [parse, setParse] = useState('');
-    const [input, setInput] = useState('')
     const [isReady, setIsReady] = useState(false)
 
     const dispatch = useDispatch()
+    const history = useHistory()
 
     //parses CSV and sets state to store value of parsed data
     function parseFile(event) {
@@ -61,6 +61,7 @@ export default function ParseSpike() {
         dispatch({type: 'ADD_NEW_CSV_MANUAL', payload: parsedReport})
         document.getElementById("file-upload").value = "";
         setIsReady(false)
+        setTimeout(()=>{history.push('/admin/payouts')}, 500)
     }
 
     return (

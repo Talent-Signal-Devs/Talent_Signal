@@ -5,18 +5,18 @@ const {
     rejectUnauthenticated,
   } = require('../modules/authentication-middleware');
 
+//GET details for users who have paid Leif BUT for who coaches haven't been paid
 
-//needs auth 3/8
-//will get total owed to coach AND agg all row ids in array.
-//ON POST when data comes back, loop over ID array to update each row with date paid and invoice number
-router.get('/', (req, res) => {
+//3/9 Do we want a query that also selects alt user statuses?
+router.get('/', rejectUnauthenticated, (req, res) => {
+  if(req.user.clearance === 1){
   const queryText = `
-  SELECT ARRAY_AGG("user_id") AS "user_id_array", CONCAT("users".first_name, ' ', "users".last_name) AS "full_name",
+  SELECT "user_id", CONCAT("users".first_name, ' ', "users".last_name) AS "full_name",
   SUM("amount") as "total_owed", ARRAY_AGG("payments".id) AS "clients" FROM  "users"
   JOIN "client" ON "users".id = "client".user_id
   JOIN "payments" ON "client".contract_id = "payments".contract_id
   WHERE "payment_status" = 'complete' AND "is_paid" = 'False'
-  GROUP BY "full_name";
+  GROUP BY "full_name", "user_id";
   `
   pool.query(queryText).then((response)=>{
     console.log(response);
@@ -26,10 +26,18 @@ router.get('/', (req, res) => {
     console.log(error);
     res.sendStatus(500);
   })
+}
+else {
+  res.sendStatus(403)
+}
 
 });
 
-router.put('/pay', (req, res)=> {
+router.put('/pay', rejectUnauthenticated, async(req, res)=> {
+  //opens connection
+  if(req.user.clearance === 1){
+  const connection = await pool.connect();
+  try{
   const newPayment = req.body
   const newDate = new Date()
   const serverDate = newDate.toISOString();
@@ -42,17 +50,34 @@ router.put('/pay', (req, res)=> {
   `
   pool.query(queryText, [serverDate, req.body.confirmation_number, row])
   }
+
   res.sendStatus(200)
+}catch(error){
+  //catches and logs errors
+  console.error('error updating coach payments', error)
+}
+finally{
+  //ends server connection
+  connection.release();
+}
+  }
+  else{
+    res.sendStatus(403)
+  }
 })
 
 
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, async(req, res) => {
+  if(req.user.clearance == 1){
+  const connection = await pool.connect();
+  try{
   const csv = req.body
   csv.shift()
   csv.pop()
   // console.log(csv)
 
   for (payment of csv) {
+
     console.log(payment)
 
       let payment_id = payment.id
@@ -103,7 +128,19 @@ router.post('/', (req, res) => {
     pool
     .query(query, [payment_id, product_id, due_date, scheduled_date, amount, payment_status, pending_date, complete_date, contract_id, payment_fee])
   }
-  // res.send(200)
+  res.sendStatus(200)
+}catch(error){
+  console.error('error parsing csv', error);
+
+}
+finally{
+  connection.release();
+  
+}
+  }
+  else{
+    res.sendStatus(403)
+  }
 
 });
 

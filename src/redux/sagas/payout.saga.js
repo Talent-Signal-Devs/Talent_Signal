@@ -4,7 +4,7 @@ import axios from 'axios';
 //GETs all unpaid dues from DB
 function* getPayoutDetails() {
   try {
-    console.log('in getPayoutDetails DO YOU WORK!!')
+    console.log('in getPayoutDetails ')
     const response = yield axios.get('/api/csv')
     console.log('server response getting payouts', response.data)
     //goes to payout reducer
@@ -19,7 +19,7 @@ function* payCoach(action){
     try{
         console.log('in payCoach with payload', action.payload)
         yield axios.put('/api/csv/pay', action.payload)
-        yield put({type: 'GET'})
+        yield put({type: 'GET_PAYMENT'})
     } catch(error){
         console.error('there was a problem in payCoach')
     }

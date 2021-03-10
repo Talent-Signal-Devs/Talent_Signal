@@ -33,7 +33,17 @@ const useStyles = makeStyles(() => ({
     },
     userForm: {
       display: "flex",
-      flexFlow: "row wrap"
+      flexFlow: "column",
+      alignItems: "center"
+    },
+    inputContainer: {
+      display: "flex",
+      flexFlow: "row wrap",
+      justifyContent: "center",
+      marginBottom: "10px",
+    },
+    buttonContainer: {
+      marginTop: "10px",
     },
     input: {
       width: "25ch",
@@ -121,6 +131,7 @@ function AdminAddUser(props) {
             <h1>Add a new user:</h1>
             <div className={classes.userFormContainer}>
                 <form className={classes.userForm} onSubmit={addUser}>
+                  
                     <FormControl className={classes.input}>
                         <InputLabel id="user-type-label">User Type:</InputLabel>
                         <Select
@@ -134,12 +145,13 @@ function AdminAddUser(props) {
                         </Select>
                     </FormControl>
                     {userType === "coach" && (
-                        <>
+                        <div className={classes.inputContainer}>
                             <TextField
                                 required
                                 name="firstName"
                                 label="First Name"
                                 onChange={handleCoachChange}
+                                value={newCoach.firstName}
                                 className={classes.input}
                             />
                             <TextField
@@ -147,6 +159,7 @@ function AdminAddUser(props) {
                                 name="lastName"
                                 label="Last Name"
                                 onChange={handleCoachChange}
+                                value={newCoach.lastName}
                                 className={classes.input}
                             />
                             <TextField
@@ -154,6 +167,7 @@ function AdminAddUser(props) {
                                 name="email"
                                 label="Email"
                                 onChange={handleCoachChange}
+                                value={newCoach.email}
                                 className={classes.input}
                             />
                             <TextField
@@ -161,6 +175,7 @@ function AdminAddUser(props) {
                                 name="phone"
                                 label="Phone"
                                 onChange={handleCoachChange}
+                                value={newCoach.phone}
                                 className={classes.input}
                             />
 
@@ -176,6 +191,7 @@ function AdminAddUser(props) {
                                 name="startDate"
                                 label="Start Date"
                                 onChange={handleCoachChange}
+                                value={newCoach.startDate}
                                 className={classes.input}
                             />
                             <TextField
@@ -183,17 +199,20 @@ function AdminAddUser(props) {
                                 name="business"
                                 label="Business Name"
                                 onChange={handleCoachChange}
+                                value={newCoach.business}
                                 className={classes.input}
                             />
-                        </>
+                        </div>
                     )}
+                    
                     {userType === "client" && (
-                        <>
+                        <div className={classes.inputContainer}>
                             <TextField
                                 required
                                 name="firstName"
                                 label="First Name"
                                 onChange={handleClientChange}
+                                value={newClient.firstName}
                                 className={classes.input}
                             />
                             <TextField
@@ -201,6 +220,7 @@ function AdminAddUser(props) {
                                 name="lastName"
                                 label="Last Name"
                                 onChange={handleClientChange}
+                                value={newClient.lastName}
                                 className={classes.input}
                             />
                             <TextField
@@ -208,18 +228,21 @@ function AdminAddUser(props) {
                                 name="email"
                                 label="Email"
                                 onChange={handleClientChange}
+                                value={newClient.email}
                                 className={classes.input}
                             />
                             <TextField
                                 name="phone"
                                 label="Phone"
                                 onChange={handleClientChange}
+                                value={newClient.phone}
                                 className={classes.input}
                             />
                             <TextField
                                 name="contractID"
                                 label="Contract ID"
                                 onChange={handleClientChange}
+                                value={newClient.contractID}
                                 className={classes.input}
                             />
                             <FormControl className={classes.input}>
@@ -289,10 +312,11 @@ function AdminAddUser(props) {
                                 <MenuItem value={"client"}>Working</MenuItem>
                             </Select>
                         </FormControl>
-                        </>
+                        </div>
                     )}
-
+                  <div className={classes.buttonContainer}>
                     <Button type="submit">Add User</Button>
+                  </div>
                 </form>
             </div>
         </div>

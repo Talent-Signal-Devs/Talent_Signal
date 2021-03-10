@@ -13,6 +13,7 @@ function* addNewCoach(action) {
 function* addNewClient(action) {
     try {
         yield axios.post(`/api/admin/newUser/client`, action.payload)
+        yield put({ type: 'FETCH_ADMIN_CLIENTS'})
     } catch(err) {
         console.log(err)
     }

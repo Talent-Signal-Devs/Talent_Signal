@@ -31,10 +31,31 @@ function* getClientDetails(action) {
     }
 }
 
+function* toggleApprove(action) {
+    try {
+        const coach = action.payload;
+        yield axios.put(`/api/admin/coach/${coach}`);
+        yield put({ type: 'FETCH_ADMIN_COACHES' });
+    } catch (error) {
+        console.log('error changing coach"s registration status', error);
+    }
+}
+
+function* deleteCoach(action) {
+    try {
+        const coach = action.payload;
+        yield axios.delete(`/api/admin/coach/${coach}`);
+        yield put({ type: 'FETCH_ADMIN_COACHES' });
+    } catch (error) {
+        console.log('error deleting coach', error);
+    }
+}
 function* adminSaga() {
     yield takeEvery('FETCH_ADMIN_CLIENTS', fetchAdminClients);
     yield takeEvery('FETCH_ADMIN_COACHES', fetchAdminCoaches);
     yield takeEvery('GET_CLIENT_DETAILS', getClientDetails);
+    yield takeEvery('TOGGLE_APPROVE', toggleApprove);
+    yield takeEvery('DELETE_COACH', deleteCoach);
 }
 
 export default adminSaga;

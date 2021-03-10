@@ -6,11 +6,11 @@ const router = express.Router();
 
 router.get('/', rejectUnauthenticated, (req, res) => {
     // GET route code here
-    // const sqlText = `SELECT "users".*, "client".*, "payouts".* FROM "user"
-    // JOIN "client" ON "client".user_id = "user".id
-    // JOIN "payouts" ON "payouts".user_id = "user".id
-    // GROUP BY "client".id, "user".id, "payouts".id;`;
-
+    // const sqlText = `SELECT "users".*, "client".*, "payouts".* FROM "users"
+    // JOIN "client" ON "client".user_id = "users".id
+    // JOIN "payouts" ON "payouts".user_id = "users".id
+    // GROUP BY "client".id, "users".id, "payouts".id;`;
+    
     const sqlText = `SELECT * FROM users
     WHERE clearance = 0
     ORDER BY last_name;`

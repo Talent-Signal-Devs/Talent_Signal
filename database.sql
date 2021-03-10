@@ -64,10 +64,10 @@ CREATE TABLE "client" (
 
 ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFERENCES "users"("id");
 
---Remove NOT NULL contraint from both the USERS and CLIENT tables
+--Remove NOT NULL contraint from CLIENT tables on "client".user_id
 
 INSERT INTO "users" ("password", "first_name", "last_name", "email", "phone", "start_date", "business_name", "program_id")
-VALUES ('password', 'Prince', 'Rogers Nelson', 'prince@npg.com', '7779311', 'ISO timestamp', 'NPG', '1')
+VALUES ('password', 'Prince', 'Rogers Nelson', 'prince@npg.com', '7779311', 'ISO timestamp', 'NPG', '1'),
 ('password', 'Morris', 'Day', 'morris@time.com', '7779311', 'ISO timestamp', 'The Time', '1');
 
 INSERT INTO "client" ("status", "contract_id", "first_name", "last_name", "email", "phone", "end_date")

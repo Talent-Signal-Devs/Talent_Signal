@@ -188,26 +188,30 @@ function AdminAddUser(props) {
                                 name="firstName"
                                 label="First Name"
                                 onChange={handleClientChange}
+                                className={classes.input}
                             />
                             <TextField
                                 required
                                 name="lastName"
                                 label="Last Name"
                                 onChange={handleClientChange}
+                                className={classes.input}
                             />
                             <TextField
                                 required
                                 name="email"
                                 label="Email"
                                 onChange={handleClientChange}
+                                className={classes.input}
                             />
                             <TextField
                                 required
                                 name="phone"
                                 label="Phone"
                                 onChange={handleClientChange}
+                                className={classes.input}
                             />
-                            <FormControl>
+                            <FormControl className={classes.input}>
                                 <InputLabel id="coach-select-label">
                                     Select a Coach
                                 </InputLabel>

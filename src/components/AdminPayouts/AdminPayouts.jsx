@@ -1,50 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux'
-import ParseSpike from '../ParseSpike/ParseSpike'
+import './AdminPayouts.css'
+
 
 
 function AdminPayouts() {
 
-  //for now, this is our confirmation counter, just something to give us a "unique" number
-
-
   const dispatch = useDispatch()
 
   //holds data from DB on all payments not yet paid
-  const payout = useSelector((store) => store.payout);
+  const coachPayouts = useSelector((store) => store.payout);
 
-  //function that runs on button press. I want this to run after the CSV uploads, but it will require some async await stuff
-  function dispatchGet() {
-    dispatch({ type: 'GET_PAYMENT' })
-    console.log(payout)
-  }
+  //modal
+  const [visible, setVisible] = useState(false)
+  const [check, setCheck] = useState('')
+  const [payout, setPayout] = useState({})
+
 
   //paynow packages together all necessary info to be sent to the server when ted pays
-  function payNow(userID, clientArray) {
+  function preparePayout(userID, clientArray) {
+    setVisible(true)
     const newDate = new Date()
-    const confirmationNumber = prompt('enter check number')
-    if (confirmationNumber) {
-      const payout = {
+      setPayout({
         user_id: userID,
         clients: clientArray,
         payout_date: newDate.toISOString(),
-        confirmation_number: confirmationNumber
-      }
+        confirmation_number: check
+      })
       console.log(payout)
-    dispatch({ type: 'PAY_COACH', payload: payout })
-    }
   }
 
+  function submitPayout(){
+    console.log('in submit with payout so far', payout)
+    setVisible(false)
+
+    dispatch({ type: 'PAY_COACH', payload: payout })
+  }
+
+  useEffect(()=>{
+    dispatch({ type: 'GET_PAYMENT' });
+  }, [])
 
   return (
 
     <div>
+      {visible?
+      <div className="modal">
+          <input
+            type="text"
+            value={payout.confirmation_number}
+            onChange={(event)=>setPayout({...payout, confirmation_number: event.target.value})}
+            placeholder='check number'>
+            </input>
+            <button onClick={()=>submitPayout()}>Submit</button>
+      </div> : <span></span>}
 
-
-      <h2>MADE IT</h2>
-      <ParseSpike />
-      <button onClick={() => dispatchGet()}>GET STUFF</button>
+      {/* placeholder button for manual GET if list  doesn't load*/}
+      <button onClick={() => dispatch({ type: 'GET_PAYMENT' })}>Refresh List</button>
       <table>
         <thead>
           <tr>
@@ -55,17 +68,19 @@ function AdminPayouts() {
           </tr>
         </thead>
         <tbody>
-          {payout.map((debt) => {
+          {coachPayouts.map((debt) => {
             return (
               <tr key={debt.user_id}>
                 <td>{debt.full_name}</td>
                 <td>{debt.total_owed}</td>
-                <td><button onClick={() => payNow(debt.user_id, debt.clients)}>PAY NOW</button></td>
+                <td><button onClick={() => preparePayout(debt.user_id, debt.clients)}>PAY NOW</button></td>
+
               </tr>
             )
           })}
         </tbody>
       </table>
+
     </div>
   );
 }

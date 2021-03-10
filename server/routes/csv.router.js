@@ -135,6 +135,7 @@ router.post('/', rejectUnauthenticated, async(req, res) => {
 }
 finally{
   connection.release();
+  
 }
   }
   else{

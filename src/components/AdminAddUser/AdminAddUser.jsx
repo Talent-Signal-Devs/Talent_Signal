@@ -28,26 +28,30 @@ const useStyles = makeStyles(() => ({
         flexFlow: "column",
         justifyContent: "center",
         alignItems: "center",
-        width: "80%",
+        width: "30%",
         // border: "2px solid blue"
     },
     userForm: {
       display: "flex",
       flexFlow: "column",
-      alignItems: "center"
+      alignItems: "center",
+      justifyContent: "space-around",
+      
     },
     inputContainer: {
       display: "flex",
       flexFlow: "row wrap",
-      justifyContent: "center",
+      justifyContent: "space-around",
+      width: "100%",
       marginBottom: "10px",
+      // border: "2px solid pink"
     },
     buttonContainer: {
       marginTop: "10px",
     },
     input: {
       width: "25ch",
-      margin: "10px"
+      margin: "10px",
     },
     button: {
       margin: "5px"

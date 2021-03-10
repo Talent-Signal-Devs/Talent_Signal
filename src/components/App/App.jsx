@@ -35,6 +35,7 @@ import AdminClientDetails from '../AdminClientDetails/AdminClientDetails';
 import AdminCoachList from '../AdminCoachList/AdminCoachList';
 import AdminCoachDetails from '../AdminCoachDetails/AdminCoachDetails';
 import AdminPayouts from '../AdminPayouts/AdminPayouts';
+import AdminUpload from '../AdminUpload/AdminUpload'
 
 // spike component
 import ParseSpike from '../ParseSpike/ParseSpike'
@@ -72,9 +73,6 @@ function App() {
     <ThemeProvider theme ={theme}>
     <Router>
       <div>
-        <Route>
-          <ParseSpike path="/parsespike" exact/>
-        </Route>
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/login */}
@@ -140,7 +138,7 @@ function App() {
           >
             <AdminDashboard/>
           </ProtectedAdmin>
-         
+
           <Route path="/addUser" >
           <UserForm />
           </Route>
@@ -179,6 +177,12 @@ function App() {
           exact
           path='/admin/payouts'>
             <AdminPayouts/>
+          </ProtectedAdmin>
+
+          <ProtectedAdmin
+          exact
+          path='/admin/upload'>
+            <AdminUpload/>
           </ProtectedAdmin>
 
 

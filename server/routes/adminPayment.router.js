@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', rejectUnauthenticated, (req, res) => {
     // GET route code here
-    const sqlText = `SELECT "payouts".*, "user".* FROM "payouts"
+    const sqlText = `SELECT "payouts".*, "users".* FROM "payouts"
                      JOIN "user" ON "user".id = "payouts".user_id
                      ORDER BY "user".last_name;`;
     

@@ -5,17 +5,23 @@
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
-
-
---NEW DB STRUCTER (elimiates payouts table)
 CREATE TABLE "users" (
 	"id" serial NOT NULL,
+<<<<<<< HEAD
 	"password" VARCHAR(255),
 	"clearance" Int  DEFAULT '0',
 	"first_name" VARCHAR(255) ,
 	"last_name" VARCHAR(255) ,
 	"email" VARCHAR(255) UNIQUE,
 	"phone" VARCHAR(11) ,
+=======
+	"email" varchar(255) UNIQUE,
+	"password" varchar(255),
+	"clearance" int  DEFAULT '0',
+	"first_name" varchar(255) ,
+	"last_name" varchar(255) ,
+	"phone" varchar(11) ,
+>>>>>>> 17f3d4fb3778710fb43938eb748989788eabf675
 	"is_approved" BOOLEAN  DEFAULT 'False',
 	"start_date" TEXT ,
 	"business_name" TEXT ,

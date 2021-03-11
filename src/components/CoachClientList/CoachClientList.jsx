@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   table: {
@@ -33,10 +34,15 @@ function CoachClientList() {
   const [heading, setHeading] = useState('Coach Client List');
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COACH_CLIENTS' });
   }, []);
+
+  const handleRowClick = (input) => {
+    history.push(`/coach/clientDetails/${input}`);
+  } 
 
   return (
     <div>
@@ -54,7 +60,7 @@ function CoachClientList() {
           </TableHead>
           <TableBody>
             {clients.map((client) => 
-              <TableRow key={client.id} className={classes.tableRow}>
+              <TableRow key={client.id} className={classes.tableRow} onClick={() => {handleRowClick(client.id)}}>
                 <TableCell>{client.first_name} {client.last_name}</TableCell>
                 <TableCell>{client.email}</TableCell>
                 <TableCell>{client.phone}</TableCell>

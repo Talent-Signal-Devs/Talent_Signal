@@ -11,7 +11,21 @@ function* getPayoutDetails() {
     yield put({type: 'SET_PAYMENT', payload: response.data})
 
   } catch (error) {
-    console.error('error in csvSubmit:', error);
+    console.error('error in getPayoutDetails saga:', error);
+  }
+}
+
+//GETs all completed payouts from Ted to Coaches
+function* getPayoutsHistory() {
+  try {
+    console.log('in getPayoutsHistory')
+    const response = yield axios.get('/api/admin/paymentshistory')
+    console.log('server response getting payoutsHistory', response.data)
+    //goes to payout reducer
+    yield put({type: 'SET_PAYOUTS_HISTORY', payload: response.data})
+
+  } catch (error) {
+    console.error('error in getPayoutsHistory saga:', error);
   }
 }
 
@@ -21,13 +35,14 @@ function* payCoach(action){
         yield axios.put('/api/csv/pay', action.payload)
         yield put({type: 'GET_PAYMENT'})
     } catch(error){
-        console.error('there was a problem in payCoach')
+        console.error('there was a problem in payCoach saga:', error)
     }
 }
 
 
 function* payoutSaga() {
   yield takeLatest('GET_PAYMENT', getPayoutDetails);
+  yield takeLatest('GET_PAYOUTS_HISTORY', getPayoutsHistory)
   yield takeLatest('PAY_COACH', payCoach);
 }
 

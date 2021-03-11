@@ -43,8 +43,27 @@ router.post('/coach', async (req, res) => {
     
 })
 
-router.post('/client', (req, res) => {
+router.post('/client', async (req, res) => {
     console.log(req.body)
+
+    const connection = await pool.connect()
+
+    try {
+        await connection.query('BEGIN;')
+        const query = `INSERT INTO client (first_name, last_name, email, phone, contract_id, user_id, contract_status, coaching_status)
+                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
+
+        await connection.query(query, [req.body.firstName, req.body.lastName, req.body.email, req.body.phone, req.body.contractID, req.body.coachID, req.body.contractStatus, req.body.coachingStatus])
+        
+        await connection.query('COMMIT;')
+        
+    } catch(err) {
+        console.log(err)
+        await connection.query('ROLLBACK;')
+        res.sendStatus(500)
+    } finally {
+        connection.release()
+    }
 })
 
 module.exports = router

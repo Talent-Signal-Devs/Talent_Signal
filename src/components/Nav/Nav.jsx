@@ -9,6 +9,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import PaymentIcon from '@material-ui/icons/Payment';
 
 
+
 function Nav() {
   const user = useSelector((store) => store.user);
   const navLinkText = "payments";
@@ -54,7 +55,7 @@ function Nav() {
             <Link className ="navLink" to="/admin/addUser">
               Add User
             </Link>
-            <Link className ="navLink" to="/admin/coaches">
+            <Link className ="navLink" to="/admin/coachList">
               Coaches
             </Link>
             <Link className ="navLink" to="/admin/clientList">

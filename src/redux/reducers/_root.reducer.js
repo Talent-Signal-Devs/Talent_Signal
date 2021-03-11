@@ -8,6 +8,10 @@ import clientDetailsReducer from './clientDetails.reducer';
 import coachPaymentReducer from './coachPayment.reducer';
 import coachPaymentDetailsReducer from './coachPaymentDetails.reducer';
 
+import coachDetailsReducer from './coachDetails.reducer';
+
+import payoutsHistory from './payoutsHistory.reducer'
+import coachClientReducer from './coachClient.reducer'
 
 
 
@@ -27,8 +31,11 @@ const rootReducer = combineReducers({
   coachPaymentReducer, // contains coach payout info for coach dashboard view
   coachPaymentDetailsReducer, // contains coach payment details for a specific month/confirmation number
 
+  coachClientReducer, // contains coaches' client info
   payout,//stores information for AdminPayouts Component
   clientDetailsReducer, // stores a selected client's information for the admin client details view
+  payoutsHistory, //stores details for all completed payouts for ADMIN view
+  coachDetailsReducer, // stores a selected coach's information for the admin coach details view
 
 
 });

@@ -4,6 +4,7 @@ import { takeEvery, put } from "redux-saga/effects"
 function* addNewCoach(action) {
     try {
         yield axios.post(`/api/admin/newUser/coach`, action.payload)
+        yield put({ type: 'FETCH_ADMIN_COACHES'})
     } catch(err) {
         console.log(err)
     }
@@ -12,6 +13,7 @@ function* addNewCoach(action) {
 function* addNewClient(action) {
     try {
         yield axios.post(`/api/admin/newUser/client`, action.payload)
+        yield put({ type: 'FETCH_ADMIN_CLIENTS'})
     } catch(err) {
         console.log(err)
     }

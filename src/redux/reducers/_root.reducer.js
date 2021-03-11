@@ -7,8 +7,8 @@ import payout from './payout.reducer';
 import clientDetailsReducer from './clientDetails.reducer';
 import coachDetailsReducer from './coachDetails.reducer';
 import coachPaymentReducer from './coachPayment.reducer';
+import payoutsHistory from './payoutsHistory.reducer'
 import coachClientReducer from './coachClient.reducer'
-
 
 
 
@@ -29,7 +29,9 @@ const rootReducer = combineReducers({
   coachClientReducer, // contains coaches' client info
   payout,//stores information for AdminPayouts Component
   clientDetailsReducer, // stores a selected client's information for the admin client details view
+  payoutsHistory, //stores details for all completed payouts for ADMIN view
   coachDetailsReducer, // stores a selected coach's information for the admin coach details view
+
 
 });
 

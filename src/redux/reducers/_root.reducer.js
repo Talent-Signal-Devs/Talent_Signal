@@ -5,7 +5,7 @@ import adminClientReducer from './adminClient.reducer';
 import adminCoachReducer from './adminCoach.reducer';
 import payout from './payout.reducer';
 import clientDetailsReducer from './clientDetails.reducer';
-
+import coachDetailsReducer from './coachDetails.reducer';
 import coachPaymentReducer from './coachPayment.reducer';
 
 
@@ -28,7 +28,7 @@ const rootReducer = combineReducers({
 
   payout,//stores information for AdminPayouts Component
   clientDetailsReducer, // stores a selected client's information for the admin client details view
-
+  coachDetailsReducer, // stores a selected coach's information for the admin coach details view
 
 });
 

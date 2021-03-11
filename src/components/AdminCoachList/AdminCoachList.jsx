@@ -10,7 +10,6 @@ import Paper from '@material-ui/core/Paper';
 import ToolTip from '@material-ui/core/ToolTip';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import CoachItem from '../CoachItem/CoachItem';
 
 
 const useStyles = makeStyles(() => ({
@@ -69,20 +68,18 @@ function AdminCoachList(props) {
             <TableBody>
               {coaches.map((coach) => (
                 <ToolTip title="click for details">
-                  <TableRow key={coach.id} className={classes.tableRow}>
-                    <TableCell onClick={() => { handleRowClick(coach.id) }}>{coach.first_name} {coach.last_name}</TableCell>
-                    <TableCell onClick={() => { handleRowClick(coach.id) }}>{coach.email}</TableCell>
-                    <TableCell onClick={() => { handleRowClick(coach.id) }}>{coach.phone}</TableCell>
-                    <TableCell onClick={() => { handleRowClick(coach.id) }}>{coach.product_id}</TableCell>
-                    <TableCell onClick={() => { handleRowClick(coach.id) }}>{coach.start_date}</TableCell>
-                    <TableCell onClick={() => { handleRowClick(coach.id) }}>{coach.client_count}</TableCell>
-                    <TableCell onClick={() => { handleRowClick(coach.id) }}>
+                  <TableRow key={coach.id} className={classes.tableRow} onClick={() => { handleRowClick(coach.id) }}>
+                    <TableCell>{coach.first_name} {coach.last_name}</TableCell>
+                    <TableCell>{coach.email}</TableCell>
+                    <TableCell>{coach.phone}</TableCell>
+                    <TableCell>{coach.product_id}</TableCell>
+                    <TableCell>{coach.start_date}</TableCell>
+                    <TableCell>{coach.client_count}</TableCell>
+                    <TableCell>
                       {coach.is_approved ? <h4>Approved</h4> : <h4>pending</h4>}
                     </TableCell>
-                    <TableCell><CoachItem coach={coach} /></TableCell>
                   </TableRow>
                 </ToolTip>
-
               ))}
             </TableBody>
           </Table>

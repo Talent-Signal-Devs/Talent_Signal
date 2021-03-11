@@ -37,14 +37,10 @@ function AdminPayouts() {
 
   }
 
-  // function confirmPayment(){
-  //   setVisible(true);
-
-  //   console.log('in submit with payout so far', payout)
-  //   setVisible(false)
-
-  //   dispatch({ type: 'PAY_COACH', payload: payout })
-  // }
+  function handlePayoutsHistory() {
+    dispatch({type: 'GET_PAYOUTS_HISTORY'})
+    history.push('/admin/payoutshistory')
+  }
 
   useEffect(()=>{
     setTimeout(()=>dispatch({ type: 'GET_PAYMENT' }), 300);
@@ -54,6 +50,8 @@ function AdminPayouts() {
 
     <div>
       <button onClick={()=>history.push('/admin/upload')}>Upload</button>
+      <button onClick={()=>handlePayoutsHistory()}>View History</button>
+
       {visible?
       <div className="modal">
           <p>Your confirmation number is {confirmNumber}</p>

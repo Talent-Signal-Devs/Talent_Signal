@@ -11,7 +11,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
                      "payments".payment_fee, "payments".is_paid, "payments".confirmation_number, "payments".payout_date, "client".*, 
                      "users".first_name AS "coach_first_name", "users".last_name AS "coach_last_name" 
                      FROM "payments"
-                     JOIN "client" ON "client".contract_id = "payments".contract_id
+                     RIGHT JOIN "client" ON "client".contract_id = "payments".contract_id
                      JOIN "users" ON "users".id = "client".user_id
                      ORDER BY "client".last_name;`;
 

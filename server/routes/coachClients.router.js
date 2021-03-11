@@ -4,9 +4,10 @@ const router = express.Router();
 
 
 router.get('/', (req, res) => {
+    
     const sqlText = `SELECT * FROM "client" WHERE "user_id" = $1;`;
 
-    pool.query(sqlText, req.user.id)
+    pool.query(sqlText, [req.user.id])
     .then((result) => {
         res.send(result.rows);
     })

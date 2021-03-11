@@ -12,8 +12,18 @@ function* fetchCoachPayments() {
     }
 }
 
+function* fetchCoachClients() {
+    try {
+        const response = yield axios.get('/api/coach/client')
+        yield put({ type: 'SET_COACH_CLIENTS', payload: response.data})
+    } catch(err) {
+        console.log(error)
+    }
+}
+
 function* coachSaga() {
     yield takeEvery('FETCH_COACH_PAYMENTS', fetchCoachPayments);
+    yield takeEvery('FETCH_COACH_CLIENTS', fetchCoachClients)
 }
 
 export default coachSaga;

@@ -11,6 +11,14 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     JOIN "payments" ON "payments".contract_id = "client".contract_id
     WHERE "users".clearance = 0
     GROUP BY "users".id, "payments".product_id;`;
+    // const sqlText = `SELECT "users".*, "client".*, "payouts".* FROM "users"
+    // JOIN "client" ON "client".user_id = "users".id
+    // JOIN "payouts" ON "payouts".user_id = "users".id
+    // GROUP BY "client".id, "users".id, "payouts".id;`;
+    
+    // const sqlText = `SELECT * FROM users
+    // WHERE clearance = 0
+    // ORDER BY last_name;`
 
     pool.query(sqlText)
         .then((result) => {

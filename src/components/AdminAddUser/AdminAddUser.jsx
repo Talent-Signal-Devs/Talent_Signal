@@ -337,8 +337,8 @@ function AdminAddUser(props) {
                                     })
                                 }
                             >
-                                <MenuItem value={"coach"}>In Coaching</MenuItem>
-                                <MenuItem value={"client"}>Working</MenuItem>
+                                <MenuItem value={"in coaching"}>In Coaching</MenuItem>
+                                <MenuItem value={"working"}>Working</MenuItem>
                             </Select>
                         </FormControl>
                         </div>

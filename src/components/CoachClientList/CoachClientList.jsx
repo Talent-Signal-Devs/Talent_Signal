@@ -11,8 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
   table: {
-    minWidth: '100px',
-    width: '1200px',
+    minWidth: '50%',
+    width: '80%',
     margin: 'auto',
     textAlign: 'center',
     borderCollapse: 'collapse',

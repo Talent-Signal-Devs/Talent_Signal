@@ -74,7 +74,7 @@ function AdminPayouts() {
             return (
               <tr key={debt.user_id}>
                 <td>{debt.full_name}</td>
-                <td>{debt.total_owed}</td>
+                <td>{debt.total_owed * .75}</td>
                 <td><button onClick={() => preparePayout(debt.clients)}>PAY NOW</button></td>
 
               </tr>

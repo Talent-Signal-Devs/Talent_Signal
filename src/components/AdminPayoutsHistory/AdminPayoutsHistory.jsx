@@ -24,9 +24,9 @@ export default function AdminPayoutsHistory () {
             return (
               <tr key={debt.user_id}>
                 <td>{debt.full_name}</td>
-                <td>{debt.total_owed}</td>
+                <td>{debt.total_owed * .75}</td>
                 <td>{debt.confirmation_number}</td>
-                <td>{new Date(debt.payout_date).toLocaleString()}</td>
+                <td>{new Date(debt.payout_date).toLocaleDateString()}</td>
 
               </tr>
             )

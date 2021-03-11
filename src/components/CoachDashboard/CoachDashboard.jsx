@@ -45,9 +45,10 @@ function CoachDashboard(props) {
   const [heading, setHeading] = useState('Coach Dashboard');
   
   // Details button routes to project details with the confirmation number for the get request
-  function handleDetails(confirmation_number){
+  function handleDetails(payoutDate){
     // dispatch here with confirmation # here. 
-    history.push({pathname: `/coach/payoutDetails/${confirmation_number}`})
+    let payoutMonthYear = payoutDate.substring(0,7)
+    history.push({pathname: `/coach/payoutDetails/${payoutMonthYear}`})
     
   }
 
@@ -83,7 +84,7 @@ function CoachDashboard(props) {
                   <TableCell><Button 
                     variant="contained"
                     color="primary"
-                    onClick={() => handleDetails(payment.confirmation_number)}>Details</Button></TableCell>
+                    onClick={() => handleDetails(payment.payout_date)}>Details</Button></TableCell>
                   
                 </TableRow>
               ))}

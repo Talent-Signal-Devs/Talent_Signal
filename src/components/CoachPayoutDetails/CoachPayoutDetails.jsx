@@ -15,7 +15,7 @@ function CoachPayoutDetails(props) {
 
   const handleClick = () => {
     console.log('dispatch with ', monthDate);
-    // dispatch({type: 'FETCH_COACH_PAYMENT_DETAILS_DATE', payload: monthDate})
+    dispatch({type: 'FETCH_COACH_PAYMENT_DETAILS', payload: monthDate})
   }
 
   useEffect(() => {

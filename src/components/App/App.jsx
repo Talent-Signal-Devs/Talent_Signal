@@ -127,7 +127,7 @@ function App() {
 
           <ProtectedRoute
           exact
-          path='/coach/clientDetails'>
+          path='/coach/clientDetails/:id'>
             <CoachClientDetails/>
           </ProtectedRoute>
 

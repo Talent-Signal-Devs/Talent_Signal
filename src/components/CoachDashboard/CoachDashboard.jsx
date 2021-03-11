@@ -46,7 +46,9 @@ function CoachDashboard(props) {
   
   // Details button routes to project details with the confirmation number for the get request
   function handleDetails(confirmation_number){
+    // dispatch here with confirmation # here. 
     history.push({pathname: `/coach/payoutDetails/${confirmation_number}`})
+    
   }
 
   useEffect(() => {

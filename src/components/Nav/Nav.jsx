@@ -11,7 +11,12 @@ import PaymentIcon from '@material-ui/icons/Payment';
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  const navLinkText = "payments";
+  
 
+  const handleClick = (e) =>{
+    console.log('value of clicked', e);
+  }
   return (
     <div className="nav">
       <Link to="/coach/dashboard">
@@ -32,7 +37,11 @@ function Nav() {
             <Link className ="navLink" to="/coach/clientList">
               <AccountCircleIcon/>Clients
             </Link>
-            <Link className="navLink" to="/coach/payoutDetails">
+            {/* -- use pathname for link to determine if arrive at payment details via navbar or by coach dashboard. See Coach Payout Details component for further explanation.  */}
+            <Link className="navLink" value='payments' 
+            to={{pathname: `/coach/payoutDetails/${navLinkText}`}}
+            
+            >
               <PaymentIcon/>Payouts
             </Link>
             <LogOutButton className="navLink" />

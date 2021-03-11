@@ -16,13 +16,20 @@ const useStyles = makeStyles(() => ({
     margin: 'auto',
     textAlign: 'center',
     borderCollapse: 'collapse',
-  }
+  },
+  tableRow: {
+    backgroundColor: 'aliceblue',
+    '&:hover': {
+      opacity: '80%',
+      backgroundColor: 'lightblue'
+    }
+  },
 }))
 
 
 function CoachClientList() {
   
-  const store = useSelector((store) => store);
+  const clients = useSelector((store) => store.coachClientReducer);
   const [heading, setHeading] = useState('Coach Client List');
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -46,7 +53,15 @@ function CoachClientList() {
             </TableRow>
           </TableHead>
           <TableBody>
-
+            {clients.map((client) => 
+              <TableRow key={client.id} className={classes.tableRow}>
+                <TableCell>{client.first_name} {client.last_name}</TableCell>
+                <TableCell>{client.email}</TableCell>
+                <TableCell>{client.phone}</TableCell>
+                <TableCell>{client.coaching_status}</TableCell>
+                <TableCell>{client.end_date}</TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

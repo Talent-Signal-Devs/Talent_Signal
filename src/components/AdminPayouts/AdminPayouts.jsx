@@ -16,29 +16,35 @@ function AdminPayouts() {
 
   //modal
   const [visible, setVisible] = useState(false)
-  const [check, setCheck] = useState('')
+  const [confirmNumber, setConfirmNumber] = useState('')
   const [payout, setPayout] = useState({})
 
 
   //paynow packages together all necessary info to be sent to the server when ted pays
-  function preparePayout(userID, clientArray) {
-    setVisible(true)
-    const newDate = new Date()
-      setPayout({
-        user_id: userID,
+  function preparePayout(clientArray) {
+    const date = new Date()
+    setConfirmNumber(date.getTime())
+    const newCheck =
+      {
+        date: date.toISOString(),
         clients: clientArray,
-        payout_date: newDate.toISOString(),
-        confirmation_number: check
-      })
-      console.log(payout)
+        confirmation_number: date.getTime()
+      }
+
+      console.log('new check equals', newCheck)
+      dispatch({ type: 'PAY_COACH', payload: newCheck })
+      setVisible(true)
+
   }
 
-  function submitPayout(){
-    console.log('in submit with payout so far', payout)
-    setVisible(false)
+  // function confirmPayment(){
+  //   setVisible(true);
 
-    dispatch({ type: 'PAY_COACH', payload: payout })
-  }
+  //   console.log('in submit with payout so far', payout)
+  //   setVisible(false)
+
+  //   dispatch({ type: 'PAY_COACH', payload: payout })
+  // }
 
   useEffect(()=>{
     setTimeout(()=>dispatch({ type: 'GET_PAYMENT' }), 300);
@@ -50,13 +56,8 @@ function AdminPayouts() {
       <button onClick={()=>history.push('/admin/upload')}>Upload</button>
       {visible?
       <div className="modal">
-          <input
-            type="text"
-            value={payout.confirmation_number}
-            onChange={(event)=>setPayout({...payout, confirmation_number: event.target.value})}
-            placeholder='check number'>
-            </input>
-            <button onClick={()=>submitPayout()}>Submit</button>
+          <p>Your confirmation number is {confirmNumber}</p>
+            <button onClick={()=>setVisible(false)}>Confirm</button>
       </div> : <span></span>}
 
       {/* placeholder button for manual GET if list  doesn't load*/}
@@ -76,7 +77,7 @@ function AdminPayouts() {
               <tr key={debt.user_id}>
                 <td>{debt.full_name}</td>
                 <td>{debt.total_owed}</td>
-                <td><button onClick={() => preparePayout(debt.user_id, debt.clients)}>PAY NOW</button></td>
+                <td><button onClick={() => preparePayout(debt.clients)}>PAY NOW</button></td>
 
               </tr>
             )

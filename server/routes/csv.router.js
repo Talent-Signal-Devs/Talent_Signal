@@ -43,10 +43,8 @@ router.put('/pay', rejectUnauthenticated, async (req, res) => {
     const connection = await pool.connect();
     try {
 
-      const newPayment = req.body
-      const newDate = new Date()
-      const serverDate = newDate.toISOString();
-      console.log('in new payment with', newPayment)
+      const datePaid = req.body.date;
+      const confirmationNumber = req.body.confirmation_number;
 
       let insert = await Promise.all(
         req.body.clients.map(async row => {
@@ -55,7 +53,7 @@ router.put('/pay', rejectUnauthenticated, async (req, res) => {
       SET "payout_date" = $1, confirmation_number = $2, "is_paid" = NOT "is_paid"
       WHERE "id" = $3
   `
-          await pool.query(queryText, [serverDate, req.body.confirmation_number, row])
+          await pool.query(queryText, [datePaid, confirmationNumber, row])
         }))
         console.log(insert)
       res.sendStatus(200)
@@ -74,7 +72,9 @@ router.put('/pay', rejectUnauthenticated, async (req, res) => {
   }
 })
 
-
+//route to post ALL the new CSV data
+//updates data if the payment id already exists
+//inserts if the payment ID isn't there already
 router.post('/', rejectUnauthenticated, async (req, res) => {
   if (req.user.clearance == 1) {
     const connection = await pool.connect();
@@ -83,8 +83,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       csv.shift()
       csv.pop()
       // console.log(csv)
-
-      for (payment of csv) {
+      let insert = Promise.all(
+      csv.map(async payment => {
 
         console.log(payment)
 
@@ -105,17 +105,18 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
                     DO
                       UPDATE SET product_id = $2, due_date = $3, scheduled_date = $4, amount = $5, payment_status = $6, pending_date = $7, complete_date = $8, contract_id = $9, payment_fee = $10`
 
-        pool
+        await pool
           .query(query, [payment_id, product_id, due_date, scheduled_date, amount, payment_status, pending_date, complete_date, contract_id, payment_fee])
-      }
+      })
+      )
+      console.log(insert)
       res.sendStatus(200)
     } catch (error) {
       console.error('error parsing csv', error);
-
+      res.sendStatus(500);
     }
     finally {
       connection.release();
-
     }
   }
   else {

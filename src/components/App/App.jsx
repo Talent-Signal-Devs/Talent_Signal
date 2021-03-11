@@ -158,7 +158,7 @@ function App() {
 
           <ProtectedAdmin
           exact
-          path='/admin/clientDetails'>
+          path='/admin/clientDetails/:id'>
             <AdminClientDetails/>
           </ProtectedAdmin>
 
@@ -170,7 +170,7 @@ function App() {
 
           <ProtectedAdmin
           exact
-          path='/admin/coachDetails'>
+          path='/admin/coachDetails/:id'>
             <AdminCoachDetails/>
           </ProtectedAdmin>
 

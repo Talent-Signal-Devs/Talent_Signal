@@ -33,9 +33,10 @@ router.post('/register', (req, res, next) => {
       if (verification_check.status === "approved") {
         const queryText = `UPDATE "users" 
                             SET password = $1, is_approved = $2
+                            WHERE email = $3
                             RETURNING id`;
         pool
-          .query(queryText, [password, 'TRUE'])
+          .query(queryText, [password, 'TRUE', email])
           .then((results) => {
             console.log(results.rows)
             res.sendStatus(201)

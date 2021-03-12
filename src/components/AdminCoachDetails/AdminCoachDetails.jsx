@@ -32,7 +32,7 @@ function AdminCoachDetails(props) {
     for (let payment of coachDetails.payments) {
       totalPayout.push(payment.amount)
     }
-    for (let i = 1; i < totalPayout.length; i++) {
+    for (let i = 0; i < totalPayout.length; i++) {
       moneyMade += parseInt(totalPayout[i]);
     }      
     totalMoneyMade.push(moneyMade);

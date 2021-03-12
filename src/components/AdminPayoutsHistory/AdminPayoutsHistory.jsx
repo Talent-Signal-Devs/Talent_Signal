@@ -21,8 +21,19 @@ export default function AdminPayoutsHistory() {
             sortable: true
         },
         { field: 'total_paid', headerName: 'Amount Paid', width: 200, sortable: true },
+        // {
+        //   field: 'action',
+        //   headerName: 'Action',
+        //   renderCell: (params) => (
+        //     <button onClick={() => handleClick(params)}>
+        //       Content
+        //     </button>
+        //   ),
+        // }
     ];
-
+  //  function handleClick(something){
+  //    console.log(something.row.confirmation_number);
+  //  }
     return (
         <>
             <h1>payout history</h1>

@@ -97,7 +97,7 @@ function AdminClientDetails(props) {
       <br />
       <br />
 
-      {clientDetails && (
+      {clientDetails.first_name && (
         <>
           <div>
             <h2>
@@ -183,20 +183,22 @@ function AdminClientDetails(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  <TableRow key={clientDetails.id}>
-                    <TableCell>
-                      {clientDetails.payment_id}
-                    </TableCell>
-                    <TableCell>
-                      {clientDetails.due_date}
-                    </TableCell>
-                    <TableCell>
-                      {clientDetails.amount}
-                    </TableCell>
-                    <TableCell>
-                      {clientDetails.payment_status}
-                    </TableCell>
-                  </TableRow>
+                  {clientDetails.payments.map((payment, i) => (
+                    <TableRow key={i}>
+                      <TableCell>
+                        {payment.payment_id}
+                      </TableCell>
+                      <TableCell>
+                        {new Date(payment.due_date).toLocaleDateString('en-us')}
+                      </TableCell>
+                      <TableCell>
+                        ${payment.amount}
+                      </TableCell>
+                      <TableCell>
+                        {payment.payment_status}
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </TableContainer>

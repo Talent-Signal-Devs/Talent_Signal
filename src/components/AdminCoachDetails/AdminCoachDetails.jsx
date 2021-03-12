@@ -55,6 +55,7 @@ function AdminCoachDetails(props) {
             <h3>Total Revenue: ${totalRevenue}</h3>
           </div>
           <div>
+            <h3>Client's:</h3>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>

@@ -20,6 +20,7 @@ function AdminDashboard(props) {
   return (
     <div>
       <h2>{heading}</h2>
+      <h1>admin dash</h1>
     </div>
   );
 }

@@ -23,10 +23,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles(() => ({
-    input: {
-        width: "25ch",
-        margin: "10px",
-    },
+  input: {
+    width: "25ch",
+    margin: "10px",
+  },
 }))
 
 function AdminClientDetails(props) {

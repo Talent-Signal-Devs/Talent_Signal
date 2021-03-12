@@ -2,7 +2,15 @@
 const payoutsHistoryReducer = (state = [], action) => {
     switch (action.type) {
       case 'SET_PAYOUTS_HISTORY':
-        return action.payload;
+        let dataID = []
+        let newID = 0;
+        for(let object of action.payload){
+            object.id = newID;
+            object.payout_date = new Date(object.payout_date).toLocaleDateString();
+            newID++;
+            dataID.push(object)
+        }
+        return dataID;
       default:
         return state;
     }

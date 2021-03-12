@@ -20,17 +20,37 @@ function CoachClientDetails(props) {
     dispatch({ type: 'GET_CLIENT_DETAILS', payload: params.id });
   }, [])
 
+  // variable to store the total money made for the coach
+  let totalMoneyMade = [];
+  // variable to store the values of the "amounts" in the payments table for each client   
+  let totalPayout = [];
+  let moneyMade = 0;
+
+  if (clientDetails.first_name) {
+    for (let payment of clientDetails.payments) {
+      totalPayout.push(payment.amount)
+    }
+    for (let i = 0; i < totalPayout.length; i++) {
+      moneyMade += parseInt(totalPayout[i]);
+    }
+    totalMoneyMade.push(moneyMade);
+  }
+
+  // total money that the coach has brought in for the company
+  let totalRevenue = totalMoneyMade[0] * 0.75;
+
+
   return (
     <div>
       <h2>{heading}</h2>
 
-      {clientDetails && (
+      {clientDetails.first_name && (
         <>
           <div>
             <h2>{clientDetails.first_name} {clientDetails.last_name}</h2>
             <h3>{clientDetails.email}</h3>
             <h3>{clientDetails.phone}</h3>
-            <h3>coaching status: {clientDetails.status}</h3>
+            <h3>coaching status: {clientDetails.coaching_status}</h3>
             <h3>contract id: {clientDetails.contract_id}</h3>
           </div>
           <div>
@@ -46,16 +66,20 @@ function CoachClientDetails(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  <TableRow key={clientDetails.id}>
-                    <TableCell>{clientDetails.payment_id}</TableCell>
-                    <TableCell>{new Date(clientDetails.due_date).toLocaleDateString("en-us")}</TableCell>
-                    <TableCell>{clientDetails.payment_status}</TableCell>
-                    <TableCell>${clientDetails.amount}</TableCell>
-                    <TableCell>${clientDetails.amount * 0.75}</TableCell>
-                  </TableRow>
+                  {clientDetails.payments.map((payment, i) => (
+                    <TableRow key={i}>
+                      <TableCell>{payment.payment_id}</TableCell>
+                      <TableCell>{new Date(payment.due_date).toLocaleDateString("en-us")}</TableCell>
+                      <TableCell>{payment.payment_status}</TableCell>
+                      <TableCell>${payment.amount}</TableCell>
+                      <TableCell>${payment.amount * 0.75}</TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </TableContainer>
+            <h3>Total amount paid by client: ${moneyMade}</h3>
+            <h3>Total money received: ${totalRevenue}</h3>
           </div>
         </>
       )}

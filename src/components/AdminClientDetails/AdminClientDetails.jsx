@@ -30,14 +30,14 @@ function AdminClientDetails(props) {
       <br />
       <br />
 
-      {clientDetails && (
+      {clientDetails.first_name && (
         <>
           <div>
             <h2>{clientDetails.first_name} {clientDetails.last_name}</h2>
             <h3>{clientDetails.email}</h3>
             <h3>{clientDetails.phone}</h3>
             <h3>Coach: {clientDetails.coach_first_name} {clientDetails.coach_last_name}</h3>
-            <h3>coaching status: {clientDetails.status}</h3>
+            <h3>coaching status: {clientDetails.coaching_status}</h3>
             <h3>contract id: {clientDetails.contract_id}</h3>
           </div>
           <div>
@@ -52,12 +52,14 @@ function AdminClientDetails(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow key={clientDetails.id}>
-                      <TableCell>{clientDetails.payment_id}</TableCell>
-                      <TableCell>{clientDetails.due_date}</TableCell>
-                      <TableCell>{clientDetails.amount}</TableCell>
-                      <TableCell>{clientDetails.payment_status}</TableCell>
+                  {clientDetails.payments.map((payment, i) => (
+                    <TableRow key={i}>
+                      <TableCell>{payment.payment_id}</TableCell>
+                      <TableCell>{new Date(payment.due_date).toLocaleDateString("en-us")}</TableCell>
+                      <TableCell>{payment.amount}</TableCell>
+                      <TableCell>{payment.payment_status}</TableCell>
                     </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </TableContainer>

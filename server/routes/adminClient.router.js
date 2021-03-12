@@ -43,17 +43,11 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
     const sqlText = `SELECT "client".*, JSON_AGG("payments".*) payments, "users".first_name AS "coach_first_name", "users".last_name AS "coach_last_name"
     FROM "client"
-    JOIN "payments" ON "payments".contract_id = "client".contract_id
+    LEFT JOIN "payments" ON "payments".contract_id = "client".contract_id
     JOIN "users" ON "users".id = "client".user_id
     WHERE "client".id = $1
     GROUP BY "client".id, "users".first_name, "users".last_name;`;
-    // const sqlText = `SELECT "payments".payment_id, "payments".due_date, "payments".amount, "payments".payment_status,
-    //                  "users".first_name AS "coach_first_name", "users".last_name AS "coach_last_name", "client".*
-    //                  FROM "payments" 
-    //                  RIGHT JOIN "client" ON "client".contract_id = "payments".contract_id
-    //                  JOIN "users" ON "users".id = "client".user_id
-    //                  WHERE "client".id = $1;`;
-
+    
     pool.query(sqlText, [clientID])
         .then((result) => {
             res.send(result.rows);

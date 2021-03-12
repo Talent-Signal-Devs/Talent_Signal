@@ -183,7 +183,7 @@ function AdminClientDetails(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {clientDetails.payments.map((payment, i) => (
+                  {clientDetails.payments && clientDetails.payments.map((payment, i) => (
                     <TableRow key={i}>
                       <TableCell>
                         {payment.payment_id}

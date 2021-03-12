@@ -48,11 +48,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 //get payment details for a month given the confirmation number 
 router.get('/date/:id', rejectUnauthenticated, (req, res) => {
   const queryDate = `${req.params.id}-%`
-  const sqlText = `SELECT CONCAT("client".first_name, ' ', "client".last_name) AS "full_name", "client".status, "payments".payment_status, "payments".amount, SUM("amount" * 0.75) AS "total_paid", "payments".scheduled_date, ARRAY_AGG("payments".id) FROM "payments"
+  const sqlText = `SELECT CONCAT("client".first_name, ' ', "client".last_name) AS "full_name", "client".coaching_status, "payments".payment_status, "payments".amount, SUM("amount" * 0.75) AS "total_paid", "payments".scheduled_date, ARRAY_AGG("payments".id) FROM "payments"
   JOIN "client" ON "client".contract_id = "payments".contract_id
   JOIN "users" on "client".user_id = "users".id
   WHERE "client".user_id = $1 AND "payments".due_date::text LIKE $2
-  GROUP BY "full_name", "client".status, "payments".payment_status, "payments".amount, "payments".scheduled_date;`;
+  GROUP BY "full_name", "client".coaching_status, "payments".payment_status, "payments".amount, "payments".scheduled_date;`;
 
   pool.query(sqlText, [req.user.id, queryDate])
   .then((result) => {

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', rejectUnauthenticated, (req, res) => {
     // GET route code here
-    const sqlText = `SELECT "users".*, COUNT("client") AS "client_count", "payments".product_id FROM "users"
+    const sqlText = `SELECT "users".*, COUNT(DISTINCT "client") AS "client_count", "payments".product_id FROM "users"
     JOIN "client" ON "client".user_id = "users".id
     JOIN "payments" ON "payments".contract_id = "client".contract_id
     WHERE "users".clearance = 0
@@ -34,7 +34,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
     const coach = req.params.id;
 
-    const sqlText = `SELECT "users".*, JSON_AGG("client".*) AS clients, JSON_AGG("payments".*) AS payments
+    const sqlText = `SELECT "users".*, JSON_AGG(DISTINCT "client".*) AS clients, JSON_AGG(DISTINCT "payments".*) AS payments
     FROM "users"
     JOIN "client" ON "client".user_id = "users".id
     JOIN "payments" ON "payments".contract_id = "client".contract_id

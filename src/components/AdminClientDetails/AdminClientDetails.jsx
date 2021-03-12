@@ -30,183 +30,228 @@ const useStyles = makeStyles(() => ({
 }))
 
 function AdminClientDetails(props) {
-  const params = useParams()
-  const classes = useStyles()
+    const params = useParams()
+    const classes = useStyles()
 
-  const clientDetails = useSelector((store) => store.clientDetailsReducer)
-  const coaches = useSelector((store) => store.adminCoachReducer)
+    const clientDetails = useSelector((store) => store.clientDetailsReducer)
+    const coaches = useSelector((store) => store.adminCoachReducer)
 
-  const [heading, setHeading] = useState("Admin Client Details")
-  const [open, setOpen] = useState(false)
-  // const [editMode, setEditMode] = useState(true)
-  const [editClient, setEditClient] = useState({
-    firstName: clientDetails.first_name,
-    lastName: clientDetails.last_name,
-    email: clientDetails.email,
-    phone: clientDetails.phone,
-    coachID: clientDetails.user_id,
-    contractID: clientDetails.contract_id,
-    contractStatus: clientDetails.contract_status,
-    coachingStatus: clientDetails.coaching_status,
-  })
-
-  const handleClickOpen = () => {
-    setOpen(true)
-    setEditClient({
-      firstName: clientDetails.first_name,
-      lastName: clientDetails.last_name,
-      email: clientDetails.email,
-      phone: clientDetails.phone,
-      coachID: clientDetails.user_id,
-      contractID: clientDetails.contract_id,
-      contractStatus: clientDetails.contract_status,
-      coachingStatus: clientDetails.coaching_status,
+    const [heading, setHeading] = useState("Admin Client Details")
+    const [open, setOpen] = useState(false)
+    // const [editMode, setEditMode] = useState(true)
+    const [editClient, setEditClient] = useState({
+        id: clientDetails.id,
+        firstName: clientDetails.first_name,
+        lastName: clientDetails.last_name,
+        email: clientDetails.email,
+        phone: clientDetails.phone,
+        coachID: clientDetails.user_id,
+        contractID: clientDetails.contract_id,
+        contractStatus: clientDetails.contract_status,
+        coachingStatus: clientDetails.coaching_status,
     })
-    dispatch({ type: "FETCH_ADMIN_COACHES" })
 
-  }
+    const handleClickOpen = () => {
+      setOpen(true)
+      setEditClient({
+        id: clientDetails.id,
+        firstName: clientDetails.first_name,
+        lastName: clientDetails.last_name,
+        email: clientDetails.email,
+        phone: clientDetails.phone,
+        coachID: clientDetails.user_id,
+        contractID: clientDetails.contract_id,
+        contractStatus: clientDetails.contract_status,
+        coachingStatus: clientDetails.coaching_status,
+      })
+      dispatch({ type: "FETCH_ADMIN_COACHES" })
 
-  const handleClose = () => {
-    setOpen(false)
-  }
+    }
 
-  const handleClientChange = (e) => {
-    const value = e.target.value
-    setEditClient({ ...editClient, [e.target.name]: value })
-    console.log(editClient)
-  }
+    const handleClose = () => {
+      setOpen(false)
+    }
 
-  // const editDetails = () => {
-  //     setEditMode(!editMode)
-  //     dispatch({ type: "FETCH_ADMIN_COACHES" })
-  // }
+    const handleClientChange = (e) => {
+        const value = e.target.value
+        setEditClient({ ...editClient, [e.target.name]: value })
+        console.log(editClient)
+    }
 
-  const updateClient = () => {
-    console.log(editClient)
-  }
+    // const editDetails = () => {
+    //     setEditMode(!editMode)
+    //     dispatch({ type: "FETCH_ADMIN_COACHES" })
+    // }
 
-  const dispatch = useDispatch()
+    const updateClient = (e) => {
+      e.preventDefault()
+      console.log(editClient)
+      dispatch({ type: 'UPDATE_CLIENT_DETAILS', payload: editClient })
+      setOpen(false)
+    }
 
-  useEffect(() => {
-    dispatch({ type: "GET_CLIENT_DETAILS", payload: params.id })
-  }, [])
+    const dispatch = useDispatch()
 
-  return (
-    <div>
-      <h2>{heading}</h2>
-      <br />
-      <br />
+    useEffect(() => {
+        dispatch({ type: "GET_CLIENT_DETAILS", payload: params.id })
+    }, [])
 
-      {clientDetails.first_name && (
-        <>
-          <div>
-            <h2>
-              {clientDetails.first_name}{" "}
-              {clientDetails.last_name}
-            </h2>
-            <h3>{clientDetails.email}</h3>
-            <h3>{clientDetails.phone}</h3>
-            <h3>
-              Coach: {clientDetails.coach_first_name}{" "}
-              {clientDetails.coach_last_name}
-            </h3>
-            <h3>coaching status: {clientDetails.status}</h3>
-            <h3>contract id: {clientDetails.contract_id}</h3>
-            <Button onClick={handleClickOpen}>Edit Details</Button>
-          </div>
+    return (
+        <div>
+            <h2>{heading}</h2>
+            <br />
+            <br />
 
-          <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="form-dialog-title"
-          >
-            <DialogTitle id="form-dialog-title">Edit Details</DialogTitle>
-            <TextField
-              name="firstName"
-              onChange={handleClientChange}
-              value={editClient.firstName}
-            />
-            <TextField
-              name="lastName"
-              onChange={handleClientChange}
-              value={editClient.lastName}
-            />
-            <TextField
-              name="email"
-              onChange={handleClientChange}
-              value={editClient.email}
-            />
-            <TextField
-              name="phone"
-              onChange={handleClientChange}
-              value={editClient.phone}
-            />
-            <TextField
-              name="contractID"
-              onChange={handleClientChange}
-              value={editClient.contractID}
-            />
-            <FormControl className={classes.input}>
-              <InputLabel id="coach-select-label">
-                Select a Coach
+            {clientDetails && (
+                <>
+                        <div>
+                            <h2>
+                                {clientDetails.first_name}{" "}
+                                {clientDetails.last_name}
+                            </h2>
+                            <h3>{clientDetails.email}</h3>
+                            <h3>{clientDetails.phone}</h3>
+                            <h3>
+                                Coach: {clientDetails.coach_first_name}{" "}
+                                {clientDetails.coach_last_name}
+                            </h3>
+                            <h3>coaching status: {clientDetails.coaching_status}</h3>
+                            <h3>contract id: {clientDetails.contract_id}</h3>
+                            <h3>contract status: {clientDetails.contract_status}</h3>
+                            <Button onClick={handleClickOpen}>Edit Details</Button>
+                        </div>
+
+                        <Dialog
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="form-dialog-title"
+                        >
+                          <DialogTitle id="form-dialog-title">Edit Details</DialogTitle>
+                          <TextField
+                                name="firstName"
+                                onChange={handleClientChange}
+                                value={editClient.firstName}
+                            />
+                            <TextField
+                                name="lastName"
+                                onChange={handleClientChange}
+                                value={editClient.lastName}
+                            />
+                            <TextField
+                                name="email"
+                                onChange={handleClientChange}
+                                value={editClient.email}
+                            />
+                            <TextField
+                                name="phone"
+                                onChange={handleClientChange}
+                                value={editClient.phone}
+                            />
+                            <TextField
+                                name="contractID"
+                                onChange={handleClientChange}
+                                value={editClient.contractID}
+                            />
+                            <FormControl className={classes.input}>
+                                <InputLabel id="coach-select-label">
+                                    Select a Coach
                                 </InputLabel>
-              <Select
-                labelId="coach-select-label"
-                id="coach-select"
-                name="coachID"
+                                <Select 
+                                  labelId="coach-select-label"
+                                  id="coach-select"
+                                  name="coachID"
+                                  value={editClient.coachID}
+                                  onChange={(e) => setEditClient({
+                                    ...editClient,
+                                    [e.target.name]: e.target.value
+                                  })}
+                                >
+                                  {coaches.map((coach) => {
+                                    return <MenuItem key={coach.id} value={coach.id}>
+                                      {coach.first_name} {coach.last_name}
+                                    </MenuItem>
+                                  })}
 
-                onChange={(e) => setEditClient({
-                  ...editClient,
-                  [e.target.name]: e.target.value
-                })}
-              >
-                {coaches.map((coach) => {
-                  return <MenuItem key={coach.id} value={coach.id}>
-                    {coach.first_name} {coach.last_name}
-                  </MenuItem>
-                })}
-
-              </Select>
-            </FormControl>
-            <Button onClick={updateClient}>Update Client</Button>
-            <Button onClick={handleClose}>Cancel</Button>
-          </Dialog>
-          <div>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Payment ID</TableCell>
-                    <TableCell>Due Date</TableCell>
-                    <TableCell>Amount</TableCell>
-                    <TableCell>Payment Status</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {clientDetails.payments.map((payment, i) => (
-                    <TableRow key={i}>
-                      <TableCell>
-                        {payment.payment_id}
-                      </TableCell>
-                      <TableCell>
-                        {new Date(payment.due_date).toLocaleDateString('en-us')}
-                      </TableCell>
-                      <TableCell>
-                        ${payment.amount}
-                      </TableCell>
-                      <TableCell>
-                        {payment.payment_status}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        </>
-      )}
-    </div>
-  )
+                                </Select>
+                            </FormControl>
+                            <FormControl className={classes.input}>
+                                <InputLabel id="contract-status-label">
+                                    Contract Status
+                                </InputLabel>
+                            <Select
+                                labelId="contract-status-label"
+                                id="contract-status"
+                                name="contractStatus"
+                                value={editClient.contractStatus}
+                                onChange={(e) =>
+                                    setEditClient({
+                                        ...editClient,
+                                        [e.target.name]: e.target.value,
+                                    })
+                                }
+                            >
+                                <MenuItem value={"open"}>Open</MenuItem>
+                                <MenuItem value={"active"}>Active</MenuItem>
+                                <MenuItem value={"closed"}>Closed</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <FormControl className={classes.input}>
+                                <InputLabel id="coaching-status-label">
+                                    Coaching Status
+                                </InputLabel>
+                            <Select
+                                labelId="coaching-status-label"
+                                id="coaching-status"
+                                name="coachingStatus"
+                                value={editClient.coachingStatus}
+                                onChange={(e) =>
+                                    setEditClient({
+                                        ...editClient,
+                                        [e.target.name]: e.target.value,
+                                    })
+                                }
+                            >
+                                <MenuItem value={"in coaching"}>In Coaching</MenuItem>
+                                <MenuItem value={"working"}>Working</MenuItem>
+                            </Select>
+                        </FormControl>
+                            <Button onClick={updateClient}>Update Client</Button>
+                            <Button onClick={handleClose}>Cancel</Button>
+                        </Dialog>
+                    <div>
+                        <TableContainer component={Paper}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Payment ID</TableCell>
+                                        <TableCell>Due Date</TableCell>
+                                        <TableCell>Amount</TableCell>
+                                        <TableCell>Payment Status</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    <TableRow key={clientDetails.id}>
+                                        <TableCell>
+                                            {clientDetails.payment_id}
+                                        </TableCell>
+                                        <TableCell>
+                                            {clientDetails.due_date}
+                                        </TableCell>
+                                        <TableCell>
+                                            {clientDetails.amount}
+                                        </TableCell>
+                                        <TableCell>
+                                            {clientDetails.payment_status}
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </div>
+                </>
+            )}
+        </div>
+    )
 }
 
 export default AdminClientDetails

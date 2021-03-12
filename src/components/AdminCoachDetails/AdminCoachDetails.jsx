@@ -69,7 +69,7 @@ function AdminCoachDetails(props) {
                     <TableRow key={client.id}>
                       <TableCell>{client.first_name} {client.last_name}</TableCell>
                       <TableCell>{client.contract_id}</TableCell>
-                      <TableCell>{client.status}</TableCell>
+                      <TableCell>{client.coaching_status}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

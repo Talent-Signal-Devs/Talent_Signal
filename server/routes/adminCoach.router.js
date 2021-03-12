@@ -11,6 +11,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     JOIN "payments" ON "payments".contract_id = "client".contract_id
     WHERE "users".clearance = 0
     GROUP BY "users".id, "payments".product_id;`;
+
     // const sqlText = `SELECT "users".*, "client".*, "payouts".* FROM "users"
     // JOIN "client" ON "client".user_id = "users".id
     // JOIN "payouts" ON "payouts".user_id = "users".id

@@ -42,7 +42,7 @@ function AdminClientList(props) {
   }, []);
 
   const handleRowClick = (input) => {
-    // dispatch({type: 'GET_CLIENT_DETAILS', payload: input})
+    dispatch({type: 'GET_CLIENT_DETAILS', payload: input})
     history.push(`/admin/clientDetails/${input}`);
   }
 
@@ -70,7 +70,7 @@ function AdminClientList(props) {
                   <TableCell>{client.first_name} {client.last_name}</TableCell>
                   <TableCell>{client.contract_id}</TableCell>
                   <TableCell>{client.coach_first_name} {client.coach_last_name}</TableCell>
-                  <TableCell>{client.status}</TableCell>
+                  <TableCell>{client.coaching_status}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

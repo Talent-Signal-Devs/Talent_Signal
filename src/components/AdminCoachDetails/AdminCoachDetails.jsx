@@ -26,15 +26,17 @@ function AdminCoachDetails(props) {
   let totalMoneyMade = [];
   // variable to store the values of the "amounts" in the payments table for each client   
   let totalPayout = [];
+  let moneyMade = 0;
 
   if (coachDetails.first_name) {
     for (let payment of coachDetails.payments) {
       totalPayout.push(payment.amount)
     }
     for (let i = 1; i < totalPayout.length; i++) {
-      let moneyMade = totalPayout[0] + totalPayout[i];
-      totalMoneyMade.push(moneyMade);
-    }
+      moneyMade += parseInt(totalPayout[i]);
+    }      
+    totalMoneyMade.push(moneyMade);
+
   }
 
   // total money that the coach has brought in for the company

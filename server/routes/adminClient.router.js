@@ -6,11 +6,24 @@ const router = express.Router();
 // get route to get the client information for the admin
 router.get('/', rejectUnauthenticated, (req, res) => {
     // GET route code here
-    const sqlText = `SELECT "client".*, "users".first_name AS "coach_first_name", "users".last_name AS "coach_last_name"
-    FROM "client"
-    JOIN "payments" ON "payments".contract_id = "client".contract_id
+    // const sqlText = `SELECT "payments".payment_id, "payments".product_id, "payments".due_date, "payments".scheduled_date, 
+    //                  "payments".amount, "payments".payment_status, "payments".pending_date, "payments".complete_date, "payments".contract_id, 
+    //                  "payments".payment_fee, "payments".is_paid, "payments".confirmation_number, "payments".payout_date, "client".*, 
+    //                  "users".first_name AS "coach_first_name", "users".last_name AS "coach_last_name" 
+    //                  FROM "payments"
+    //                  JOIN "client" ON "client".contract_id = "payments".contract_id
+    //                  JOIN "users" ON "users".id = "client".user_id
+    //                  ORDER BY "client".last_name;`;
+
+    const sqlText = `SELECT STRING_AGG("payments".payment_id, '; '),
+    "payments".contract_id, 
+    "client".*, 
+    "users".first_name AS "coach_first_name", "users".last_name AS "coach_last_name" 
+    FROM "payments"
+    RIGHT JOIN "client" ON "client".contract_id = "payments".contract_id
     JOIN "users" ON "users".id = "client".user_id
-    GROUP BY "client".id, "users".first_name, "users".last_name;`;
+    GROUP BY payments.contract_id, client.id, users.first_name, users.last_name
+    ORDER BY "client".last_name;`
 
     pool.query(sqlText)
         .then((result) => {
@@ -34,6 +47,12 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     JOIN "users" ON "users".id = "client".user_id
     WHERE "client".id = $1
     GROUP BY "client".id, "users".first_name, "users".last_name;`;
+    // const sqlText = `SELECT "payments".payment_id, "payments".due_date, "payments".amount, "payments".payment_status,
+    //                  "users".first_name AS "coach_first_name", "users".last_name AS "coach_last_name", "client".*
+    //                  FROM "payments" 
+    //                  RIGHT JOIN "client" ON "client".contract_id = "payments".contract_id
+    //                  JOIN "users" ON "users".id = "client".user_id
+    //                  WHERE "client".id = $1;`;
 
     pool.query(sqlText, [clientID])
         .then((result) => {

@@ -14,11 +14,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     if (req.user.clearance === 1) {
         const queryText = `
         SELECT "user_id", CONCAT("users".first_name, ' ', "users".last_name) AS "full_name",
-        SUM("amount") as "total_owed", ARRAY_AGG("payments".id) AS "clients", "confirmation_number", "payout_date" FROM  "users"
+        SUM("amount") as "total_owed", ARRAY_AGG("payments".id) AS "clients", "confirmation_number", "payout_date", "payments".id FROM  "users"
         JOIN "client" ON "users".id = "client".user_id
         JOIN "payments" ON "client".contract_id = "payments".contract_id
         WHERE "payment_status" = 'complete' AND "is_paid" = 'True'
-        GROUP BY "full_name", "user_id", "confirmation_number", "payout_date";
+        GROUP BY "full_name", "user_id", "confirmation_number", "payout_date", "payments".id;
         `
         pool.query(queryText).then((response)=>{
             console.log(response);

@@ -160,6 +160,8 @@ CREATE TABLE "payouts" (
 
 
 
+
+
 ALTER TABLE "client" ADD CONSTRAINT "client_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
 ALTER TABLE "payouts" ADD CONSTRAINT "payouts_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");

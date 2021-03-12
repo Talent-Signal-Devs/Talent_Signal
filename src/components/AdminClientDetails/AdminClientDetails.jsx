@@ -40,6 +40,7 @@ function AdminClientDetails(props) {
     const [open, setOpen] = useState(false)
     // const [editMode, setEditMode] = useState(true)
     const [editClient, setEditClient] = useState({
+        id: clientDetails.id,
         firstName: clientDetails.first_name,
         lastName: clientDetails.last_name,
         email: clientDetails.email,
@@ -53,6 +54,7 @@ function AdminClientDetails(props) {
     const handleClickOpen = () => {
       setOpen(true)
       setEditClient({
+        id: clientDetails.id,
         firstName: clientDetails.first_name,
         lastName: clientDetails.last_name,
         email: clientDetails.email,
@@ -81,8 +83,11 @@ function AdminClientDetails(props) {
     //     dispatch({ type: "FETCH_ADMIN_COACHES" })
     // }
 
-    const updateClient = () => {
-        console.log(editClient)
+    const updateClient = (e) => {
+      e.preventDefault()
+      console.log(editClient)
+      dispatch({ type: 'UPDATE_CLIENT_DETAILS', payload: editClient })
+      setOpen(false)
     }
 
     const dispatch = useDispatch()
@@ -110,8 +115,9 @@ function AdminClientDetails(props) {
                                 Coach: {clientDetails.coach_first_name}{" "}
                                 {clientDetails.coach_last_name}
                             </h3>
-                            <h3>coaching status: {clientDetails.status}</h3>
+                            <h3>coaching status: {clientDetails.coaching_status}</h3>
                             <h3>contract id: {clientDetails.contract_id}</h3>
+                            <h3>contract status: {clientDetails.contract_status}</h3>
                             <Button onClick={handleClickOpen}>Edit Details</Button>
                         </div>
 
@@ -154,7 +160,7 @@ function AdminClientDetails(props) {
                                   labelId="coach-select-label"
                                   id="coach-select"
                                   name="coachID"
-                                  
+                                  value={editClient.coachID}
                                   onChange={(e) => setEditClient({
                                     ...editClient,
                                     [e.target.name]: e.target.value
@@ -168,6 +174,47 @@ function AdminClientDetails(props) {
 
                                 </Select>
                             </FormControl>
+                            <FormControl className={classes.input}>
+                                <InputLabel id="contract-status-label">
+                                    Contract Status
+                                </InputLabel>
+                            <Select
+                                labelId="contract-status-label"
+                                id="contract-status"
+                                name="contractStatus"
+                                value={editClient.contractStatus}
+                                onChange={(e) =>
+                                    setEditClient({
+                                        ...editClient,
+                                        [e.target.name]: e.target.value,
+                                    })
+                                }
+                            >
+                                <MenuItem value={"open"}>Open</MenuItem>
+                                <MenuItem value={"active"}>Active</MenuItem>
+                                <MenuItem value={"closed"}>Closed</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <FormControl className={classes.input}>
+                                <InputLabel id="coaching-status-label">
+                                    Coaching Status
+                                </InputLabel>
+                            <Select
+                                labelId="coaching-status-label"
+                                id="coaching-status"
+                                name="coachingStatus"
+                                value={editClient.coachingStatus}
+                                onChange={(e) =>
+                                    setEditClient({
+                                        ...editClient,
+                                        [e.target.name]: e.target.value,
+                                    })
+                                }
+                            >
+                                <MenuItem value={"in coaching"}>In Coaching</MenuItem>
+                                <MenuItem value={"working"}>Working</MenuItem>
+                            </Select>
+                        </FormControl>
                             <Button onClick={updateClient}>Update Client</Button>
                             <Button onClick={handleClose}>Cancel</Button>
                         </Dialog>

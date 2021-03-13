@@ -71,8 +71,19 @@ export default function AdminPayoutsHistory() {
             description: 'Total paid to coach on a specific date',
             headerClassName: classes.header,
         },
-    ];
 
+        // {
+        //   field: 'action',
+        //   headerName: 'Action',
+        //   renderCell: (params) => (
+        //     <button onClick={() => handleClick(params)}>
+        //       Content
+        //     </button>
+        //   ),
+        // }
+  //  function handleClick(something){
+  //    console.log(something.row.confirmation_number);
+  //  }
     return (
         <>
             <div className={classes.container}>

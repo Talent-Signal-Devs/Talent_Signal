@@ -2,7 +2,33 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux'
 import {useHistory} from 'react-router-dom'
+import { makeStyles } from "@material-ui/core/styles"
+import Button from "@material-ui/core/Button"
 import './AdminPayouts.css'
+
+const useStyles = makeStyles(() => ({
+  root: {
+    "& .MuiInputBase-input": {
+      width: "25ch",
+
+    },
+    margin: "5px"
+  },
+  container: {
+    display: "flex",
+    flexFlow: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonContainer: {
+    display: "flex",
+
+
+  },
+  button: {
+    margin: '5px'
+  }
+}))
 
 
 
@@ -10,6 +36,7 @@ function AdminPayouts() {
 
   const dispatch = useDispatch()
   const history = useHistory();
+  const classes = useStyles()
 
   //holds data from DB on all payments not yet paid
   const coachPayouts = useSelector((store) => store.payout);
@@ -17,7 +44,6 @@ function AdminPayouts() {
   //modal
   const [visible, setVisible] = useState(false)
   const [confirmNumber, setConfirmNumber] = useState('')
-  const [payout, setPayout] = useState({})
 
 
   //paynow packages together all necessary info to be sent to the server when ted pays

@@ -2,12 +2,31 @@ import { useState } from 'react'
 import Papa from 'papaparse'
 import {useDispatch} from 'react-redux'
 import {useHistory} from 'react-router-dom'
+import { makeStyles } from "@material-ui/core/styles"
+import Button from "@material-ui/core/Button"
 
+
+const useStyles = makeStyles(() => ({
+    root: {
+        "& .MuiInputBase-input": {
+            width: "25ch",
+
+        },
+        margin: "5px"
+    },
+    container: {
+        display: "flex",
+        flexFlow: "column",
+        justifyContent: "center",
+        alignItems: "center",
+    }
+}))
 
 
 
 export default function AdminUpload() {
 
+    const classes = useStyles()
     //state to hold file
     //isReady to conditionally render submit button
     const [parse, setParse] = useState('');
@@ -59,22 +78,35 @@ export default function AdminUpload() {
         console.log('in packageData with parsedReport:', parsedReport)
         //sending to saga, to be used in server
         dispatch({type: 'ADD_NEW_CSV_MANUAL', payload: parsedReport})
-        document.getElementById("file-upload").value = "";
+        // document.getElementById("file-upload").value = "";
         setIsReady(false)
-        setTimeout(()=>{history.push('/admin/payouts')}, 500)
+        history.push('/admin/payouts')
     }
 
     return (
         <>
-            <div className="App">
+            <div className={classes.container}>
                 <form>
+                    {isReady?
+                    <Button
+                        variant='contained'
+                        color='primary'
+                        onClick={()=>manualPackage(parse)}>
+                        Upload
+                    </Button> :
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        component="label">
+                    Upload New CSV
                     <input
                         type="file"
                         id="file-upload"
                         accept=".csv"
+                        hidden
                         onChange={(event) => parseFile(event)}>
                     </input>
-                    {isReady? <button onClick={()=>manualPackage(parse)}>Send data to server</button> : <button disabled>Send data to server</button>}
+                    </Button>}
                 </form>
 
             </div>

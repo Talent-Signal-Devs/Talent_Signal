@@ -85,7 +85,7 @@ export default function AdminUpload() {
         dispatch({type: 'ADD_NEW_CSV_MANUAL', payload: parsedReport})
         // document.getElementById("file-upload").value = "";
         setIsReady(false)
-        history.push('/admin/payouts')
+        setTimeout(()=>history.push('/admin/payouts'), 200)
     }
 
     return (

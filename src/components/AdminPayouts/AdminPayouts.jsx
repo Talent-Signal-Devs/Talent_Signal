@@ -13,6 +13,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import './AdminPayouts.css'
 
 
@@ -63,6 +69,9 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#0026FF',
     color: 'white',
   },
+  dialog: {
+    border: '1px solid #0026FF'
+  }
 }))
 
 
@@ -104,7 +113,7 @@ function AdminPayouts() {
   }
 
   useEffect(() => {
-    setTimeout(() => dispatch({ type: 'GET_PAYMENT' }), 300);
+    setTimeout(() => dispatch({ type: 'GET_PAYMENT' }), 400);
   }, [])
 
   return (
@@ -131,10 +140,24 @@ function AdminPayouts() {
       </div>
 
       {visible ?
-        <div className="modal">
-          <p>Your confirmation number is {confirmNumber}</p>
-          <button onClick={() => setVisible(false)}>Confirm</button>
-        </div> : <span></span>}
+        <Dialog
+          open={open}
+          className={classes.dialog}>
+      <DialogTitle id="alert-dialog-title">{"Payout Confirmation Number"}</DialogTitle>
+      <DialogContent>
+        <DialogContentText >
+          Use this number in Melio to link your payout histories
+        </DialogContentText>
+        <DialogContentText id="alert-dialog-description">
+          {confirmNumber}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={()=>setVisible(false)} color="primary" autoFocus>
+          Confirm
+        </Button>
+      </DialogActions>
+    </Dialog> : <span></span>}
 
       {/* placeholder button for manual GET if list  doesn't load*/}
       <TableContainer component={Paper} className={classes.table}>
@@ -170,28 +193,6 @@ function AdminPayouts() {
 
         </Table>
       </TableContainer>
-      {/* <table>
-        <thead>
-          <tr>
-
-            <td>Coach</td>
-            <td>Amount Owed</td>
-            <td>Pay?</td>
-          </tr>
-        </thead>
-        <tbody>
-          {coachPayouts.map((debt) => {
-            return (
-              <tr key={debt.user_id}>
-                <td>{debt.full_name}</td>
-                <td>{debt.total_owed * .75}</td>
-                <td><button onClick={() => preparePayout(debt.clients)}>PAY NOW</button></td>
-
-              </tr>
-            )
-          })}
-        </tbody>
-      </table> */}
 
     </div>
   );

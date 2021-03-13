@@ -9,8 +9,8 @@ import TableHead from "@material-ui/core/TableHead"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 import ToolTip from "@material-ui/core/ToolTip"
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle'
+import Dialog from "@material-ui/core/Dialog"
+import DialogTitle from "@material-ui/core/DialogTitle"
 import FormControl from "@material-ui/core/FormControl"
 import InputLabel from "@material-ui/core/InputLabel"
 import Select from "@material-ui/core/Select"
@@ -25,6 +25,7 @@ function AdminCoachDetails(props) {
     const [heading, setHeading] = useState("Admin Coach Details")
     const [open, setOpen] = useState(false)
     const [newCoachDetails, setNewCoachDetails] = useState({
+        id: coachDetails.id,
         firstName: coachDetails.first_name,
         lastName: coachDetails.last_name,
         email: coachDetails.email,
@@ -42,23 +43,34 @@ function AdminCoachDetails(props) {
     }, [])
 
     const handleClickOpen = () => {
-      setOpen(true)
-
+        setOpen(true)
+        setNewCoachDetails({
+            id: coachDetails.id,
+            firstName: coachDetails.first_name,
+            lastName: coachDetails.last_name,
+            email: coachDetails.email,
+            phone: coachDetails.phone,
+            programID: coachDetails.program_id,
+            startDate: coachDetails.start_date,
+            business: coachDetails.business_name,
+        })
     }
 
     const handleClose = () => {
-      setOpen(false)
-    
+        setOpen(false)
     }
 
     const handleCoachChange = (e) => {
-      setEditCoach({ ...newCoachDetails, [e.target.name]: e.target.value })
+        setNewCoachDetails({
+            ...newCoachDetails,
+            [e.target.name]: e.target.value,
+        })
     }
 
     const updateCoach = (e) => {
-      e.preventDefault()
-      dispatch({ type: 'UPDATE_COACH_DETAILS', payload: newCoachDetails})
-      handleClose()
+        e.preventDefault()
+        dispatch({ type: "UPDATE_COACH_DETAILS", payload: newCoachDetails })
+        handleClose()
     }
 
     // variable to store the total money made for the coach
@@ -96,51 +108,52 @@ function AdminCoachDetails(props) {
                         <Button onClick={handleClickOpen}>Edit Details</Button>
                     </div>
                     <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="form-dialog-title"
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="form-dialog-title"
                     >
-                      <DialogTitle id="form-dialog-title">Edit Details</DialogTitle>
-                      <TextField 
-                        name="firstName"
-                        onChange={handleCoachChange}
-                        value={newCoachDetails.firstName}
-                      />
-                      <TextField 
-                        name="lastName"
-                        onChange={handleCoachChange}
-                        value={newCoachDetails.lastName}
-                      />
-                      <TextField 
-                        name="email"
-                        onChange={handleCoachChange}
-                        value={newCoachDetails.email}
-                      />
-                      <TextField 
-                        name="phone"
-                        onChange={handleCoachChange}
-                        value={newCoachDetails.phone}
-                      />
-                      <TextField 
-                        name="programID"
-                        onChange={handleCoachChange}
-                        value={newCoachDetails.programID}
-                      />
-                      <TextField 
-                        name="startDate"
-                        onChange={handleCoachChange}
-                        value={newCoachDetails.startDate}
-                      />
-                      <TextField 
-                        name="business"
-                        onChange={handleCoachChange}
-                        value={newCoachDetails.business}
-                      />
-                      <Button onClick={updateCoach}>Update Coach</Button>
-                      <Button onClick={handleClose}>Cancel</Button>
+                        <DialogTitle id="form-dialog-title">
+                            Edit Details
+                        </DialogTitle>
+                        <TextField
+                            name="firstName"
+                            onChange={handleCoachChange}
+                            value={newCoachDetails.firstName}
+                        />
+                        <TextField
+                            name="lastName"
+                            onChange={handleCoachChange}
+                            value={newCoachDetails.lastName}
+                        />
+                        <TextField
+                            name="email"
+                            onChange={handleCoachChange}
+                            value={newCoachDetails.email}
+                        />
+                        <TextField
+                            name="phone"
+                            onChange={handleCoachChange}
+                            value={newCoachDetails.phone}
+                        />
+                        <TextField
+                            name="programID"
+                            onChange={handleCoachChange}
+                            value={newCoachDetails.programID}
+                        />
+                        <TextField
+                            name="startDate"
+                            onChange={handleCoachChange}
+                            value={newCoachDetails.startDate}
+                        />
+                        <TextField
+                            name="business"
+                            onChange={handleCoachChange}
+                            value={newCoachDetails.business}
+                        />
+                        <Button onClick={updateCoach}>Update Coach</Button>
+                        <Button onClick={handleClose}>Cancel</Button>
                     </Dialog>
-                    
-                    
+
                     <div>
                         <h3>Client's:</h3>
                         <TableContainer component={Paper}>

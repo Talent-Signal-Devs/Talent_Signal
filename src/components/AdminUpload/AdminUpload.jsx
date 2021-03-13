@@ -19,6 +19,11 @@ const useStyles = makeStyles(() => ({
         flexFlow: "column",
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: '#DDDDDD',
+        padding: '20px 0',
+        borderRadius: '5px',
+        width: '25%',
+        margin: 'auto'
     }
 }))
 

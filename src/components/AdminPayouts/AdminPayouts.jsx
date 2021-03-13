@@ -4,7 +4,17 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
+
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+
 import './AdminPayouts.css'
+
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -24,13 +34,35 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     width: 500,
     margin: 'auto',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    backgroundColor: '#DDDDDD',
+    padding: '20px 0',
+    borderRadius: '5px',
 
 
   },
   button: {
     margin: '5px'
-  }
+  },
+  table: {
+    minWidth: '50%',
+    width: '80%',
+    margin: 'auto',
+    textAlign: 'center',
+    borderCollapse: 'collapse',
+    marginTop: '25px',
+  },
+  tableRow: {
+    backgroundColor: 'aliceblue',
+    '&:hover': {
+      opacity: '80%',
+      backgroundColor: 'lightblue'
+    }
+  },
+  header: {
+    backgroundColor: '#0026FF',
+    color: 'white',
+  },
 }))
 
 
@@ -105,7 +137,40 @@ function AdminPayouts() {
         </div> : <span></span>}
 
       {/* placeholder button for manual GET if list  doesn't load*/}
-      <table>
+      <TableContainer component={Paper} className={classes.table}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.header}>Coach</TableCell>
+              <TableCell className={classes.header}>Amount Owed</TableCell>
+              <TableCell className={classes.header}></TableCell>
+
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {coachPayouts.map((debt) => {
+              return (
+                <TableRow key={debt.user_id}>
+                  <TableCell>{debt.full_name}</TableCell>
+                  <TableCell>{debt.total_owed * .75}</TableCell>
+                  <TableCell>
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      onClick={() => preparePayout(debt.clients)}>
+                      PAY NOW
+                    </Button>
+                  </TableCell>
+
+                </TableRow>
+              )
+            })}
+          </TableBody>
+
+        </Table>
+      </TableContainer>
+      {/* <table>
         <thead>
           <tr>
 
@@ -126,7 +191,7 @@ function AdminPayouts() {
             )
           })}
         </tbody>
-      </table>
+      </table> */}
 
     </div>
   );

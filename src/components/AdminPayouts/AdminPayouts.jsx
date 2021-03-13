@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { makeStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
 import './AdminPayouts.css'
@@ -22,6 +22,9 @@ const useStyles = makeStyles(() => ({
   },
   buttonContainer: {
     display: "flex",
+    width: 500,
+    margin: 'auto',
+    justifyContent: 'space-around'
 
 
   },
@@ -51,41 +54,57 @@ function AdminPayouts() {
     const date = new Date()
     setConfirmNumber(date.getTime())
     const newCheck =
-      {
-        date: date.toISOString(),
-        clients: clientArray,
-        confirmation_number: date.getTime()
-      }
+    {
+      date: date.toISOString(),
+      clients: clientArray,
+      confirmation_number: date.getTime()
+    }
 
-      console.log('new check equals', newCheck)
-      dispatch({ type: 'PAY_COACH', payload: newCheck })
-      setVisible(true)
+    console.log('new check equals', newCheck)
+    dispatch({ type: 'PAY_COACH', payload: newCheck })
+    setVisible(true)
 
   }
 
   function handlePayoutsHistory() {
-    dispatch({type: 'GET_PAYOUTS_HISTORY'})
+    dispatch({ type: 'GET_PAYOUTS_HISTORY' })
     history.push('/admin/payoutshistory')
   }
 
-  useEffect(()=>{
-    setTimeout(()=>dispatch({ type: 'GET_PAYMENT' }), 300);
+  useEffect(() => {
+    setTimeout(() => dispatch({ type: 'GET_PAYMENT' }), 300);
   }, [])
 
   return (
 
     <div>
-      <button onClick={()=>history.push('/admin/upload')}>Upload</button>
-      <button onClick={()=>handlePayoutsHistory()}>View History</button>
 
-      {visible?
-      <div className="modal">
+      <div className={classes.buttonContainer}>
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={() => history.push('/admin/upload')}>
+          Upload New CSV
+        </Button>
+
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={() => handlePayoutsHistory()}>
+          View Payout History
+        </Button>
+
+      </div>
+
+      {visible ?
+        <div className="modal">
           <p>Your confirmation number is {confirmNumber}</p>
-            <button onClick={()=>setVisible(false)}>Confirm</button>
-      </div> : <span></span>}
+          <button onClick={() => setVisible(false)}>Confirm</button>
+        </div> : <span></span>}
 
       {/* placeholder button for manual GET if list  doesn't load*/}
-      <button onClick={() => dispatch({ type: 'GET_PAYMENT' })}>Refresh List</button>
       <table>
         <thead>
           <tr>

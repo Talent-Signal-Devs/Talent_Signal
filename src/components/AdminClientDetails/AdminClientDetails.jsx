@@ -17,9 +17,6 @@ import TextField from "@material-ui/core/TextField"
 import { useHistory, useParams } from "react-router-dom"
 import { makeStyles } from "@material-ui/core/styles"
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const useStyles = makeStyles(() => ({
@@ -77,11 +74,6 @@ function AdminClientDetails(props) {
         setEditClient({ ...editClient, [e.target.name]: value })
         console.log(editClient)
     }
-
-    // const editDetails = () => {
-    //     setEditMode(!editMode)
-    //     dispatch({ type: "FETCH_ADMIN_COACHES" })
-    // }
 
     const updateClient = (e) => {
       e.preventDefault()

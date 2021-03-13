@@ -19,7 +19,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         JOIN "client" ON "users".id = "client".user_id
         JOIN "payments" ON "client".contract_id = "payments".contract_id
         WHERE "payment_status" = 'complete' AND "is_paid" = 'True'
-        GROUP BY "full_name", "user_id", "confirmation_number", "payout_date";
+        GROUP BY "full_name", "user_id", "confirmation_number", "payout_date"
+        ORDER BY "payout_date" DESC;
         `
         pool.query(queryText).then((response)=>{
             console.log(response);

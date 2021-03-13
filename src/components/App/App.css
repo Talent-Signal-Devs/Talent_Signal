@@ -8,7 +8,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
   background-color: #eee;
-  
+
 }
 
 img {
@@ -110,10 +110,15 @@ Form Treatment
   /* background-color: #efefef; */
   /* border-radius: 3px; */
   /* box-shadow: 0 1px 2px rgb(0, 0, 0, 0.4); */
-  
+
 }
 
 input {
   margin: 5px;
   margin-bottom: 10px;
+}
+
+
+.center_table {
+  margin: auto;
 }

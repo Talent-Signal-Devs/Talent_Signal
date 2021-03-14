@@ -57,7 +57,7 @@ function CoachPayoutDetails(props) {
     }
     // get payment details for this month. Can get them with the page.id because this is the payment confirmation number from the Dashboard
     else {
-      dispatch({ type: 'FETCH_COACH_PAYMENT_DETAILS', payload: page.id })
+      dispatch({ type: 'FETCH_COACH_PAYMENT_DETAILS_NUMBER', payload: page.id })
     }
   }, [])
   console.log(`page id is ${page.id}`);

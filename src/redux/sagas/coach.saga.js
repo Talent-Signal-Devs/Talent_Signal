@@ -12,9 +12,10 @@ function* fetchCoachPayments() {
     }
 }
 
-//get coach payments when "details" button clicked on dashboard table
+// get coach payments when "details" button clicked on dashboard table
 function* fetchCoachPaymentDetailsNumber(action){
   const confirmation_number=action.payload;
+  console.log('in paymentDetails Saga with ids',action.payload);
   try{
     const response = yield axios.get(`/api/coach/payments/${confirmation_number}`)
     yield put({type: 'SET_COACH_PAYMENT_DETAILS', payload: response.data})
@@ -22,6 +23,8 @@ function* fetchCoachPaymentDetailsNumber(action){
     console.log('error in fetching client payment details, from dashboard', error);
   }
 }
+
+
 
 //get coach payments when select month/year input on payout details view
 function* fetchCoachPaymentDetails(action){

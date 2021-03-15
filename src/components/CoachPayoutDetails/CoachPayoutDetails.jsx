@@ -61,7 +61,9 @@ function CoachPayoutDetails(props) {
     }
   }, [])
   console.log(`page id is ${page.id}`);
+  console.log(typeof page.id)
   console.log(`selected value is now ${monthDate}`);
+  
   return (
     <div>
       <TextField

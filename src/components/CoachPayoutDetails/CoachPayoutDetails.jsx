@@ -10,27 +10,43 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(() => ({
-  tableRow: {
-    backgroundColor: 'aliceblue',
-    '&:hover': {
-      opacity: '80%',
-      backgroundColor: 'lightblue'
-    }
-  },
-  table: {
-    minWidth: '100px',
-    width: '90vw',
-    margin: 'auto',
-    textAlign: 'center',
-    borderCollapse: 'collapse',
-  },
   dashContainer: {
-    display:"flex",
+    display: "flex",
     alignItems: 'center',
     justifyContent: 'center',
     alignContent: 'space-between'
+  },
+  pickerContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    marginTop: '2rem'
+  },
+  buttonContainer: {
+    marginLeft: '2rem'
+  },
+  root: {
+    "& .MuiInputBase-input": {
+      width: "25ch",
+    },
+    margin: "5px"
+  },
+  container: {
+    display: "flex",
+    flexFlow: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  header: {
+    backgroundColor: '#0026FF',
+    color: 'white',
+  },
+  cell: {
+    align: 'center',
   }
 }))
 
@@ -43,11 +59,71 @@ function CoachPayoutDetails(props) {
   const payments = useSelector((store) => store.coachPaymentDetailsReducer);
   const [heading, setHeading] = useState('Coach Payout Details');
 
-  const [monthDate, setMonthDate] =useState('');
+  const [monthDate, setMonthDate] = useState('');
 
+  const columns = [
+    {
+      field: 'full_name',
+      headerName: 'Client Name',
+      flex: 1,
+      sort: true,
+      headerClassName: classes.header
+    },
+    {
+      field: 'scheduled_date',
+      headerName: 'Scheduled Date',
+      flex: 1,
+      sort: true,
+      description: `Date the client's payment was scheduled`,
+      headerClassName: classes.header
+    },
+    {
+      field: 'payment_status',
+      headerName: 'Payment Status',
+      flex: 1,
+      sort: true,
+      description: `Status of the payment`,
+      headerClassName: classes.header
+    },
+    {
+      field: 'amount',
+      headerName: 'Amount',
+      flex: 1,
+      sort: true,
+      description: `Payment amount received by Talent Signal`,
+      headerClassName: classes.header
+    },
+    {
+      field: 'total_paid',
+      headerName: 'Total Paid',
+      flex: 1,
+      sort: true,
+      description: `Payment amount received by coach from Talent Signal`,
+      headerClassName: classes.header
+    },
+    {
+      field: 'action',
+      headerName: 'Action',
+      flex: 1,
+      headerClassName: classes.header,
+      renderCell: (params) => (
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={() => handleDetails(params)}
+        >
+          Details
+        </Button>
+      )
+    }
+  ]
+
+  const handleDetails = (something) => {
+    console.log(something);
+  }
   const handleClick = () => {
     console.log('dispatch with ', monthDate);
-    dispatch({type: 'FETCH_COACH_PAYMENT_DETAILS', payload: monthDate})
+    dispatch({ type: 'FETCH_COACH_PAYMENT_DETAILS', payload: monthDate })
   }
 
   useEffect(() => {
@@ -63,61 +139,38 @@ function CoachPayoutDetails(props) {
   console.log(`page id is ${page.id}`);
   console.log(typeof page.id)
   console.log(`selected value is now ${monthDate}`);
-  
+
   return (
     <div>
-      <TextField
-        id="pick month"
-        label="Month Picker"
-        type="month"
-        value={monthDate}
-        onChange={(event)=>setMonthDate(event.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <Button 
-        variant="contained"
-        color="primary"
-        onClick={handleClick}>
-        Get my DATA!
-      </Button>
       <h2>{heading}</h2>
+      <div className={classes.pickerContainer}>
+        <TextField
+          id="pick month"
+          label="Month Picker"
+          type="month"
+          value={monthDate}
+          onChange={(event) => setMonthDate(event.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+        <div className={classes.buttonContainer}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleClick}>
+            Get my DATA!
+          </Button>
+        </div>
+      </div>
       <br></br>
       <br></br>
-      <TableContainer component={Paper} className={classes.table}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Client Name</TableCell>
-                <TableCell>Scheduled Date</TableCell>
-                <TableCell>Payment Status</TableCell>
-                <TableCell>Amount</TableCell>
-                <TableCell>Total Paid</TableCell>
-                <TableCell>Actions</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {payments.map((payment) => (
-                <TableRow key={payment.id} 
-                // onClick={() => handleRowClick(payment.confirmation_number)} 
-                className={classes.tableRow}>
-                  <TableCell>{payment.full_name}</TableCell>
-                  <TableCell>{payment.scheduled_date}</TableCell>
-                  <TableCell>{payment.payment_status}</TableCell>
-                  <TableCell>{payment.amount}</TableCell>
-                  <TableCell>{payment.total_paid}</TableCell>
-                  <TableCell><Button 
-                    variant="contained"
-                    color="primary"
-                    // onClick={() => handleDetails(payment.payout_date)}
-                    >Details</Button></TableCell>
-                  
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+      <div className={classes.container}>
+        {/* <h1>History:</h1> */}
+        <div style={{ height: 400, width: '85%', display: 'flex' }} className="center_table">
+          <DataGrid rows={payments} columns={columns} pageSize={15} checkboxSelection={false} />
+        </div>
+      </div>
     </div>
   );
 }

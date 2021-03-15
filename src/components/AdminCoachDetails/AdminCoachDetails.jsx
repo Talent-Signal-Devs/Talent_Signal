@@ -74,15 +74,17 @@ function AdminCoachDetails(props) {
   }
 
   // variable to store the total money made for the coach
-  let totalMoneyMade = []
+  let totalMoneyMade = [];
   // variable to store the values of the "amounts" in the payments table for each client
-  let totalPayout = []
-  let moneyMade = 0
-  const filteredPayments = coachDetails.payments.filter(function (el) {
-    return el != null;
-  })
-  if (coachDetails?.payments) {
+  let totalPayout = [];
+  let moneyMade = 0;
 
+
+
+  if (coachDetails?.payments) {
+    const filteredPayments = coachDetails?.payments.filter(function (el) {
+      return el != null;
+    });
     for (let payment of filteredPayments) {
       totalPayout.push(payment?.amount)
     }

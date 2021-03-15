@@ -19,6 +19,14 @@ function* fetchAdminCoaches() {
         console.log('error fetching coaches for admin', error);
     }
 }
+function* fetchAdminCoachesDropdown() {
+    try {
+        const response = yield axios.get('/api/admin/coach/dropdown');
+        yield put({ type: 'SET_ADMIN_COACHES', payload: response.data });
+    } catch (error) {
+        console.log('error fetching coaches for admin', error);
+    }
+}
 
 function* getClientDetails(action) {
     try {
@@ -66,6 +74,7 @@ function* updateCoachDetails(action) {
 function* adminSaga() {
     yield takeEvery('FETCH_ADMIN_CLIENTS', fetchAdminClients);
     yield takeEvery('FETCH_ADMIN_COACHES', fetchAdminCoaches);
+    yield takeEvery('FETCH_ADMIN_COACHES_DROPDOWN', fetchAdminCoachesDropdown);
     yield takeEvery('GET_CLIENT_DETAILS', getClientDetails);
     yield takeEvery('GET_COACH_DETAILS', getCoachDetails);
     yield takeEvery('UPDATE_CLIENT_DETAILS', updateClientDetails)

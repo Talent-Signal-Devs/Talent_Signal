@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
     root: {
         "& .MuiInputBase-input": {
             width: "25ch",
-            
+
         },
         margin: "5px"
     },
@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
       flexFlow: "column",
       alignItems: "center",
       justifyContent: "space-around",
-      
+
     },
     inputContainer: {
       display: "flex",
@@ -60,12 +60,12 @@ const useStyles = makeStyles(() => ({
 
 
 function AdminAddUser(props) {
-  
+
   const coaches = useSelector((store) => store.adminCoachReducer);
   const [heading, setHeading] = useState('Admin Add User');
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_ADMIN_COACHES' });
+    dispatch({ type: 'FETCH_ADMIN_COACHES_DROPDOWN' });
   }, []);
 
 
@@ -160,7 +160,7 @@ function AdminAddUser(props) {
             <h1>Add a new user:</h1>
             <div className={classes.userFormContainer}>
                 <form className={classes.userForm} onSubmit={addUser}>
-                  
+
                     <FormControl className={classes.input}>
                         <InputLabel id="user-type-label">User Type:</InputLabel>
                         <Select
@@ -233,7 +233,7 @@ function AdminAddUser(props) {
                             />
                         </div>
                     )}
-                    
+
                     {userType === "client" && (
                         <div className={classes.inputContainer}>
                             <TextField
@@ -291,8 +291,8 @@ function AdminAddUser(props) {
                                     }
                                 >
                                     {coaches.map((coach) => {
-                                      return <MenuItem 
-                                                key={coach.id} 
+                                      return <MenuItem
+                                                key={coach.id}
                                                 value={coach.id}
                                               >
                                                 {coach.first_name} {coach.last_name}

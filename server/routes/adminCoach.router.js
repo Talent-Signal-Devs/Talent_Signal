@@ -3,6 +3,26 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const router = express.Router();
 
+//write GET route to populate dropdown router for GET coaches
+router.get('/dropdown', rejectUnauthenticated, (req, res) => {
+    if(req.user.clearance === 1){
+    console.log('in dropdown')
+    const queryText = `
+        SELECT * FROM "users"
+        WHERE "users".clearance = 0;
+    `
+    pool.query(queryText).then((response)=>{
+        console.log(response);
+        res.send(response.rows)
+    }).catch((error)=>{
+        console.log(error);
+        res.sendStatus(500)
+    })
+} else{
+    res.sendStatus(403)
+}
+})
+
 
 router.get('/', rejectUnauthenticated, (req, res) => {
     // GET route code here

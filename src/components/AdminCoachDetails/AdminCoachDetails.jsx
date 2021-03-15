@@ -85,8 +85,11 @@ function AdminCoachDetails(props) {
     const filteredPayments = coachDetails?.payments.filter(function (el) {
       return el != null;
     });
+    //checks if is_paid is true, if true, add to total, if false (failed, pending, or otherwise) do not add to total
     for (let payment of filteredPayments) {
+      if (payment.is_paid){
       totalPayout.push(payment?.amount)
+      }
     }
     for (let i = 0; i < totalPayout.length; i++) {
       moneyMade += parseInt(totalPayout[i])

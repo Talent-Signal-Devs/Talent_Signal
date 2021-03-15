@@ -28,7 +28,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     // GET route code here
     const sqlText = `SELECT "users".*, COUNT(DISTINCT "client") AS "client_count", "payments".product_id FROM "users"
     JOIN "client" ON "client".user_id = "users".id
-    LEFT JOIN "payments" ON "payments".contract_id = "client".contract_id
+    JOIN "payments" ON "payments".contract_id = "client".contract_id
     WHERE "users".clearance = 0
     GROUP BY "users".id, "payments".product_id;`;
 

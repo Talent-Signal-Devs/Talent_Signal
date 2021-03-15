@@ -52,6 +52,22 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
         })
 })
 
+router.put('/edit', rejectUnauthenticated, (req, res) => {
+    const query = `UPDATE users
+                    SET first_name = $1, last_name = $2, email = $3, phone = $4, program_id = $5, start_date = $6, business_name = $7
+                    WHERE id = $8
+                    RETURNING id`
+
+    pool
+    .query(query, [req.body.firstName, req.body.lastName, req.body.email, req.body.phone, req.body.programID, req.body.start_date, req.body.business_name, req.body.id ])
+    .then((response) => {
+        res.send(response.rows)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
 
 
 module.exports = router;

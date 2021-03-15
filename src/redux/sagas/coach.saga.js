@@ -12,16 +12,19 @@ function* fetchCoachPayments() {
     }
 }
 
-// //get coach payments when "details" button clicked on dashboard table
-// function* fetchCoachPaymentDetails(action){
-//   const confirmation_number=action.payload;
-//   try{
-//     const response = yield axios.get(`/api/coach/payments/${confirmation_number}`)
-//     yield put({type: 'SET_COACH_PAYMENT_DETAILS', payload: response.data})
-//   } catch(error){
-//     console.log('error in fetching client payment details, from dashboard', error);
-//   }
-// }
+// get coach payments when "details" button clicked on dashboard table
+function* fetchCoachPaymentDetailsNumber(action){
+  const confirmation_number=action.payload;
+  console.log('in paymentDetails Saga with ids',action.payload);
+  try{
+    const response = yield axios.get(`/api/coach/payments/${confirmation_number}`)
+    yield put({type: 'SET_COACH_PAYMENT_DETAILS', payload: response.data})
+  } catch(error){
+    console.log('error in fetching client payment details, from dashboard', error);
+  }
+}
+
+
 
 //get coach payments when select month/year input on payout details view
 function* fetchCoachPaymentDetails(action){
@@ -47,6 +50,7 @@ function* fetchCoachClients() {
 function* coachSaga() {
     yield takeEvery('FETCH_COACH_PAYMENTS', fetchCoachPayments);
     yield takeEvery('FETCH_COACH_PAYMENT_DETAILS', fetchCoachPaymentDetails);
+    yield takeEvery('FETCH_COACH_PAYMENT_DETAILS_NUMBER', fetchCoachPaymentDetailsNumber);
     yield takeEvery('FETCH_COACH_CLIENTS', fetchCoachClients)
 }
 

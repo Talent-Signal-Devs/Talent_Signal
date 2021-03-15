@@ -9,7 +9,7 @@ const router = express.Router();
 // In this data, we will also receive the confirmation number which we can use to get the details for that month. 
 // for the monthly breakdown, select * from payments with the confirmation id. and also some stuff to get the client info up there as well. 
 router.get('/', rejectUnauthenticated, (req, res) => {
-    const sqlText = `SELECT "payments".payout_date, SUM("amount" * 0.75) as "total_paid", ARRAY_AGG("payments".id), "payments".confirmation_number FROM "payments"
+    const sqlText = `SELECT "payments".payout_date, SUM("amount" * 0.75) as "total_paid", ARRAY_AGG("payments".id), "payments".confirmation_number, "payments".confirmation_number AS "id" FROM "payments"
     JOIN "client" ON "client".contract_id = "payments".contract_id
     JOIN "users" ON "client".user_id = "users".id
     WHERE "client".user_id = $1 and "payments".is_paid = true
@@ -25,27 +25,28 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     })
 });
 
-//get payment details for a month given the confirmation number 
-// router.get('/:id', rejectUnauthenticated, (req, res) => {
-//   const confirmation_number = req.params.id
-//   const sqlText = `SELECT "payments".payout_date, SUM("amount" * 0.75) as "total_paid", ARRAY_AGG("payments".id), "payments".confirmation_number FROM "payments"
-//   JOIN "client" ON "client".contract_id = "payments".contract_id
-//   JOIN "users" ON "client".user_id = "users".id
-//   WHERE "client".user_id = $1 and "payments".is_paid = true
-//   GROUP BY "payments".payout_date , "payments".confirmation_number;`;
+// get payment details for a month given the confirmation number 
+//with the array/list of paymentIds
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+  const confirmation_number = req.params.id
 
-//   pool.query(sqlText, [req.user.id])
-//   .then((result) => {
-//       res.send(result.rows);
-//   })
-//   .catch((error) => {
-//       console.log('error getting coaches payments details ', error);
-//       res.sendStatus(500);
-//   })
-// });
+  const sqlText = `SELECT CONCAT("client".first_name, ' ', "client".last_name) AS "full_name", "client".coaching_status, "payments".payment_status, "payments".amount, SUM("amount" * 0.75) AS "total_paid", "payments".scheduled_date, ARRAY_AGG("payments".id) FROM "payments"
+  JOIN "client" ON "client".contract_id = "payments".contract_id
+  JOIN "users" on "client".user_id = "users".id
+  WHERE "client".user_id = $1 AND "payments".confirmation_number = $2
+  GROUP BY "full_name", "client".coaching_status, "payments".payment_status, "payments".amount, "payments".scheduled_date;`;
+
+  pool.query(sqlText, [req.user.id, confirmation_number])
+  .then((result) => {
+      res.send(result.rows);
+  })
+  .catch((error) => {
+      console.log('error getting coaches payments details ', error);
+      res.sendStatus(500);
+  })
+});
 
 //get payment details for a month given the date selected. 
-//get payment details for a month given the confirmation number 
 router.get('/date/:id', rejectUnauthenticated, (req, res) => {
   const queryDate = `${req.params.id}-%`
   const sqlText = `SELECT CONCAT("client".first_name, ' ', "client".last_name) AS "full_name", "client".coaching_status, "payments".payment_status, "payments".amount, SUM("amount" * 0.75) AS "total_paid", "payments".scheduled_date, ARRAY_AGG("payments".id) FROM "payments"

@@ -30,7 +30,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     JOIN "client" ON "client".user_id = "users".id
     LEFT JOIN "payments" ON "payments".contract_id = "client".contract_id
     WHERE "users".clearance = 0
-    GROUP BY "users".id, "payments".product_id;`;
+    GROUP BY "users".id, "payments".product_id., "user".email;`;
 
     // const sqlText = `SELECT "users".*, "client".*, "payouts".* FROM "users"
     // JOIN "client" ON "client".user_id = "users".id

@@ -232,19 +232,19 @@ function AdminClientDetails(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {clientDetails.payments && clientDetails.payments.map((payment, i) => (
+                  {clientDetails?.payments && clientDetails.payments.map((payment, i) => (
                     <TableRow key={i}>
                       <TableCell>
-                        {payment.payment_id}
+                        {payment?.payment_id}
                       </TableCell>
                       <TableCell>
-                        {new Date(payment.due_date).toLocaleDateString('en-us')}
+                        {new Date(payment?.due_date).toLocaleDateString('en-us')}
                       </TableCell>
                       <TableCell>
-                        ${payment.amount}
+                        ${payment?.amount}
                       </TableCell>
                       <TableCell>
-                        {payment.payment_status}
+                        {payment?.payment_status}
                       </TableCell>
                     </TableRow>
                   ))}

@@ -17,6 +17,7 @@ const adminPaymentRouter = require('./routes/adminPayment.router');
 const coachPaymentsRouter = require('./routes/coachPayments.router');
 const payoutsHistoryRouter = require('./routes/payoutsHistory.router');
 const coachClientRouter = require('./routes/coachClients.router')
+const adminDataRouter = require('./routes/adminData.router')
 
 
 
@@ -41,6 +42,7 @@ app.use('/api/admin/payment', adminPaymentRouter);
 app.use('/api/coach/payments', coachPaymentsRouter);
 app.use('/api/admin/paymentshistory', payoutsHistoryRouter);
 app.use('/api/coach/client', coachClientRouter)
+app.use('/api/admin/data', adminDataRouter)
 
 
 

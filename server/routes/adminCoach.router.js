@@ -29,7 +29,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT DISTINCT "users".*, COUNT(DISTINCT "client") AS "client_count" FROM "users"
     LEFT JOIN "client" ON "client".user_id = "users".id
     WHERE "users".clearance = 0
-
     GROUP BY "users".id;`;
 
 
@@ -60,7 +59,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     FROM "users"
     LEFT JOIN "client" ON "client".user_id = "users".id
     LEFT JOIN "payments" ON "payments".contract_id = "client".contract_id
-    WHERE "users".id = $1 
+    WHERE "users".id = $1
     GROUP BY "users".id`;
     // const sqlText = `SELECT "users".*, JSON_AGG(DISTINCT "client".*) AS clients
     // FROM "users"

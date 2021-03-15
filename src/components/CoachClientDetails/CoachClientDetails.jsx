@@ -26,9 +26,9 @@ function CoachClientDetails(props) {
   let totalPayout = [];
   let moneyMade = 0;
 
-  if (clientDetails.payments[0]) {
+  if (clientDetails?.payments) {
     for (let payment of clientDetails.payments) {
-      totalPayout.push(payment.amount)
+      totalPayout.push(payment?.amount)
     }
     for (let i = 0; i < totalPayout.length; i++) {
       moneyMade += parseInt(totalPayout[i]);

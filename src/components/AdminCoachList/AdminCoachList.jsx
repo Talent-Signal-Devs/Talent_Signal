@@ -59,7 +59,6 @@ function AdminCoachList(props) {
                 <TableCell>Name</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell>Phone</TableCell>
-                <TableCell>Product ID</TableCell>
                 <TableCell>Date Joined</TableCell>
                 <TableCell>Number of Clients</TableCell>
                 <TableCell>Registration Status</TableCell>
@@ -72,7 +71,6 @@ function AdminCoachList(props) {
                     <TableCell>{coach.first_name} {coach.last_name}</TableCell>
                     <TableCell>{coach.email}</TableCell>
                     <TableCell>{coach.phone}</TableCell>
-                    <TableCell>{coach.product_id}</TableCell>
                     <TableCell>{coach.start_date}</TableCell>
                     <TableCell>{coach.client_count}</TableCell>
                     <TableCell>

@@ -26,11 +26,12 @@ router.get('/dropdown', rejectUnauthenticated, (req, res) => {
 
 router.get('/', rejectUnauthenticated, (req, res) => {
     // GET route code here
-    const sqlText = `SELECT "users".*, COUNT(DISTINCT "client") AS "client_count", "payments".product_id FROM "users"
-    JOIN "client" ON "client".user_id = "users".id
-    LEFT JOIN "payments" ON "payments".contract_id = "client".contract_id
+    const sqlText = `SELECT DISTINCT "users".*, COUNT(DISTINCT "client") AS "client_count" FROM "users"
+    LEFT JOIN "client" ON "client".user_id = "users".id
     WHERE "users".clearance = 0
-    GROUP BY "users".id, "payments".product_id., "user".email;`;
+
+    GROUP BY "users".id;`;
+
 
     // const sqlText = `SELECT "users".*, "client".*, "payouts".* FROM "users"
     // JOIN "client" ON "client".user_id = "users".id
@@ -57,10 +58,15 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
     const sqlText = `SELECT "users".*, JSON_AGG(DISTINCT "client".*) AS clients, JSON_AGG(DISTINCT "payments".*) AS payments
     FROM "users"
-    JOIN "client" ON "client".user_id = "users".id
-    JOIN "payments" ON "payments".contract_id = "client".contract_id
-    WHERE "users".id = $1
+    LEFT JOIN "client" ON "client".user_id = "users".id
+    LEFT JOIN "payments" ON "payments".contract_id = "client".contract_id
+    WHERE "users".id = $1 
     GROUP BY "users".id`;
+    // const sqlText = `SELECT "users".*, JSON_AGG(DISTINCT "client".*) AS clients
+    // FROM "users"
+    // LEFT JOIN "client" ON "client".user_id = "users".id
+    // WHERE "users".id = $1
+    // GROUP BY "users".id`;
 
     pool.query(sqlText, [coach])
         .then((result) => {

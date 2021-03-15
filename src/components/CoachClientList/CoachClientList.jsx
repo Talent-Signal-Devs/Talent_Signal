@@ -7,9 +7,11 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 
+import { DataGrid } from '@material-ui/data-grid';
 const useStyles = makeStyles(() => ({
   table: {
     minWidth: '50%',
@@ -25,6 +27,25 @@ const useStyles = makeStyles(() => ({
       backgroundColor: 'lightblue'
     }
   },
+  root: {
+    "& .MuiInputBase-input": {
+      width: "25ch",
+    },
+    margin: "5px"
+  },
+  container: {
+    display: "flex",
+    flexFlow: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  header: {
+    backgroundColor: '#0026FF',
+    color: 'white',
+  },
+  cell: {
+    align: 'center',
+  }
 }))
 
 
@@ -36,41 +57,83 @@ function CoachClientList() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // dataGrid column defs
+  const columns = [
+    {
+      field: 'full_name',
+      headerName: 'Client Name',
+      flex: 1,
+      sort: true,
+      headerClassName: classes.header
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      flex: 1,
+      sort: true,
+      headerClassName: classes.header
+    },
+    {
+      field: 'phone',
+      headerName: 'Phone',
+      flex: 1,
+      sort: true,
+      headerClassName: classes.header
+    },
+    {
+      field: 'coaching_status',
+      headerName: 'Coaching Status',
+      flex: 1,
+      sort: true,
+      description: `Current coaching status of the client`,
+      headerClassName: classes.header
+    },
+    {
+      field: 'end_date',
+      headerName: 'Contract End Date',
+      flex: 1,
+      sort: true,
+      description: `End date of payments for the client`,
+      headerClassName: classes.header
+    },
+    {
+      field: 'action',
+      headerName: 'Action',
+      flex: 1,
+      headerClassName: classes.header,
+      renderCell: (params) => (
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={() => handleDetails(params)}
+        >
+          Details
+        </Button>
+      )}
+  ]
+
   useEffect(() => {
     dispatch({ type: 'FETCH_COACH_CLIENTS' });
   }, []);
 
-  const handleRowClick = (input) => {
-    history.push(`/coach/clientDetails/${input}`);
+  const handleDetails = (input) => {
+    let userId = input.row.id
+    history.push(`/coach/clientDetails/${userId}`);
   } 
+
+  const handleRowClick = (event) => {
+    console.log(event.row.id);
+  }
 
   return (
     <div>
       <h2>{heading}</h2>
-      <TableContainer component={Paper} className={classes.table}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Coaching Status</TableCell>
-              <TableCell>Contract End Date</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {clients.map((client) => 
-              <TableRow key={client.id} className={classes.tableRow} onClick={() => {handleRowClick(client.id)}}>
-                <TableCell>{client.first_name} {client.last_name}</TableCell>
-                <TableCell>{client.email}</TableCell>
-                <TableCell>{client.phone}</TableCell>
-                <TableCell>{client.coaching_status}</TableCell>
-                <TableCell>{client.end_date}</TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div className={classes.container}>
+        {/* <h1>History:</h1> */}
+        <div style={{ height: 500, width: '85%', display: 'flex' }} className="center_table">
+          <DataGrid rows={clients} columns={columns} pageSize={15} checkboxSelection={false} onRowClick={handleRowClick} />
+        </div>
+      </div>
     </div>
   );
 }

@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     
-    const sqlText = `SELECT * FROM "client" WHERE "user_id" = $1;`;
+    const sqlText = `SELECT *, CONCAT("client".first_name, ' ', "client".last_name) AS "full_name" FROM "client" WHERE "user_id" = $1;`;
 
     pool.query(sqlText, [req.user.id])
     .then((result) => {

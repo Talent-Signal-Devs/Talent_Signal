@@ -199,59 +199,63 @@ function AdminClientDetails(props) {
                                 <InputLabel id="coaching-status-label">
                                     Coaching Status
                                 </InputLabel>
-                            <Select
-                                labelId="coaching-status-label"
-                                id="coaching-status"
-                                name="coachingStatus"
-                                value={editClient.coachingStatus}
-                                onChange={(e) =>
-                                    setEditClient({
-                                        ...editClient,
-                                        [e.target.name]: e.target.value,
-                                    })
-                                }
-                            >
-                                <MenuItem value={"in coaching"}>In Coaching</MenuItem>
-                                <MenuItem value={"working"}>Working</MenuItem>
-                            </Select>
-                        </FormControl>
-                            <Button onClick={updateClient}>Update Client</Button>
-                            <Button onClick={handleClose}>Cancel</Button>
-                        </Dialog>
-                    <div>
-                        <TableContainer component={Paper}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Payment ID</TableCell>
-                                        <TableCell>Due Date</TableCell>
-                                        <TableCell>Amount</TableCell>
-                                        <TableCell>Payment Status</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    <TableRow key={clientDetails.id}>
-                                        <TableCell>
-                                            {clientDetails.payment_id}
-                                        </TableCell>
-                                        <TableCell>
-                                            {clientDetails.due_date}
-                                        </TableCell>
-                                        <TableCell>
-                                            {clientDetails.amount}
-                                        </TableCell>
-                                        <TableCell>
-                                            {clientDetails.payment_status}
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </div>
-                </>
-            )}
-        </div>
-    )
+              <Select
+                labelId="coach-select-label"
+                id="coach-select"
+                name="coachID"
+
+                onChange={(e) => setEditClient({
+                  ...editClient,
+                  [e.target.name]: e.target.value
+                })}
+              >
+                {coaches.map((coach) => {
+                  return <MenuItem key={coach.id} value={coach.id}>
+                    {coach.first_name} {coach.last_name}
+                  </MenuItem>
+                })}
+
+              </Select>
+            </FormControl>
+            <Button onClick={updateClient}>Update Client</Button>
+            <Button onClick={handleClose}>Cancel</Button>
+          </Dialog>
+          <div>
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Payment ID</TableCell>
+                    <TableCell>Due Date</TableCell>
+                    <TableCell>Amount</TableCell>
+                    <TableCell>Payment Status</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {clientDetails.payments && clientDetails.payments.map((payment, i) => (
+                    <TableRow key={i}>
+                      <TableCell>
+                        {payment.payment_id}
+                      </TableCell>
+                      <TableCell>
+                        {new Date(payment.due_date).toLocaleDateString('en-us')}
+                      </TableCell>
+                      <TableCell>
+                        ${payment.amount}
+                      </TableCell>
+                      <TableCell>
+                        {payment.payment_status}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        </>
+      )}
+    </div>
+  )
 }
 
 export default AdminClientDetails

@@ -26,7 +26,7 @@ function CoachClientDetails(props) {
   let totalPayout = [];
   let moneyMade = 0;
 
-  if (clientDetails.first_name) {
+  if (clientDetails.payments[0]) {
     for (let payment of clientDetails.payments) {
       totalPayout.push(payment.amount)
     }
@@ -35,6 +35,8 @@ function CoachClientDetails(props) {
     }
     totalMoneyMade.push(moneyMade);
   }
+
+  // console.log(clientDetails.payments !== [null])
 
   // total money that the coach has brought in for the company
   let totalRevenue = totalMoneyMade[0] * 0.75;
@@ -66,7 +68,7 @@ function CoachClientDetails(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {clientDetails.payments.map((payment, i) => (
+                  {clientDetails.payments[0] && clientDetails.payments.map((payment, i) => (
                     <TableRow key={i}>
                       <TableCell>{payment.payment_id}</TableCell>
                       <TableCell>{new Date(payment.due_date).toLocaleDateString("en-us")}</TableCell>

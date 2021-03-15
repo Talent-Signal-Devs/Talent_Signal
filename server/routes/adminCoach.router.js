@@ -29,7 +29,9 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT DISTINCT "users".*, COUNT(DISTINCT "client") AS "client_count" FROM "users"
     LEFT JOIN "client" ON "client".user_id = "users".id
     WHERE "users".clearance = 0
+
     GROUP BY "users".id;`;
+
 
     // const sqlText = `SELECT "users".*, "client".*, "payouts".* FROM "users"
     // JOIN "client" ON "client".user_id = "users".id

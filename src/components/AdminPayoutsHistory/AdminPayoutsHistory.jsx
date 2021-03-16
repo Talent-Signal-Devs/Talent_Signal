@@ -31,7 +31,6 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-
 export default function AdminPayoutsHistory() {
 
     const history = useHistory();
@@ -83,6 +82,10 @@ export default function AdminPayoutsHistory() {
         console.log('going to new page', number)
         history.push(`/admin/payoutshistory/${number}`)
     }
+
+    useEffect(()=>{
+        dispatch({type: 'GET_PAYOUTS_HISTORY'})
+    }, [])
 
     return (
         <>

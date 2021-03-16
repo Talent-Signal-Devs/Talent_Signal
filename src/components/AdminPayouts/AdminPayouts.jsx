@@ -109,7 +109,6 @@ function AdminPayouts() {
 
   //navs to payouts history view, gets ALL payouts
   function handlePayoutsHistory() {
-    dispatch({ type: 'GET_PAYOUTS_HISTORY' })
     history.push('/admin/payoutshistory')
   }
 

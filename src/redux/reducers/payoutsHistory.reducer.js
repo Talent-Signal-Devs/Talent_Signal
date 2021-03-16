@@ -11,6 +11,8 @@ const payoutsHistoryReducer = (state = [], action) => {
             dataID.push(object)
         }
         return dataID;
+      case 'SET_PAYOUTS_HISTORY_DETAIL':
+        return action.payload;
       default:
         return state;
     }

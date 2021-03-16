@@ -53,31 +53,31 @@ function AdminClientList(props) {
   const columns = [
     {
       field: 'full_name',
-      headerName: 'Client Full Name',
+      headerName: 'Client',
       flex: .8,
-      desription: 'Full name of client',
+      description: 'Full name of client',
       headerClassName: classes.header,
 
     },
     {
       field: 'coach_full_name',
-      headerName: 'Coach Full Name',
+      headerName: 'Coach',
       flex: .8,
-      desription: 'Full name of coach',
+      description: 'Full name of coach',
       headerClassName: classes.header,
     },
     {
       field: 'contract_id',
       headerName: 'Contract ID',
       flex: .7,
-      desription: 'Unique ID of signed ISA held between you and the client',
+      description: 'Unique ID of signed ISA held between you and the client',
       headerClassName: classes.header,
     },
     {
       field: 'coaching_status',
       headerName: 'Coaching Status',
       flex: .7,
-      desription: 'Denotes whether client is currently receiving job coaching or is currently employed',
+      description: 'Denotes whether client is currently receiving job coaching or is currently employed',
       headerClassName: classes.header,
     },
   ]
@@ -99,31 +99,9 @@ function AdminClientList(props) {
       <br />
       <br />
       <div>
-        <div style={{ height: 600, width: '80%', display: 'flex', }} className="center_table">
+        <div style={{ height: 600, width: '80%', display: 'flex', cursor: 'pointer'}} className="center_table">
           <DataGrid rows={clients} columns={columns} pageSize={15} checkboxSelection={false} onRowClick={(event)=>handleRowClick(event.row.id)}/>
         </div>
-        {/* <TableContainer component={Paper} className={classes.table}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Contract ID</TableCell>
-                <TableCell>Coach</TableCell>
-                <TableCell>Coaching Status</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {clients.map((client) => (
-                <TableRow key={client.id} onClick={() => {handleRowClick(client.id)}} className={classes.tableRow}>
-                  <TableCell>{client.first_name} {client.last_name}</TableCell>
-                  <TableCell>{client.contract_id}</TableCell>
-                  <TableCell>{client.coach_first_name} {client.coach_last_name}</TableCell>
-                  <TableCell>{client.coaching_status}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer> */}
       </div>
     </div>
   );

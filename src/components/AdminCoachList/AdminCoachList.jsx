@@ -10,7 +10,11 @@ import Paper from '@material-ui/core/Paper';
 import ToolTip from '@material-ui/core/ToolTip';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const useStyles = makeStyles(() => ({
   tableRow: {
@@ -35,6 +39,7 @@ function AdminCoachList(props) {
   const classes = useStyles();
   const coaches = useSelector((store) => store.adminCoachReducer);
   const [heading, setHeading] = useState('Admin Coach List');
+  const [seeActiveCoaches, setSeeActiveCoaches] = useState(true);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -46,12 +51,42 @@ function AdminCoachList(props) {
     history.push(`/admin/coachDetails/${input}`);
   }
 
+  const activeCoaches = [];
+  const nonActiveCoaches = [];
+
+  for (let coach of coaches) {
+    if (coach.active) {
+      activeCoaches.push(coach);
+    } else if (coach.active === false) {
+      nonActiveCoaches.push(coach);
+    }
+  }
+
+
+  const handleChange = (event) => {
+    setSeeActiveCoaches(event.target.value);
+  }
+
   return (
     <div>
       <div>
         <h2>{heading}</h2>
       </div>
       <div>
+        <FormControl>
+          <Select
+            labelId="coach-select"
+            value={seeActiveCoaches}
+            onChange={handleChange}
+          >
+            <MenuItem value={true}>Active Coaches</MenuItem>
+            <MenuItem value={false}>Inactive Coaches</MenuItem>
+          </Select>
+        </FormControl>
+        </div>
+        <br/>
+        <br/>
+        <div>
         <TableContainer component={Paper} className={classes.table}>
           <Table>
             <TableHead>
@@ -65,20 +100,35 @@ function AdminCoachList(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {coaches.map((coach) => (
-                <ToolTip title="click for details">
-                  <TableRow key={coach.id} className={classes.tableRow} onClick={() => { handleRowClick(coach.id) }}>
-                    <TableCell>{coach.first_name} {coach.last_name}</TableCell>
-                    <TableCell>{coach.email}</TableCell>
-                    <TableCell>{coach.phone}</TableCell>
-                    <TableCell>{coach.start_date}</TableCell>
-                    <TableCell>{coach.client_count}</TableCell>
-                    <TableCell>
-                      {coach.is_approved ? <h4>Approved</h4> : <h4>pending</h4>}
-                    </TableCell>
-                  </TableRow>
-                </ToolTip>
-              ))}
+              {seeActiveCoaches
+                ? activeCoaches.map((coach) => (
+                  <ToolTip title="click for details">
+                    <TableRow key={coach.id} className={classes.tableRow} onClick={() => { handleRowClick(coach.id) }}>
+                      <TableCell>{coach.first_name} {coach.last_name}</TableCell>
+                      <TableCell>{coach.email}</TableCell>
+                      <TableCell>{coach.phone}</TableCell>
+                      <TableCell>{coach.start_date}</TableCell>
+                      <TableCell>{coach.client_count}</TableCell>
+                      <TableCell>
+                        {coach.is_approved ? <h4>Approved</h4> : <h4>pending</h4>}
+                      </TableCell>
+                    </TableRow>
+                  </ToolTip>))
+
+                : nonActiveCoaches.map((coach) => (
+                  <ToolTip title="click for details">
+                    <TableRow key={coach.id} className={classes.tableRow} onClick={() => { handleRowClick(coach.id) }}>
+                      <TableCell>{coach.first_name} {coach.last_name}</TableCell>
+                      <TableCell>{coach.email}</TableCell>
+                      <TableCell>{coach.phone}</TableCell>
+                      <TableCell>{coach.start_date}</TableCell>
+                      <TableCell>{coach.client_count}</TableCell>
+                      <TableCell>
+                        {coach.is_approved ? <h4>Approved</h4> : <h4>pending</h4>}
+                      </TableCell>
+                    </TableRow>
+                  </ToolTip>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>

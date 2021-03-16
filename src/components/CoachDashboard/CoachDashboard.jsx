@@ -79,7 +79,7 @@ function CoachDashboard(props) {
       </div>
       <br />
       <br />
-      <div className={classes.root} style={{  width: '80%', display: 'flex'}}>
+      <div className={classes.root, "center_table"} style={{  width: '80%', display: 'flex'}}>
         <DataGrid rowHeight={40} autoHeight={true} rows={payments} columns={columns} pageSize={12} checkboxSelection={false} onRowClick={(event)=>handleDetails(event.row.confirmation_number)}/>
       </div>
     </>

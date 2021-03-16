@@ -129,7 +129,7 @@ function CoachClientDetails(props) {
             <h3>contract id: {clientDetails.contract_id}</h3>
           </div>
           <div>
-            <div style={{ width: '80%', display: 'flex', }} className={classes.root}>
+            <div style={{ width: '80%', display: 'flex', }} className={classes.root, "center_table"}>
               <DataGrid rowHeight={40} autoHeight={true} sortModel={[{field: 'due_date', sort:'desc'},]} rows={clientDetails.payments} columns={columns} pageSize={12} checkboxSelection={false} />
             </div>
           

@@ -112,7 +112,7 @@ function CoachClientList() {
       <h2>{heading}</h2>
       <div className={classes.container}>
         {/* <h1>History:</h1> */}
-        <div style={{ width: '85%', display: 'flex' }} className="center_table">
+        <div style={{ width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
           <DataGrid rowHeight={40} autoHeight={true} rows={clients} columns={columns} pageSize={15} checkboxSelection={false} onRowClick={handleRowClick} />
         </div>
       </div>

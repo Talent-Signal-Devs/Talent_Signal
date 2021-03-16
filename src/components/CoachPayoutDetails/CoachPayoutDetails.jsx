@@ -159,7 +159,7 @@ function CoachPayoutDetails(props) {
       <br></br>
       <div className={classes.container}>
         {/* <h1>History:</h1> */}
-        <div style={{  width: '85%', display: 'flex' }} className={classes.root}>
+        <div style={{  width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
           <DataGrid rowHeight={40} autoHeight={true} rows={payments} columns={columns} pageSize={5} checkboxSelection={false} onRowClick={handleRowClick} />
         </div>
       </div>

@@ -122,3 +122,20 @@ input {
 .center_table {
   margin: auto;
 }
+
+
+.client-card{
+  padding-left: 30px;
+  padding-bottom: 30px;
+}
+
+.details-box{
+  display: flex;
+  justify-content: space-around;
+  width: 55%;
+  margin: auto;
+  border-radius: 5px;
+  background-color: #DDDDDD;
+  margin-bottom: 15px;
+  box-shadow: 5px 5px 5px #BBBBBB;
+}

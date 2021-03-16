@@ -121,7 +121,6 @@ function AdminPayouts() {
   return (
 
     <div>
-
       <div className={classes.buttonContainer}>
         <Button
           className={classes.button}
@@ -143,9 +142,8 @@ function AdminPayouts() {
 
       {visible ?
         <Dialog
-          open={open}
+          open={true}
           className={classes.dialog}
-          onClose={setVisible(false)}
           >
       <DialogTitle id="alert-dialog-title">{"Payout Confirmation Number"}</DialogTitle>
       <DialogContent>

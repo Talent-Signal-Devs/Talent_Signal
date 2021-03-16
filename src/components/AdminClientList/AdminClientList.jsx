@@ -55,7 +55,7 @@ function AdminClientList(props) {
       field: 'full_name',
       headerName: 'Client',
       flex: .8,
-      desription: 'Full name of client',
+      description: 'Full name of client',
       headerClassName: classes.header,
 
     },
@@ -63,21 +63,21 @@ function AdminClientList(props) {
       field: 'coach_full_name',
       headerName: 'Coach',
       flex: .8,
-      desription: 'Full name of coach',
+      description: 'Full name of coach',
       headerClassName: classes.header,
     },
     {
       field: 'contract_id',
       headerName: 'Contract ID',
       flex: .7,
-      desription: 'Unique ID of signed ISA held between you and the client',
+      description: 'Unique ID of signed ISA held between you and the client',
       headerClassName: classes.header,
     },
     {
       field: 'coaching_status',
       headerName: 'Coaching Status',
       flex: .7,
-      desription: 'Denotes whether client is currently receiving job coaching or is currently employed',
+      description: 'Denotes whether client is currently receiving job coaching or is currently employed',
       headerClassName: classes.header,
     },
   ]

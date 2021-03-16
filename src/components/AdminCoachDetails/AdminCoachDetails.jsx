@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
 import TableCell from "@material-ui/core/TableCell"
@@ -17,11 +17,30 @@ import Select from "@material-ui/core/Select"
 import MenuItem from "@material-ui/core/MenuItem"
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from '@material-ui/core/styles';
+import { DataGrid } from '@material-ui/data-grid';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    "& .MuiInputBase-input": {
+        width: "25ch",
+    },
+    "& .MuiDataGrid-row": {
+      cursor: 'pointer',
+      color: '#333'
+    },
+    margin: "5px"
+},
+  header: {
+    backgroundColor: '#0026FF',
+    color: 'white',
+  },
+}))
 
 function AdminCoachDetails(props) {
+  const classes = useStyles();
+  const history = useHistory();
   const coachDetails = useSelector((store) => store.coachDetailsReducer)
-
   const [heading, setHeading] = useState("Admin Coach Details")
   const [open, setOpen] = useState(false)
   const [newCoachDetails, setNewCoachDetails] = useState({
@@ -100,6 +119,49 @@ function AdminCoachDetails(props) {
   // total money that the coach has brought in for the company
   let totalRevenue = totalMoneyMade[0] * 0.25
 
+  // ------DATAGRID-------
+  const columns = [
+    {
+      field: 'name',
+      headerName: 'Full Name',
+      flex: 1,
+      sort: true,
+      valueGetter: getFullName,
+      headerClassName: classes.header
+    },
+    {
+      field: 'contract_id',
+      headerName: 'Contract ID',
+      flex: 1,
+      sort: true,
+      headerClassName: classes.header
+    },
+    {
+      field: 'coaching_status',
+      headerName: 'Coaching Status',
+      flex: 1,
+      sort: true,
+      description: 'Current coaching status of the client',
+      headerClassName: classes.header
+    },
+    {
+      field: 'contract_status',
+      headerName: 'Contract Status',
+      description: 'Current contract status of the client',
+      flex: 1,
+      sort: true,
+      headerClassName: classes.header
+    },
+  ]
+  function getFullName(params) {
+    return `${params.getValue(`first_name` || '')} ${params.getValue(`last_name` || '')}`;
+  }
+
+  function handleRowClick(event) {
+    let clientId = event.row.id;
+    history.push(`/admin/clientDetails/${clientId}`)
+  }
+
   return (
     <div>
       <h2>{heading}</h2>
@@ -163,9 +225,10 @@ function AdminCoachDetails(props) {
             <Button onClick={handleClose}>Cancel</Button>
           </Dialog>
 
-          <div>
-            <h3>Clients:</h3>
-            <TableContainer component={Paper}>
+          <h3>Clients:</h3>
+          <div style={{  width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
+            <DataGrid rowHeight={40} autoHeight={true} rows={coachDetails.clients} columns={columns} pageSize={5} checkboxSelection={false} onRowClick={handleRowClick}/>
+             {/* <TableContainer component={Paper}>
               <Table>
                 <TableHead>
                   <TableRow>
@@ -191,7 +254,7 @@ function AdminCoachDetails(props) {
                   ))}
                 </TableBody>
               </Table>
-            </TableContainer>
+            </TableContainer>  */}
           </div>
         </>
       )}

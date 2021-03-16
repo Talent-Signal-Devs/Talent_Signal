@@ -53,7 +53,7 @@ function AdminClientList(props) {
   const columns = [
     {
       field: 'full_name',
-      headerName: 'Client Full Name',
+      headerName: 'Client',
       flex: .8,
       desription: 'Full name of client',
       headerClassName: classes.header,
@@ -61,7 +61,7 @@ function AdminClientList(props) {
     },
     {
       field: 'coach_full_name',
-      headerName: 'Coach Full Name',
+      headerName: 'Coach',
       flex: .8,
       desription: 'Full name of coach',
       headerClassName: classes.header,

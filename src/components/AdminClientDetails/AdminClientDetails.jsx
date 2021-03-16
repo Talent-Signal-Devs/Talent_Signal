@@ -90,29 +90,26 @@ function AdminClientDetails(props) {
 
   return (
     <div>
-      <h2>{heading}</h2>
-      <br />
-      <br />
-
       {clientDetails && (
         <>
+          <div className="details-box">
           <div>
-            <h2>
+            <h1>
               {clientDetails.first_name}{" "}
               {clientDetails.last_name}
-            </h2>
-            <h3>{clientDetails.email}</h3>
-            <h3>{clientDetails.phone}</h3>
-            <h3>
-              Coach: {clientDetails.coach_first_name}{" "}
-              {clientDetails.coach_last_name}
-            </h3>
-            <h3>coaching status: {clientDetails.coaching_status}</h3>
-            <h3>contract id: {clientDetails.contract_id}</h3>
-            <h3>contract status: {clientDetails.contract_status}</h3>
-            <Button onClick={handleClickOpen}>Edit Details</Button>
+            </h1>
+            <h3>Email: {clientDetails.email}</h3>
+            <h3>Telephone: {clientDetails.phone}</h3>
+            <h3>Contract ID: {clientDetails.contract_id}</h3>
+            <Button onClick={handleClickOpen}>Edit Client Details</Button>
           </div>
 
+          <div>
+            <h2> Coach: {clientDetails.coach_first_name}{" "}{clientDetails.coach_last_name}</h2>
+            <h3>Coaching Status: {clientDetails.coaching_status}</h3>
+            <h3>Contract Status: {clientDetails.contract_status}</h3>
+          </div>
+          </div>
           <Dialog
             open={open}
             onClose={handleClose}

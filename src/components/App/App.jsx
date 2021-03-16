@@ -37,6 +37,7 @@ import AdminCoachDetails from '../AdminCoachDetails/AdminCoachDetails';
 import AdminPayouts from '../AdminPayouts/AdminPayouts';
 import AdminUpload from '../AdminUpload/AdminUpload'
 import AdminPayoutsHistory from '../AdminPayoutsHistory/AdminPayoutsHistory'
+import AdminPayoutsHistoryDetails from '../AdminPayoutsHistoryDetails/AdminPayoutsHistoryDetails'
 
 // spike component
 import ParseSpike from '../ParseSpike/ParseSpike'
@@ -189,6 +190,11 @@ function App() {
           exact
           path='/admin/payoutshistory'>
             <AdminPayoutsHistory/>
+          </ProtectedAdmin>
+          <ProtectedAdmin
+          exact
+          path='/admin/payoutshistory/:number'>
+            <AdminPayoutsHistoryDetails/>
           </ProtectedAdmin>
 
 

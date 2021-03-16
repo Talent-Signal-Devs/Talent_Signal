@@ -30,8 +30,11 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-
 export default function AdminPayoutsHistory() {
+
+    const history = useHistory();
+    const dispatch = useDispatch();
+
     const payoutsHistory = useSelector(store => store.payoutsHistory)
     const classes = useStyles()
 
@@ -72,24 +75,23 @@ export default function AdminPayoutsHistory() {
             headerClassName: classes.header,
         },
     ];
-        // {
-        //   field: 'action',
-        //   headerName: 'Action',
-        //   renderCell: (params) => (
-        //     <button onClick={() => handleClick(params)}>
-        //       Content
-        //     </button>
-        //   ),
-        // }
-  //  function handleClick(something){
-  //    console.log(something.row.confirmation_number);
-  //  }
+
+    //used to get payment details
+    function handleRowClick(number){
+        console.log('going to new page', number)
+        history.push(`/admin/payoutshistory/${number}`)
+    }
+
+    useEffect(()=>{
+        dispatch({type: 'GET_PAYOUTS_HISTORY'})
+    }, [])
+
     return (
         <>
             <div className={classes.container}>
                 <h1>History:</h1>
-                <div style={{ height: 600, width: '80%', display: 'flex' }} className="center_table">
-                    <DataGrid rows={payoutsHistory} columns={columns} pageSize={15} checkboxSelection={false}/>
+                <div style={{ height: 600, width: '80%', display: 'flex', cursor: 'pointer' }} className="center_table">
+                    <DataGrid rows={payoutsHistory} columns={columns} pageSize={15} checkboxSelection={false} onRowClick={(event)=>handleRowClick(event.row.confirmation_number)}/>
                 </div>
             </div>
         </>

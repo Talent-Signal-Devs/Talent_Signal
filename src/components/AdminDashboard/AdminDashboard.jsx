@@ -13,22 +13,33 @@ const useStyles = makeStyles(() => ({
   //   },
   //   margin: "5px"
   // },
+  main: {
+    height: '90vh'
+  },
   container: {
     display: "flex",
     flexFlow: "column",
     justifyContent: "center",
     alignItems: "center",
+    height: '100%'
   },
   buttonContainer: {
     display: "flex",
-
+    marginBottom: '30px'
 
   },
   button: {
     margin: '5px',
     background: 'linear-gradient(227deg, rgba(13,101,217,1) 0%, rgba(107,165,242,1) 100%)',
     height: '100px',
-    width: '300px'
+    width: '300px',
+    fontSize: '20px'
+  },
+  chartContainer: {
+    height: "75%",
+    width: "75%",
+    background: '#ffffff',
+    borderRadius: '20px'
   }
 }))
 
@@ -95,7 +106,7 @@ function AdminDashboard(props) {
   }, []);
 
   return (
-    <div>
+    <div className={classes.main}>
       <div className={classes.container}>
 
       {/* <h1>Welcome! Where would you like to go:</h1> */}
@@ -133,7 +144,9 @@ function AdminDashboard(props) {
           Manage Payouts
         </Button>
         </div>
+        <div className={classes.chartContainer}>
         <Bar data={data} options={options} />
+        </div>
       </div>
     </div>
   );

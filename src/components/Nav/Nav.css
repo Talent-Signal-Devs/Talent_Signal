@@ -4,9 +4,10 @@
   justify-content: space-between;
   align-items: center;
 
-  margin: 0 0 30px;
+  /* margin: 0 0 30px; */
   background-color: #0540F2;
   overflow: hidden;
+  height: 8vh;
 }
 
 .nav a {

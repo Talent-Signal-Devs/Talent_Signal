@@ -47,23 +47,23 @@ function* fetchCoachClients() {
     }
 }
 //saga to get data for charts for coaches and their payment history
-function* fetchCoachData() {
+function* fetchCoachPaymentHistory() {
     try {
-        console.log('in fetchCoachData')
+        console.log('in fetchCoachPaymentHistory')
         const response = yield axios.get('/api/coach/data')
-        //sends data to chartData reducer
-        yield put({ type: 'SET_CHART_DATA_COACH', payload: response.data})
+        //sends data to coachChart
+        yield put({ type: 'SET_COACH_CHART', payload: response.data})
     } catch(err) {
         console.log('error from fetchCoachData', error)
     }
 }
 //saga to get data for coaches and their history of statuses
-function* fetchCoachDataHistory() {
+function* fetchCoachDonut() {
     try {
-        console.log('in fetchCoachDataHistory')
+        console.log('in fetchCoachDonut')
         const response = yield axios.get('/api/admin/paymentshistory/visual/graph')
-        //sends data to chartData reducer
-        yield put({ type: 'SET_CHART_DATA_COACH', payload: response.data})
+        //sends data to coachDonut reducer
+        yield put({ type: 'SET_COACH_DONUT', payload: response.data})
     } catch(err) {
         console.log('error from fetchCoachData', err)
     }
@@ -74,8 +74,9 @@ function* coachSaga() {
     yield takeEvery('FETCH_COACH_PAYMENT_DETAILS', fetchCoachPaymentDetails);
     yield takeEvery('FETCH_COACH_PAYMENT_DETAILS_NUMBER', fetchCoachPaymentDetailsNumber);
     yield takeEvery('FETCH_COACH_CLIENTS', fetchCoachClients);
-    yield takeEvery('FETCH_COACH_DATA', fetchCoachData);
-    yield takeEvery('FETCH_COACH_DATA_HISTORY', fetchCoachDataHistory);
+    //for charting
+    yield takeEvery('FETCH_COACH_PAYMENT_HISTORY', fetchCoachPaymentHistory);
+    yield takeEvery('FETCH_COACH_DONUT', fetchCoachDonut);
 }
 
 export default coachSaga;

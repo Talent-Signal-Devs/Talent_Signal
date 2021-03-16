@@ -36,14 +36,15 @@ function CoachDashboard(props) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const coachChart = useSelector((store) => store.chartData)
+  const coachChart = useSelector((store) => store.coachChart)
+  const coachDonut = useSelector((store) => store.chartDonut)
 
 
 
 
   useEffect(() => {
-    dispatch({type: 'FETCH_COACH_DATA'})
-    dispatch({type: 'FETCH_COACH_DATA_HISTORY'})
+    dispatch({type: 'FETCH_COACH_PAYMENT_HISTORY'})
+    dispatch({type: 'FETCH_COACH_DONUT'})
   }, [])
 
 

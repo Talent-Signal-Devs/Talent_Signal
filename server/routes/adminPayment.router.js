@@ -9,7 +9,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT "payouts".*, "users".* FROM "payouts"
                      JOIN "user" ON "user".id = "payouts".user_id
                      ORDER BY "user".last_name;`;
-    
+
     pool.query(sqlText)
     .then((result) => {
         res.send(result.rows);
@@ -20,11 +20,5 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     })
 });
 
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-    // POST route code here
-});
 
 module.exports = router;

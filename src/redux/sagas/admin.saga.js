@@ -69,7 +69,15 @@ function* updateCoachDetails(action) {
     }
 }
 
-
+function* fetchChartData() {
+    try {
+        const response = yield axios.get('/api/admin/data')
+        console.log(response.data)
+        yield put({ type: 'SET_CHART_DATA', payload: response.data})
+    } catch(err) {
+        console.log(err)
+    }
+}
 
 function* adminSaga() {
     yield takeEvery('FETCH_ADMIN_CLIENTS', fetchAdminClients);
@@ -79,6 +87,7 @@ function* adminSaga() {
     yield takeEvery('GET_COACH_DETAILS', getCoachDetails);
     yield takeEvery('UPDATE_CLIENT_DETAILS', updateClientDetails)
     yield takeEvery('UPDATE_COACH_DETAILS', updateCoachDetails)
+    yield takeEvery('FETCH_CHART_DATA', fetchChartData)
 }
 
 export default adminSaga;

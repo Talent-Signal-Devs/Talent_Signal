@@ -4,9 +4,10 @@
   justify-content: space-between;
   align-items: center;
 
-  margin: 0 0 30px;
-  background-color: #0026ff;
+  /* margin: 0 0 30px; */
+  background-color: #0540F2;
   overflow: hidden;
+  height: 8vh;
 }
 
 .nav a {
@@ -14,17 +15,17 @@
 }
 
 .nav-title {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 36px;
   color: #f2f2f2;
   padding-left: 10px;
   margin: 0;
+  font-family: 'Blinker', sans-serif;
 }
 
 .navLink {
   display: inline-block;
   color: #f2f2f2;
-  background-color: #0026ff;
+  background-color: #0540F2;
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;

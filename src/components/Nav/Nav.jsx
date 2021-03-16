@@ -21,7 +21,7 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/coach/dashboard">
-        <h2 className="nav-title">Talent Signal Application</h2>
+        <h2 className="nav-title">Talent Signal</h2>
       </Link>
       <div>
        

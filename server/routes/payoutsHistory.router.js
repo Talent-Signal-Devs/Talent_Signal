@@ -63,4 +63,58 @@ router.get(`/:confirmationNumber`, rejectUnauthenticated, (req, res)=>{
 })
 
 
+//gets data for chart.js
+router.get('/visual/graph', rejectUnauthenticated, (req, res)=>{
+    if(req.user.clearance === 1){
+        console.log('in VISUAL server')
+        const queryText = `
+        SELECT "payments".payment_status, COUNT("payments".payment_status) FROM "payments"
+        GROUP BY "payments".payment_status;
+        `
+        pool.query(queryText).then((response)=>{
+            console.log(response.rows);
+            let responseObject = arraySorter(response.rows)
+            res.send(responseObject)
+        }).catch((error)=>{
+            console.log(error);
+            res.sendStatus(500)
+        })
+    }
+    if(req.user.clearance === 0){
+        console.log('in as coach to visual')
+        const coachID = [req.user.id]
+        const queryText = `
+        SELECT "payments".payment_status, COUNT("payments".payment_status) FROM "payments"
+        JOIN "client" ON "payments".contract_id = "client".contract_id
+        JOIN "users" ON "users".id = "client".user_id
+        WHERE "users".id = $1
+        GROUP BY "payments".payment_status;
+        `
+        pool.query(queryText, coachID).then((response)=>{
+            console.log(response.rows)
+            let coachResponseObject = arraySorter(response.rows)
+            res.send(coachResponseObject)
+        }).catch((error)=>{
+            console.log('error with coach statuses', error);
+            res.sendStatus(500)
+        })
+
+    }
+    else{
+        res.sendStatus(403)
+    }
+})
+
+//function used in visual/graph to sort data from DB
+function arraySorter(array){
+    let status = []
+    let counter = []
+    for(let object of array){
+        status.push(object.payment_status);
+        counter.push(object.count)
+    }
+    return {statuses: status, counters: counter}
+}
+
+
 module.exports = router;

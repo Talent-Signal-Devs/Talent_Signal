@@ -28,6 +28,22 @@ function* getPayoutsHistory() {
     console.error('error in getPayoutsHistory saga:', error);
   }
 }
+
+//GETs data for charting on admin payouts page
+function* getPayoutsVisual() {
+  try {
+    console.log('in getPayoutsHistoryVisual')
+    const response = yield axios.get('/api/admin/paymentshistory/visual/graph')
+    console.log('server response getting payoutsHistoryVisual', response.data)
+    //goes to payout reducer
+    yield put({type: 'SET_CHART_DATA', payload: response.data})
+
+  } catch (error) {
+    console.error('error in getPayoutsHistoryVisual saga:', error);
+  }
+}
+
+
 //GET details for a specific payment by check no.
 function* seeFullPaymentDetails(action) {
   try {
@@ -59,6 +75,7 @@ function* payoutSaga() {
   yield takeLatest('SEE_FULL_PAYMENT_DETAILS', seeFullPaymentDetails)
   yield takeLatest('GET_PAYMENT', getPayoutDetails);
   yield takeLatest('GET_PAYOUTS_HISTORY', getPayoutsHistory)
+  yield takeLatest('GET_PAYOUTS_VISUAL', getPayoutsVisual)
   yield takeLatest('PAY_COACH', payCoach);
 }
 

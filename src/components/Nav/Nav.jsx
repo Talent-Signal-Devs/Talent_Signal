@@ -7,6 +7,8 @@ import {useSelector} from 'react-redux';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import GroupIcon from '@material-ui/icons/Group';
 import PaymentIcon from '@material-ui/icons/Payment';
+import SportsIcon from '@material-ui/icons/Sports'
+import HomeIcon from '@material-ui/icons/Home'
 
 
 
@@ -20,10 +22,12 @@ function Nav() {
   }
   return (
     <div className="nav">
-      <Link to="/coach/dashboard">
-        <h2 className="nav-title">Talent Signal</h2>
-      </Link>
-      <div>
+      <div className='titleContainer'>
+        <Link to="/coach/dashboard">
+          <h2 className="nav-title">Talent Signal</h2>
+        </Link>
+      </div>
+      <div className='linkContainer'>
        
        {/* Only shows when logged in */}
        {/* DELETE ME WHEN DONE WITH TESTING */}
@@ -35,8 +39,9 @@ function Nav() {
         {/* Coach Nav Bar */}
         {user.clearance == 0 && (
           <>
+            
             <Link className ="navLink" to="/coach/clientList">
-              <AccountCircleIcon/>Clients
+            <AccountCircleIcon/>Clients
             </Link>
             {/* -- use pathname for link to determine if arrive at payment details via navbar or by coach dashboard. See Coach Payout Details component for further explanation.  */}
             <Link className="navLink" value='payments' 
@@ -52,17 +57,20 @@ function Nav() {
         {/* Admin Nav Bar */}
         {user.clearance > 0 && (
           <>
+            <Link className ="navLink" to="/admin/dashboard">
+            <HomeIcon /> <br/>Home
+            </Link>
             <Link className ="navLink" to="/admin/addUser">
-              Add User
+            <GroupIcon /> <br/>Add User
             </Link>
             <Link className ="navLink" to="/admin/coachList">
-              Coaches
+              <SportsIcon /><br/>Coaches
             </Link>
             <Link className ="navLink" to="/admin/clientList">
-              <AccountCircleIcon/>Clients
+              <AccountCircleIcon/><br/>Clients
             </Link>
             <Link className="navLink" to="/admin/payouts">
-              <PaymentIcon/>Payouts
+              <PaymentIcon/><br/>Payouts
             </Link>
             <LogOutButton className="navLink" />
           </>

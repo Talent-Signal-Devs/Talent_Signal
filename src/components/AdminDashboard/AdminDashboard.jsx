@@ -21,18 +21,22 @@ const useStyles = makeStyles(() => ({
     flexFlow: "column",
     justifyContent: "center",
     alignItems: "center",
-    height: '100%'
+    height: '100%',
+    width: '100%'
   },
   buttonContainer: {
     display: "flex",
-    marginBottom: '30px'
+    justifyContent: 'center',
+    marginBottom: '30px',
+    // border: '1px solid blue',
+    width: '100%'
 
   },
-  button: {
+  blueButton: {
     margin: '5px',
     background: 'linear-gradient(227deg, rgba(13,101,217,1) 0%, rgba(107,165,242,1) 100%)',
     height: '100px',
-    width: '300px',
+    width: '250px',
     fontSize: '20px'
   },
   chartContainer: {
@@ -99,6 +103,10 @@ function AdminDashboard(props) {
         },
       ],
     },
+    title: {
+      display: true,
+      text: 'Monthly Completed Payments'
+    }
   }
 
   useEffect(() => {
@@ -116,7 +124,7 @@ function AdminDashboard(props) {
           variant='contained'
           color='secondary'
           onClick={() => history.push('/admin/addUser')}
-          className={classes.button}>
+          className={classes.blueButton}>
           Add New Coach/Client
         </Button>
 
@@ -124,7 +132,7 @@ function AdminDashboard(props) {
           variant='contained'
           color='secondary'
           onClick={() => history.push('/admin/coachList')}
-          className={classes.button}>
+          className={classes.blueButton}>
           View Coaches
         </Button>
 
@@ -132,7 +140,7 @@ function AdminDashboard(props) {
           variant='contained'
           color='secondary'
           onClick={() => history.push('/admin/clientList')}
-          className={classes.button}>
+          className={classes.blueButton}>
           View Clients
         </Button>
 
@@ -140,7 +148,7 @@ function AdminDashboard(props) {
           variant='contained'
           color='secondary'
           onClick={() => history.push('/admin/payouts')}
-          className={classes.button}>
+          className={classes.blueButton}>
           Manage Payouts
         </Button>
         </div>

@@ -8,9 +8,19 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import { DataGrid } from '@material-ui/data-grid';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+  header: {
+    backgroundColor: '#0026FF',
+    color: 'white',
+  },
+}))
+
 
 function CoachClientDetails(props) {
-
+  const classes = useStyles();
   const clientDetails = useSelector((store) => store.clientDetailsReducer);
   const [heading, setHeading] = useState('Coach Client Details');
   const params = useParams();
@@ -41,6 +51,59 @@ function CoachClientDetails(props) {
   // total money that the coach has brought in for the company
   let totalRevenue = totalMoneyMade[0] * 0.75;
 
+  
+
+  const columns = [
+    {
+      field: 'payment_id',
+      headerName: 'Payment ID',
+      flex: 1.5,
+      sort: true,
+      headerClassName: classes.header
+    },
+    {
+      field: 'due_date',
+      headerName: 'Due Date',
+      flex: 1,
+      sort: true,
+      description: `Date the client's payment is due`,
+      // valueFormatter: (params) => params.value.getFullYear(),
+      // valueFormatter: (params: ValueFormatterParams) => (params.value as Date).getFullYear(),
+      valueFormatter: (params) => new Date(params.value).toLocaleDateString("en-us"),
+      type: 'date',
+      headerClassName: classes.header
+    },
+    {
+      field: 'payment_status',
+      headerName: 'Payment Status',
+      flex: 1,
+      sort: true,
+      description: `Status of the payment`,
+      headerClassName: classes.header
+    },
+    {
+      field: 'amount',
+      headerName: 'Amount',
+      flex: 1,
+      sort: true,
+      description: `Payment amount received by Talent Signal`,
+      headerClassName: classes.header
+    },
+    {
+      field: 'total_paid',
+      headerName: 'Total Paid',
+      valueGetter: getTotalPaid,
+      flex: 1,
+      sort: true,
+      description: `Payment amount received by Talent Signal`,
+      headerClassName: classes.header
+    },
+  ]
+
+  //handles the value for 'total_paid' column
+  function getTotalPaid(params) {
+    return `${params.getValue('amount') * 0.75}`
+  }
 
   return (
     <div>
@@ -56,7 +119,10 @@ function CoachClientDetails(props) {
             <h3>contract id: {clientDetails.contract_id}</h3>
           </div>
           <div>
-            <TableContainer component={Paper}>
+            <div style={{ width: '80%', display: 'flex', }} className="center_table">
+              <DataGrid rowHeight={40} autoHeight={true} sortModel={[{field: 'due_date', sort:'desc'},]} rows={clientDetails.payments} columns={columns} pageSize={12} checkboxSelection={false}/>
+            </div>
+            {/* <TableContainer component={Paper}>
               <Table>
                 <TableHead>
                   <TableRow>
@@ -79,7 +145,7 @@ function CoachClientDetails(props) {
                   ))}
                 </TableBody>
               </Table>
-            </TableContainer>
+            </TableContainer> */}
             <h3>Total amount paid by client: ${moneyMade}</h3>
             <h3>Total money received: ${totalRevenue}</h3>
           </div>

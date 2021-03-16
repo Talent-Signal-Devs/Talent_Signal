@@ -33,6 +33,10 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'center',
     alignContent: 'space-between'
+  },
+  header: {
+    backgroundColor: '#0026FF',
+    color: 'white',
   }
 }))
 
@@ -66,19 +70,22 @@ function CoachDashboard(props) {
       headerName: 'Payout Date',
       flex: 1,
       sort: true,
-      description: 'Date that Talent Signal confirmed payment to coach'
+      description: 'Date that Talent Signal confirmed payment to coach',
+      headerClassName: classes.header
     },
     {
       field: 'total_paid',
       headerName: 'Total Paid',
       flex: 1,
       sort: true,
-      description: 'Total amount paid to coach by Talent Signal'
+      description: 'Total amount paid to coach by Talent Signal',
+      headerClassName: classes.header
     },
     {
       field: 'action',
       headerName: 'Action',
       flex: 1,
+      headerClassName: classes.header,
       renderCell: (params) => (
         <Button
           variant='contained'

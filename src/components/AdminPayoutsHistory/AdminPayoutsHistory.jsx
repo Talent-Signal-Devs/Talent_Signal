@@ -72,23 +72,12 @@ export default function AdminPayoutsHistory() {
             headerClassName: classes.header,
         },
     ];
-        // {
-        //   field: 'action',
-        //   headerName: 'Action',
-        //   renderCell: (params) => (
-        //     <button onClick={() => handleClick(params)}>
-        //       Content
-        //     </button>
-        //   ),
-        // }
-  //  function handleClick(something){
-  //    console.log(something.row.confirmation_number);
-  //  }
+
     return (
         <>
             <div className={classes.container}>
                 <h1>History:</h1>
-                <div style={{ height: 600, width: '80%', display: 'flex' }} className="center_table">
+                <div style={{ height: 600, width: '80%', display: 'flex', cursor: 'pointer' }} className="center_table">
                     <DataGrid rows={payoutsHistory} columns={columns} pageSize={15} checkboxSelection={false}/>
                 </div>
             </div>

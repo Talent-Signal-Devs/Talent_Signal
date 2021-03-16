@@ -85,7 +85,7 @@ function AdminPayouts() {
   //holds data from DB on all payments not yet paid
   const coachPayouts = useSelector((store) => store.payout);
 
-  //modal
+  //modal controller
   const [visible, setVisible] = useState(false)
   const [confirmNumber, setConfirmNumber] = useState('')
 
@@ -107,11 +107,13 @@ function AdminPayouts() {
 
   }
 
+  //navs to payouts history view, gets ALL payouts
   function handlePayoutsHistory() {
     dispatch({ type: 'GET_PAYOUTS_HISTORY' })
     history.push('/admin/payoutshistory')
   }
 
+  //loads payments
   useEffect(() => {
     setTimeout(() => dispatch({ type: 'GET_PAYMENT' }), 400);
   }, [])

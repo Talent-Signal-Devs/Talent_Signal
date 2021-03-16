@@ -99,31 +99,9 @@ function AdminClientList(props) {
       <br />
       <br />
       <div>
-        <div style={{ height: 600, width: '80%', display: 'flex', }} className="center_table">
+        <div style={{ height: 600, width: '80%', display: 'flex', cursor: 'pointer'}} className="center_table">
           <DataGrid rows={clients} columns={columns} pageSize={15} checkboxSelection={false} onRowClick={(event)=>handleRowClick(event.row.id)}/>
         </div>
-        {/* <TableContainer component={Paper} className={classes.table}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Contract ID</TableCell>
-                <TableCell>Coach</TableCell>
-                <TableCell>Coaching Status</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {clients.map((client) => (
-                <TableRow key={client.id} onClick={() => {handleRowClick(client.id)}} className={classes.tableRow}>
-                  <TableCell>{client.first_name} {client.last_name}</TableCell>
-                  <TableCell>{client.contract_id}</TableCell>
-                  <TableCell>{client.coach_first_name} {client.coach_last_name}</TableCell>
-                  <TableCell>{client.coaching_status}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer> */}
       </div>
     </div>
   );

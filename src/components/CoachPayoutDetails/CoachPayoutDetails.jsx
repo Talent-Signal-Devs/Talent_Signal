@@ -31,10 +31,14 @@ const useStyles = makeStyles(() => ({
   },
   root: {
     "& .MuiInputBase-input": {
-      width: "25ch",
+        width: "25ch",
+    },
+    "& .MuiDataGrid-row": {
+      cursor: 'pointer',
+      color: '#333'
     },
     margin: "5px"
-  },
+},
   container: {
     display: "flex",
     flexFlow: "column",
@@ -101,26 +105,8 @@ function CoachPayoutDetails(props) {
       description: `Payment amount received by coach from Talent Signal`,
       headerClassName: classes.header
     },
-    {
-      field: 'action',
-      headerName: 'Action',
-      flex: 1,
-      headerClassName: classes.header,
-      renderCell: (params) => (
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={() => handleDetails(params)}
-        >
-          Details
-        </Button>
-      )
-    }
   ]
 
-  const handleDetails = (something) => {
-    console.log(something);
-  }
   const handleClick = () => {
     console.log('dispatch with ', monthDate);
     dispatch({ type: 'FETCH_COACH_PAYMENT_DETAILS', payload: monthDate })
@@ -139,6 +125,12 @@ function CoachPayoutDetails(props) {
   console.log(`page id is ${page.id}`);
   console.log(typeof page.id)
   console.log(`selected value is now ${monthDate}`);
+
+  const handleRowClick = (event) => {
+    let userId = event.row.clientId;
+    history.push(`/coach/clientDetails/${userId}`);
+
+  }
 
   return (
     <div>
@@ -167,8 +159,8 @@ function CoachPayoutDetails(props) {
       <br></br>
       <div className={classes.container}>
         {/* <h1>History:</h1> */}
-        <div style={{ height: 400, width: '85%', display: 'flex' }} className="center_table">
-          <DataGrid rows={payments} columns={columns} pageSize={15} checkboxSelection={false} />
+        <div style={{  width: '85%', display: 'flex' }} className={classes.root}>
+          <DataGrid rowHeight={40} autoHeight={true} rows={payments} columns={columns} pageSize={5} checkboxSelection={false} onRowClick={handleRowClick} />
         </div>
       </div>
     </div>

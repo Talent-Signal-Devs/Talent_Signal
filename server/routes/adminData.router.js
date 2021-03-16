@@ -10,7 +10,8 @@ router.get('/', (req, res) => {
   
     const query = `SELECT payments.due_date, SUM(payments.amount) AS total_amount FROM payments
     WHERE payments.payment_status = 'complete' AND payments.due_date LIKE '${year}%'
-    GROUP BY payments.due_date`
+    GROUP BY payments.due_date
+    ORDER BY payments.due_date`
 
     pool
     .query(query)

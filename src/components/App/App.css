@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Blinker&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
 html,
 body,
 #react-root {
@@ -7,7 +13,8 @@ body,
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
-  background-color: #eee;
+  background-color: #F4F4F5;
+  color: #031476
 
 }
 

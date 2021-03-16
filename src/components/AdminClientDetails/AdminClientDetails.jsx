@@ -226,12 +226,15 @@ function AdminClientDetails(props) {
                       <TableCell>
                         {payment?.payment_id}
                       </TableCell>
-                      <TableCell>
-                        {new Date(payment?.due_date).toLocaleDateString('en-us')}
-                      </TableCell>
-                      <TableCell>
-                        ${payment?.amount}
-                      </TableCell>
+
+                      {new Date(payment?.due_date).toLocaleDateString('en-us') === 'Invalid Date'
+                        ? <TableCell></TableCell>
+                        : <TableCell>{new Date(payment?.due_date).toLocaleDateString('en-us')}</TableCell>}
+
+                      {payment?.amount > 0.01
+                        ? <TableCell>${payment?.amount}</TableCell>
+                        : <TableCell></TableCell>}
+
                       <TableCell>
                         {payment?.payment_status}
                       </TableCell>

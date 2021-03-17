@@ -1,33 +1,49 @@
 .nav {
   /* flex box layout */
   display: flex;
-  justify-content: space-between;
+  flex-flow: column;
   align-items: center;
-
   /* margin: 0 0 30px; */
-  background-color: #0540F2;
+  background-color: #363F46;
   overflow: hidden;
-  height: 8vh;
+  height: 100%;
+  width: 150px;
 }
 
 .nav a {
   text-decoration: none;
 }
 
+.titleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .nav-title {
   font-size: 36px;
   color: #f2f2f2;
-  padding-left: 10px;
-  margin: 0;
+  padding-left: 20px;
+  margin-bottom: 30px;
+  margin-top: 10px;
   font-family: 'Blinker', sans-serif;
+
+}
+
+.linkContainer {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+
 }
 
 .navLink {
-  display: inline-block;
+  display: block;
   color: #f2f2f2;
-  background-color: #0540F2;
+  background-color: #363F46;
   text-align: center;
   padding: 24px 10px;
+  width: 100%;
   text-decoration: none;
   font-size: 15px;
 

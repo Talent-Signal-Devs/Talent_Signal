@@ -8,14 +8,25 @@ html,
 body,
 #react-root {
   height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  margin: 0
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
   background-color: #f1f1f1;
-  color: #031476
+  color: #031476;
+  display: flex;
+  flex-flow: row nowrap;
+}
 
+.main {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
 }
 
 img {

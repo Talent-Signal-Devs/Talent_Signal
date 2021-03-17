@@ -12,7 +12,7 @@ function LogOutButton(props) {
       className={props.className}
       onClick={() => dispatch({ type: 'LOGOUT' })}
     >
-      <SyncAltIcon/>Log Out
+      <SyncAltIcon/><br/>Log Out
     </button>
   );
 }

@@ -13,6 +13,8 @@ import coachDetailsReducer from './coachDetails.reducer';
 import payoutsHistory from './payoutsHistory.reducer'
 import coachClientReducer from './coachClient.reducer'
 import chartData from './chartData.reducer'
+import coachDonut from './coachDonut.reducer'
+import coachChart from './coachChart.reducer'
 
 
 
@@ -38,6 +40,8 @@ const rootReducer = combineReducers({
   payoutsHistory, //stores details for all completed payouts for ADMIN view
   coachDetailsReducer, // stores a selected coach's information for the admin coach details view
   chartData,
+  coachDonut, //holds data for coach dashboard, donut chart
+  coachChart, //holds data for coach dashboard, bar chart
 
 
 });

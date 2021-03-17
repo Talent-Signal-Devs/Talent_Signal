@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import ToolTip from '@material-ui/core/ToolTip';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -15,21 +8,23 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { DataGrid } from '@material-ui/data-grid';
+
 
 const useStyles = makeStyles(() => ({
-  tableRow: {
-    backgroundColor: 'aliceblue',
-    '&:hover': {
-      opacity: '80%',
-      backgroundColor: 'lightblue'
+  root: {
+    "& .MuiInputBase-input": {
+        width: "25ch",
     },
-  },
-  table: {
-    minWidth: '100px',
-    width: '1200px',
-    margin: 'auto',
-    textAlign: 'center',
-    borderCollapse: 'collapse',
+    "& .MuiDataGrid-row": {
+      cursor: 'pointer',
+      color: '#333'
+    },
+    margin: "5px"
+},
+  header: {
+    backgroundColor: '#0026FF',
+    color: 'white',
   },
 }))
 
@@ -47,8 +42,68 @@ function AdminCoachList(props) {
     dispatch({ type: 'FETCH_ADMIN_COACHES' });
   }, [])
 
-  const handleRowClick = (input) => {
-    history.push(`/admin/coachDetails/${input}`);
+  const columns = [
+    {
+      field: 'name',
+      headerName: 'Full Name',
+      flex: 1,
+      sort: true,
+      valueGetter: getFullName,
+      headerClassName: classes.header
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      flex: 1,
+      sort: true,
+      headerClassName: classes.header
+    },
+    {
+      field: 'phone',
+      headerName: 'Phone',
+      flex: 1,
+      sort: true,
+      headerClassName: classes.header
+    },
+    {
+      field: 'start_date',
+      headerName: 'Date Joined',
+      flex: 1,
+      sort: true,
+      description: `Date the coach began with Talent Signal`,
+      headerClassName: classes.header
+    },
+    {
+      field: 'client_count',
+      headerName: 'Client Count',
+      flex: 1,
+      sort: true,
+      description: `Number of clients the coach works with`,
+      headerClassName: classes.header
+    },
+    {
+      field: 'approval',
+      headerName: 'Registration Status',
+      flex: 1,
+      sort: true,
+      description: `Whether the coach has activated their account`,
+      valueGetter: getApproval,
+      headerClassName: classes.header
+    },
+  ]
+
+  function getFullName(params) {
+    return `${params.getValue(`first_name` || '')} ${params.getValue(`last_name` || '')}`;
+  }
+
+  function getApproval(params) {
+    let isApproved = params.getValue('is_approved');
+    return isApproved ? 'Approved' : 'Pending';
+  }
+
+  const handleRowClick = (event) => {
+    let coachId = event.row.id;
+    history.push(`/admin/coachDetails/${coachId}`);
   }
 
   const activeCoaches = [];
@@ -72,7 +127,7 @@ function AdminCoachList(props) {
       <div>
         <h2>{heading}</h2>
       </div>
-      <div>
+       <div>
         <FormControl>
           <Select
             labelId="coach-select"
@@ -86,7 +141,7 @@ function AdminCoachList(props) {
         </div>
         <br/>
         <br/>
-        <div>
+        {/*<div>
         <TableContainer component={Paper} className={classes.table}>
           <Table>
             <TableHead>
@@ -131,8 +186,17 @@ function AdminCoachList(props) {
                 ))}
             </TableBody>
           </Table>
-        </TableContainer>
+        </TableContainer> */}
+
+      {seeActiveCoaches 
+      ? <div style={{ width: '80%', display: 'flex', }} className={classes.root, "center_table"}>
+        <DataGrid rowHeight={40} autoHeight={true} rows={activeCoaches} columns={columns} pageSize={12} checkboxSelection={false} onRowClick={handleRowClick} />
+
       </div>
+      : <div style={{ width: '80%', display: 'flex', }} className={classes.root, "center_table"}>
+      <DataGrid rowHeight={40} autoHeight={true} rows={nonActiveCoaches} columns={columns} pageSize={12} checkboxSelection={false} onRowClick={handleRowClick} />
+
+    </div>}
     </div>
   );
 }

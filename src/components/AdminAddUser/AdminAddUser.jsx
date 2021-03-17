@@ -20,15 +20,17 @@ const useStyles = makeStyles(() => ({
     formPageContainer: {
         display: "flex",
         flexFlow: "column",
-        justifyContent: "center",
+        // justifyContent: "center",
         alignItems: "center",
+        height: '100%',
+        // border: '1px solid blue'
     },
     userFormContainer: {
         display: "flex",
         flexFlow: "column",
         justifyContent: "center",
         alignItems: "center",
-        width: "30%",
+        width: "20%",
         // border: "2px solid blue"
     },
     userForm: {
@@ -53,9 +55,18 @@ const useStyles = makeStyles(() => ({
       width: "25ch",
       margin: "10px",
     },
-    button: {
-      margin: "5px"
-    }
+    buttonSubmit: {
+      margin: "10px",
+      display: 'block',
+      width: '225px',
+      background: '#031476',
+      color: '#ffffff'
+    },
+    buttonCancel: {
+      margin: "10px",
+      display: 'block',
+      width: '225px'
+    },
 }))
 
 
@@ -344,8 +355,8 @@ function AdminAddUser(props) {
                         </div>
                     )}
                   <div className={classes.buttonContainer}>
-                    <Button type="submit" variant="contained" color="primary" className={classes.button}>Add User</Button>
-                    <Button onClick={handleCancel} variant="contained" color="secondary" className={classes.button}>Cancel</Button>
+                    <Button type="submit" variant="contained" className={classes.buttonSubmit}>Add User</Button>
+                    <Button onClick={handleCancel} variant="contained" className={classes.buttonCancel}>Cancel</Button>
                   </div>
                 </form>
             </div>

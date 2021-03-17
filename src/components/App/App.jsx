@@ -74,8 +74,9 @@ function App() {
   return (
     <ThemeProvider theme ={theme}>
     <Router>
-      <div>
-        <Nav />
+    <Nav />
+      <div className='main'>
+        
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/login */}
           <Redirect exact from="/" to="/login" />

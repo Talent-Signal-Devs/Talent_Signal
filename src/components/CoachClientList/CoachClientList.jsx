@@ -96,33 +96,15 @@ function CoachClientList() {
       description: `End date of payments for the client`,
       headerClassName: classes.header
     },
-    {
-      field: 'action',
-      headerName: 'Action',
-      flex: 1,
-      headerClassName: classes.header,
-      renderCell: (params) => (
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={() => handleDetails(params)}
-        >
-          Details
-        </Button>
-      )}
   ]
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COACH_CLIENTS' });
   }, []);
 
-  const handleDetails = (input) => {
-    let userId = input.row.id
-    history.push(`/coach/clientDetails/${userId}`);
-  } 
-
   const handleRowClick = (event) => {
-    console.log(event.row.id);
+    let userId = event.row.id;
+    history.push(`/coach/clientDetails/${userId}`);
   }
 
   return (
@@ -130,8 +112,8 @@ function CoachClientList() {
       <h2>{heading}</h2>
       <div className={classes.container}>
         {/* <h1>History:</h1> */}
-        <div style={{ height: 500, width: '85%', display: 'flex' }} className="center_table">
-          <DataGrid rows={clients} columns={columns} pageSize={15} checkboxSelection={false} onRowClick={handleRowClick} />
+        <div style={{ width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
+          <DataGrid rowHeight={40} autoHeight={true} rows={clients} columns={columns} pageSize={15} checkboxSelection={false} onRowClick={handleRowClick} />
         </div>
       </div>
     </div>

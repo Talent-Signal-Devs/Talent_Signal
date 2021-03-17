@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
             width: "25ch",
 
         },
+        
         margin: "5px"
     },
     container: {
@@ -127,7 +128,7 @@ export default function AdminPayoutsHistory() {
             <div className={classes.container}>
                 <h1>History:</h1>
                 <div style={{ height: 600, width: '80%', display: 'flex', cursor: 'pointer' }} className="center_table">
-                    <DataGrid rows={payoutsHistory} columns={columns} pageSize={15} checkboxSelection={false} onRowClick={(event)=>handleRowClick(event.row.confirmation_number)}/>
+                    <DataGrid rows={payoutsHistory} columns={columns} pageSize={15} checkboxSelection={false} onRowClick={(event)=>handleRowClick(event.row.confirmation_number)} />
                 </div>
             </div>
             <Doughnut data={data} options={options} />

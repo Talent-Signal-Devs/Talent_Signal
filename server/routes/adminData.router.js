@@ -1,9 +1,10 @@
 const express = require('express');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
 
 
-router.get('/', (req, res) => {
+router.get('/chart', rejectUnauthenticated, (req, res) => {
 
     const date = new Date()
     const year = date.getFullYear()
@@ -19,7 +20,7 @@ router.get('/', (req, res) => {
         console.log(response.rows)
         let amountArray = []
         for (total of response.rows){
-            amountArray.push(total.total_amount)
+            amountArray.push(total.total_amount * .25)
         }
         console.log(amountArray)
         res.send(amountArray)
@@ -30,8 +31,29 @@ router.get('/', (req, res) => {
 });
 
 
-router.post('/', (req, res) => {
-  // POST route code here
+router.get('/donut', rejectUnauthenticated, (req, res) => {
+    const date = new Date()
+    const year = date.getFullYear()
+
+    const query = `SELECT payments.payment_status, COUNT(payments.payment_status) FROM payments
+    WHERE payments.due_date LIKE '${year}%'
+    GROUP BY payments.payment_status`
+
+    pool.query(query)
+    .then((response) => {
+        console.log(response.rows)
+        let labels = []
+        let data = []
+        for (item of response.rows) {
+            labels.push(item.payment_status)
+            data.push(item.count)
+        }
+        console.log(labels, data)
+        res.send({labels: labels, data: data})
+    })
+    .catch(err => {
+        console.log(err)
+    })
 });
 
 module.exports = router;

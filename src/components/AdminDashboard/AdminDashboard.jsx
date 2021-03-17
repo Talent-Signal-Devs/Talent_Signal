@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import Button from "@material-ui/core/Button"
 import { makeStyles } from "@material-ui/core/styles"
 import {useHistory} from 'react-router-dom'
-import { Bar } from 'react-chartjs-2'
+import { Bar, Doughnut } from 'react-chartjs-2'
+import { AutorenewTwoTone } from '@material-ui/icons';
+
 
 const useStyles = makeStyles(() => ({
   // root: {
@@ -13,23 +15,24 @@ const useStyles = makeStyles(() => ({
   //   },
   //   margin: "5px"
   // },
-  main: {
-    height: '90vh'
+  dashboard: {
+    height: '100%'
   },
   container: {
     display: "flex",
     flexFlow: "column",
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
-    height: '100%',
+    height: '100vh',
     width: '100%'
   },
   buttonContainer: {
     display: "flex",
-    justifyContent: 'center',
-    marginBottom: '30px',
+    justifyContent: 'space-around',
+    marginBottom: '50px',
+    marginTop: '50px',
     // border: '1px solid blue',
-    width: '100%'
+    width: '80%'
 
   },
   blueButton: {
@@ -40,11 +43,30 @@ const useStyles = makeStyles(() => ({
     fontSize: '20px'
   },
   chartContainer: {
-    height: "75%",
-    width: "75%",
+    display: 'flex',
+    // flexFlow: 'column',
+    justifyContent: 'space-around',
+    // alignItems: 'center',
+    height: "100%",
+    width: '100%',
+    // marginLeft: '20px',
+    // border: '1px solid blue'
+  },
+  barContainer: {
+    position: 'relative',
+    height: '60vh',
+    width: '80vh',
     background: '#ffffff',
-    borderRadius: '20px'
-  }
+    borderRadius: '20px',
+  },
+  donutContainer: {
+    position: 'relative',
+    height: '50vh',
+    width: '80vh',
+    top: '50px',
+    background: '#ffffff',
+    borderRadius: '20px',
+  },
 }))
 
 
@@ -57,13 +79,17 @@ function AdminDashboard(props) {
   // Using hooks we're creating local state for a "heading" variable with
   // a default value of 'Functional Component'
   const coaches = useSelector((store) => store.adminCoachReducer);
-  const chartData = useSelector((store) => store.chartData)
+  const chartData = useSelector((store) => store.adminChart)
+  const donutData = useSelector((store) => store.adminDonut)
+
+  const date = new Date()
+  const year = date.getFullYear()
 
   const data = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     datasets: [
       {
-        label: '$ of Completed Payments',
+        label: '$ of Gross Revenue',
         data: chartData,
         backgroundColor: [
           '#031476',
@@ -94,27 +120,86 @@ function AdminDashboard(props) {
   }
 
   const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    aspectRation: 1,
     scales: {
       yAxes: [
         {
           ticks: {
             beginAtZero: true,
+            callback: function(value, index, values) {
+              return '$' + value
+            }
+          },
+          gridLines: {
+            display: false,
+          }
+        },
+      ],
+      xAxes: [
+        {
+          gridLines: {
+            display: false,
+          }
+        }
+      ]
+    },
+    title: {
+      display: true,
+      text: `Total Monthly Revenue - ${year}`,
+      fontSize: 24
+    }
+  }
+
+  const dataDonut = {
+    labels: donutData.labels,
+    datasets: [
+      {
+        label: 'Status Ratio',
+        data: donutData.data,
+        backgroundColor: [
+          '#311F99',
+          '#99C0FF',
+          '#FFE434',
+          '#CC1126',
+          '#0026FF',
+          '#311F99',
+
+        ]
+      }
+    ]
+  }
+  const optionsDonut = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            display: false,
+            // callback: function() {
+            //   return undefined
+            // }
+          },
+          gridLines: {
+            display: false,
           },
         },
       ],
     },
     title: {
       display: true,
-      text: 'Monthly Completed Payments'
+      text: `Payment Status - ${year}`,
+      fontSize: 24
     }
   }
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_CHART_DATA' });
+    dispatch({ type: 'FETCH_CHART_DATA' })
+    dispatch({ type: 'FETCH_DONUT_DATA'})
   }, []);
 
   return (
-    <div className={classes.main}>
+    <div >
       <div className={classes.container}>
 
       {/* <h1>Welcome! Where would you like to go:</h1> */}
@@ -153,8 +238,13 @@ function AdminDashboard(props) {
         </Button>
         </div>
         <div className={classes.chartContainer}>
-        <Bar data={data} options={options} />
-        </div>
+         <div className={classes.barContainer}>
+            <Bar data={data} options={options} />
+            </div>
+          <div className={classes.donutContainer}>
+            <Doughnut data={dataDonut} options={optionsDonut} />
+          </div>
+         </div>
       </div>
     </div>
   );

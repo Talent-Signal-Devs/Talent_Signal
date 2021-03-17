@@ -135,6 +135,7 @@ function CoachDashboard(props) {
   useEffect(() => {
     dispatch({ type: 'FETCH_COACH_PAYMENT_HISTORY' })
     dispatch({ type: 'FETCH_COACH_DONUT' })
+    dispatch({ type: 'FETCH_COACH_PAYMENTS' })
   }, [])
 
 

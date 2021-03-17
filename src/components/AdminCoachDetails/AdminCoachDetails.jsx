@@ -35,6 +35,10 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#0026FF',
     color: 'white',
   },
+    input: {
+      width: "25ch",
+      margin: "10px",
+    },
 }))
 
 function AdminCoachDetails(props) {
@@ -52,6 +56,7 @@ function AdminCoachDetails(props) {
     programID: coachDetails.program_id,
     startDate: coachDetails.start_date,
     business: coachDetails.business_name,
+    active: coachDetails.active
   })
 
   const params = useParams()
@@ -72,6 +77,7 @@ function AdminCoachDetails(props) {
       programID: coachDetails.program_id,
       startDate: coachDetails.start_date,
       business: coachDetails.business_name,
+      active: coachDetails.active
     })
   }
 
@@ -174,6 +180,7 @@ function AdminCoachDetails(props) {
             <h3>{coachDetails.email}</h3>
             <h3>{coachDetails.phone}</h3>
             {totalRevenue > 1 && <h3>Product ID: {coachDetails.payments[0].product_id}</h3>}
+            {coachDetails.active ? <h3>Coach Status: Active</h3> : <h3>Coach Status: Inactive</h3>}
             <h3>Total Payouts: ${totalMoneyMade}</h3>
             <h3>Total Revenue: ${totalRevenue}</h3>
             <Button onClick={handleClickOpen}>Edit Details</Button>
@@ -221,15 +228,27 @@ function AdminCoachDetails(props) {
               onChange={handleCoachChange}
               value={newCoachDetails.business}
             />
+            <FormControl className={classes.input}>
+              <InputLabel id="coach-status">Change Status</InputLabel>
+              <Select
+                name="active"
+                value={coachDetails.active}
+                onChange={handleCoachChange}
+                labelId="coach-status"
+              >
+                <MenuItem value={true}>Set Coach As Active</MenuItem>
+                <MenuItem value={false}>Set Coach As Inactive</MenuItem>
+              </Select>
+            </FormControl>
             <Button onClick={updateCoach}>Update Coach</Button>
             <Button onClick={handleClose}>Cancel</Button>
           </Dialog>
 
           <h3>Clients:</h3>
-          {coachDetails.clients[0] && 
-          <div style={{ width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
-            <DataGrid rowHeight={40} autoHeight={true} rows={coachDetails.clients} columns={columns} pageSize={5} checkboxSelection={false} onRowClick={handleRowClick} />
-          </div>}
+          {coachDetails.clients[0] &&
+            <div style={{ width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
+              <DataGrid rowHeight={40} autoHeight={true} rows={coachDetails.clients} columns={columns} pageSize={5} checkboxSelection={false} onRowClick={handleRowClick} />
+            </div>}
           {/* <TableContainer component={Paper}>
               <Table>
                 <TableHead>

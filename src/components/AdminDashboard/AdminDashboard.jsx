@@ -74,7 +74,7 @@ function AdminDashboard(props) {
           '#0352C0',
           '#0595F2',
           '#03AEF5',
-          
+
         ],
         // borderColor: [
         //   'rgba(255, 99, 132, 1)',
@@ -88,7 +88,7 @@ function AdminDashboard(props) {
       },
     ],
   }
-  
+
   const options = {
     scales: {
       yAxes: [

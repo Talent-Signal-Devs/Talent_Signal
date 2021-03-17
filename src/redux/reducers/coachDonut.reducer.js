@@ -1,10 +1,10 @@
-const chartData = (state = [], action) => {
+const coachDonut = (state = {}, action) => {
     switch (action.type) {
-        case 'SET_CHART_DATA':
+        case 'SET_COACH_DONUT':
             return action.payload;
         default:
             return state;
     }
 }
 
-export default chartData;
+export default coachDonut;

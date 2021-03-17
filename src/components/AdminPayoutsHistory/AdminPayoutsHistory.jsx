@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom'
 import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from "@material-ui/core/styles"
 
+import { Doughnut } from 'react-chartjs-2';
+
 const useStyles = makeStyles(() => ({
     root: {
         "& .MuiInputBase-input": {
@@ -31,13 +33,46 @@ const useStyles = makeStyles(() => ({
 }))
 
 
+
+
 export default function AdminPayoutsHistory() {
 
     const history = useHistory();
     const dispatch = useDispatch();
 
     const payoutsHistory = useSelector(store => store.payoutsHistory)
+    const chartData = useSelector(store=>store.chartData)
     const classes = useStyles()
+
+    const data = {
+        labels: chartData.statuses,
+        datasets: [
+            {
+                label: 'Status Ratio',
+                data: chartData.counters,
+                backgroundColor: [
+                    '#311F99',
+                    '#99C0FF',
+                    '#FFE434',
+                    '#CC1126',
+                    '#0026FF',
+                    '#311F99',
+
+                ]
+            }
+        ]
+    }
+    const options = {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+          ],
+        },
+      }
 
     const columns = [
         {
@@ -84,7 +119,8 @@ export default function AdminPayoutsHistory() {
     }
 
     useEffect(()=>{
-        dispatch({type: 'GET_PAYOUTS_HISTORY'})
+        dispatch({type: 'GET_PAYOUTS_HISTORY'});
+        dispatch({type: 'GET_PAYOUTS_VISUAL'})
     }, [])
 
     return (
@@ -95,6 +131,7 @@ export default function AdminPayoutsHistory() {
                     <DataGrid rows={payoutsHistory} columns={columns} pageSize={15} checkboxSelection={false} onRowClick={(event)=>handleRowClick(event.row.confirmation_number)} />
                 </div>
             </div>
+            <Doughnut data={data} options={options} />
         </>
     )
 }

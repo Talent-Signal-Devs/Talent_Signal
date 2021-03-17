@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Paper from '@material-ui/core/Paper';
-
+import { DataGrid } from '@material-ui/data-grid';
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
@@ -127,7 +127,7 @@ function CoachDashboard(props) {
 
 
 
-  
+
   const payments = useSelector((store) => store.coachPaymentReducer);
   const [heading, setHeading] = useState('Coach Dashboard');
 
@@ -176,6 +176,7 @@ function CoachDashboard(props) {
 
       <br />
       <br />
+      </div>
       <div className={classes.root, "center_table"} style={{  width: '80%', display: 'flex'}}>
         <DataGrid rowHeight={40} autoHeight={true} rows={payments} columns={columns} pageSize={12} checkboxSelection={false} onRowClick={(event)=>handleDetails(event.row.confirmation_number)}/>
 

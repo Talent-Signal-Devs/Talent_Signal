@@ -77,7 +77,7 @@ router.get('/visual/graph', rejectUnauthenticated, (req, res)=>{
             res.sendStatus(500)
         })
     }
-    if(req.user.clearance === 0){
+    else if(req.user.clearance === 0){
         console.log('in as coach to visual')
         const coachID = [req.user.id]
         const queryText = `

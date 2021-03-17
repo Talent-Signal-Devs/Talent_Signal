@@ -17,7 +17,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
             JOIN "users" ON "client".user_id = "users".id
             WHERE "users".id = $1
             GROUP BY "payments".payout_date
-            ORDER BY "payments".payout_date ASC;
+            ORDER BY "payments".payout_date ASC
+            LIMIT 12;
             `
         pool.query(queryText, [req.user.id]).then((response) => {
 

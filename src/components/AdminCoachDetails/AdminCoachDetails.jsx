@@ -23,14 +23,14 @@ import { DataGrid } from '@material-ui/data-grid';
 const useStyles = makeStyles(() => ({
   root: {
     "& .MuiInputBase-input": {
-        width: "25ch",
+      width: "25ch",
     },
     "& .MuiDataGrid-row": {
       cursor: 'pointer',
       color: '#333'
     },
     margin: "5px"
-},
+  },
   header: {
     backgroundColor: '#0026FF',
     color: 'white',
@@ -106,8 +106,8 @@ function AdminCoachDetails(props) {
     });
     //checks if is_paid is true, if true, add to total, if false (failed, pending, or otherwise) do not add to total
     for (let payment of filteredPayments) {
-      if (payment.is_paid){
-      totalPayout.push(payment?.amount)
+      if (payment.is_paid) {
+        totalPayout.push(payment?.amount)
       }
     }
     for (let i = 0; i < totalPayout.length; i++) {
@@ -226,9 +226,11 @@ function AdminCoachDetails(props) {
           </Dialog>
 
           <h3>Clients:</h3>
-          <div style={{  width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
-            <DataGrid rowHeight={40} autoHeight={true} rows={coachDetails.clients} columns={columns} pageSize={5} checkboxSelection={false} onRowClick={handleRowClick}/>
-             {/* <TableContainer component={Paper}>
+          {coachDetails.clients[0] && 
+          <div style={{ width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
+            <DataGrid rowHeight={40} autoHeight={true} rows={coachDetails.clients} columns={columns} pageSize={5} checkboxSelection={false} onRowClick={handleRowClick} />
+          </div>}
+          {/* <TableContainer component={Paper}>
               <Table>
                 <TableHead>
                   <TableRow>
@@ -255,7 +257,7 @@ function AdminCoachDetails(props) {
                 </TableBody>
               </Table>
             </TableContainer>  */}
-          </div>
+
         </>
       )}
     </div>

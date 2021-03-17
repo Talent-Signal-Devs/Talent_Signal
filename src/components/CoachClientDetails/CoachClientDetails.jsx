@@ -14,14 +14,14 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(() => ({
   root: {
     "& .MuiInputBase-input": {
-        width: "25ch",
+      width: "25ch",
     },
     "& .MuiDataGrid-row": {
       cursor: 'pointer',
       color: '#333'
     },
     margin: "5px"
-},
+  },
   header: {
     backgroundColor: '#0026FF',
     color: 'white',
@@ -61,7 +61,7 @@ function CoachClientDetails(props) {
   // total money that the coach has brought in for the company
   let totalRevenue = totalMoneyMade[0] * 0.75;
 
-  
+
 
   const columns = [
     {
@@ -129,12 +129,16 @@ function CoachClientDetails(props) {
             <h3>contract id: {clientDetails.contract_id}</h3>
           </div>
           <div>
-            <div style={{ width: '80%', display: 'flex', }} className={classes.root, "center_table"}>
-              <DataGrid rowHeight={40} autoHeight={true} sortModel={[{field: 'due_date', sort:'desc'},]} rows={clientDetails.payments} columns={columns} pageSize={12} checkboxSelection={false} />
-            </div>
-          
-            <h3>Total amount paid by client: ${moneyMade}</h3>
-            <h3>Total money received: ${totalRevenue}</h3>
+
+            {clientDetails.payments[0] &&
+              <>
+                <div style={{ width: '80%', display: 'flex', }} className={classes.root, "center_table"}>
+                  <DataGrid rowHeight={40} autoHeight={true} sortModel={[{ field: 'due_date', sort: 'desc' },]} rows={clientDetails.payments} columns={columns} pageSize={12} checkboxSelection={false} />
+                </div>
+
+                <h3>Total amount paid by client: ${moneyMade}</h3>
+                <h3>Total money received: ${totalRevenue}</h3>
+              </>}
           </div>
         </>
       )}

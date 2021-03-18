@@ -26,12 +26,23 @@ const useStyles = makeStyles(() => ({
     margin: "5px"
 },
   header: {
-    backgroundColor: '#0026FF',
+    backgroundColor: '#0352C0',
     color: 'white',
   },
   cell: {
     align: 'center',
-  }
+  },
+  headerContainer: {
+    display: 'flex',
+    width: '100%',
+    flexFlow: 'column',
+  },
+  pageHeading: {
+    position: 'relative',
+    textTransform: 'uppercase',
+    left: '19vh'
+    
+  },
 }))
 
 function AdminClientList(props) {
@@ -39,7 +50,7 @@ function AdminClientList(props) {
   const classes = useStyles();
   const clients = useSelector((store) => store.adminClientReducer);
 
-  const [heading, setHeading] = useState('Admin Client List');
+  const [heading, setHeading] = useState('Clients');
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -88,8 +99,8 @@ function AdminClientList(props) {
 
   return (
     <div>
-      <div>
-        <h2>{heading}</h2>
+      <div className={classes.headerContainer}>
+        <h1 className={classes.pageHeading}>{heading}</h1>
       </div>
       <br />
       <br />

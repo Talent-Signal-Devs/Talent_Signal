@@ -17,6 +17,9 @@ const useStyles = makeStyles(() => ({
     width: "25ch",
     margin: "10px",
   },
+  paymentTableContainer: {
+    padding: '20px'
+  },
   root: {
     "& .MuiInputBase-input": {
       width: "25ch",

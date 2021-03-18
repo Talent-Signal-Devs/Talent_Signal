@@ -20,11 +20,26 @@ const useStyles = makeStyles(() => ({
       cursor: 'pointer',
       color: '#333'
     },
-    margin: "5px"
+    margin: "5px",
+    background: '#ffffff'
 },
+  headerContainer: {
+    display: 'flex',
+    width: '100%',
+    flexFlow: 'column',
+  },
+  statusSelectContainer: {
+    position: 'relative',
+    left: '19vh',
+  },
   header: {
-    backgroundColor: '#0026FF',
+    backgroundColor: '#0352C0',
     color: 'white',
+  },
+  pageHeading: {
+    position: 'relative',
+    textTransform: 'uppercase',
+    left: '19vh',
   },
 }))
 
@@ -33,7 +48,7 @@ function AdminCoachList(props) {
 
   const classes = useStyles();
   const coaches = useSelector((store) => store.adminCoachReducer);
-  const [heading, setHeading] = useState('Admin Coach List');
+  const [heading, setHeading] = useState('Coaches');
   const [seeActiveCoaches, setSeeActiveCoaches] = useState(true);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -124,10 +139,11 @@ function AdminCoachList(props) {
 
   return (
     <div>
+      <div className={classes.headerContainer}>
       <div>
-        <h2>{heading}</h2>
+        <h1 className={classes.pageHeading}>{heading}</h1>
       </div>
-       <div>
+       <div className={classes.statusSelectContainer}>
         <FormControl>
           <Select
             labelId="coach-select"
@@ -138,6 +154,7 @@ function AdminCoachList(props) {
             <MenuItem value={false}>Inactive Coaches</MenuItem>
           </Select>
         </FormControl>
+        </div>
         </div>
         <br/>
         <br/>

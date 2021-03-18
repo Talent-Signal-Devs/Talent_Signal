@@ -142,6 +142,10 @@ function AdminClientDetails(props) {
     },
   ]
 
+  // leave out everything in clientDetails.payments that equals null. 
+  const filteredPayments = clientDetails?.payments.filter(function (el) {
+    return el != null;
+  })
   return (
     <div>
       {clientDetails && (
@@ -262,9 +266,13 @@ function AdminClientDetails(props) {
             <Button onClick={updateClient}>Update Client</Button>
             <Button onClick={handleClose}>Cancel</Button>
           </Dialog>
+
+          {clientDetails?.payments &&
           <div style={{ width: '85%', display: 'flex', }} className={classes.root, "center_table"}>
-            <DataGrid rowHeight={40} autoHeight={true} sortModel={[{ field: 'due_date', sort: 'desc' },]} rows={clientDetails.payments} columns={columns} pageSize={12} checkboxSelection={false} />
+            <DataGrid rowHeight={40} autoHeight={true} sortModel={[{ field: 'due_date', sort: 'desc' },]} rows={filteredPayments} columns={columns} pageSize={12} checkboxSelection={false} />
           </div>
+          }
+          
         </>
       )}
     </div>

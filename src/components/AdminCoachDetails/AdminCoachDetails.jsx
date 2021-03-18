@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
-import Table from "@material-ui/core/Table"
-import TableBody from "@material-ui/core/TableBody"
-import TableCell from "@material-ui/core/TableCell"
-import TableContainer from "@material-ui/core/TableContainer"
-import TableHead from "@material-ui/core/TableHead"
-import TableRow from "@material-ui/core/TableRow"
-import Paper from "@material-ui/core/Paper"
-import ToolTip from "@material-ui/core/ToolTip"
 import Dialog from "@material-ui/core/Dialog"
 import DialogTitle from "@material-ui/core/DialogTitle"
 import FormControl from "@material-ui/core/FormControl"
@@ -140,6 +132,7 @@ function AdminCoachDetails(props) {
       headerName: 'Contract ID',
       flex: 1,
       sort: true,
+      description: 'Unique contract ID provided by Leif for the ISA agreement',
       headerClassName: classes.header
     },
     {
@@ -147,7 +140,7 @@ function AdminCoachDetails(props) {
       headerName: 'Coaching Status',
       flex: 1,
       sort: true,
-      description: 'Current coaching status of the client',
+      description: 'Denotes whether client is currently receiving job coaching or is currently employed',
       headerClassName: classes.header
     },
     {
@@ -244,39 +237,11 @@ function AdminCoachDetails(props) {
             <Button onClick={handleClose}>Cancel</Button>
           </Dialog>
 
-          <h3>Clients:</h3>
+          <h2>Clients:</h2>
           {coachDetails.clients[0] &&
             <div style={{ width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
-              <DataGrid rowHeight={40} autoHeight={true} rows={coachDetails.clients} columns={columns} pageSize={5} checkboxSelection={false} onRowClick={handleRowClick} />
+              <DataGrid rowHeight={40} autoHeight={true} rows={coachDetails.clients} columns={columns} sortModel={[{ field: 'name', sort: 'asc' },]} pageSize={10} checkboxSelection={false} onRowClick={handleRowClick} />
             </div>}
-          {/* <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Contract ID</TableCell>
-                    <TableCell>Coaching Status</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {coachDetails?.clients.map((client) => (
-                    <TableRow key={client?.id}>
-                      <TableCell>
-                        {client?.first_name}{" "}
-                        {client?.last_name}
-                      </TableCell>
-                      <TableCell>
-                        {client?.contract_id}
-                      </TableCell>
-                      <TableCell>
-                        {client?.coaching_status}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>  */}
-
         </>
       )}
     </div>

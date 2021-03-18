@@ -93,26 +93,29 @@ function CoachClientDetails(props) {
     },
     {
       field: 'amount',
-      headerName: 'Amount',
+      headerName: 'Total Payment',
       flex: 1,
       sort: true,
-      description: `Payment amount received by Talent Signal`,
+      valueFormatter: (params) => (params.value.toFixed(2)),
+      description: `Payment amount received by Talent Signal from job seeker`,
       headerClassName: classes.header
     },
     {
       field: 'total_paid',
-      headerName: 'Total Paid',
+      headerName: 'Payment Received',
       valueGetter: getTotalPaid,
       flex: 1,
       sort: true,
-      description: `Payment amount received by Talent Signal`,
+      description: `Payment amount received by coach from Talent Signal`,
       headerClassName: classes.header
     },
   ]
 
   //handles the value for 'total_paid' column
   function getTotalPaid(params) {
-    return `${params.getValue('amount') * 0.75}`
+    let total = params.getValue('amount') * 0.75;
+    let totalToFixed = total.toFixed(2);
+    return totalToFixed;
   }
 
   return (

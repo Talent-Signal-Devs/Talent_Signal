@@ -24,6 +24,9 @@ const useStyles = makeStyles(() => ({
     width: "25ch",
     margin: "10px",
   },
+  paymentTableContainer: {
+    padding: '20px'
+  }
 }))
 
 function AdminClientDetails(props) {
@@ -209,7 +212,7 @@ function AdminClientDetails(props) {
             <Button onClick={updateClient}>Update Client</Button>
             <Button onClick={handleClose}>Cancel</Button>
           </Dialog>
-          <div>
+          <div className={classes.paymentTableContainer}>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>

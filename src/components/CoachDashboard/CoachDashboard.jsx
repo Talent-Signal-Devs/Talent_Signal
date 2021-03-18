@@ -21,6 +21,12 @@ const useStyles = makeStyles(() => ({
     },
     margin: "5px"
 },
+  coachDashboardContainer: {
+    display: 'flex',
+    flexFlow: 'column',
+    width: '100%',
+    height: '100vh'
+  },
   dashContainer: {
     display: "flex",
     alignItems: 'center',
@@ -33,6 +39,30 @@ const useStyles = makeStyles(() => ({
   },
   tableRow: {
     cursor: 'pointer'
+  },
+  coachChartContainer: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    width: '100%',
+    height: '100%',
+    marginTop: '20px'
+  },
+  coachDonutContainer: {
+    display: 'relative',
+    width: '60vh',
+    height: '60vh',
+    left: '50px',
+    background: "#ffffff",
+    borderRadius: "20px",
+    boxShadow: '5px 5px 5px #BBBBBB'
+  },
+  coachBarContainer: {
+    display: 'relative',
+    width: '80vh',
+    height: '60vh',
+    background: "#ffffff",
+    borderRadius: "20px",
+    boxShadow: '5px 5px 5px #BBBBBB'
   }
 }))
 
@@ -66,12 +96,18 @@ function CoachDashboard(props) {
     ]
   }
   const optionsDonut = {
+    responsive: true,
+        maintainAspectRatio: false,
+        aspectRation: 1,
     scales: {
       yAxes: [
         {
           ticks: {
-            beginAtZero: true,
+            display: false,
           },
+          gridLines: {
+            display: false,
+        },
         },
       ],
     },
@@ -113,11 +149,17 @@ function CoachDashboard(props) {
   }
 
   const optionsChart = {
+    responsive: true,
+        maintainAspectRatio: false,
+        aspectRation: 1,
     scales: {
       yAxes: [
         {
           ticks: {
             beginAtZero: true,
+            callback: function (value, index, values) {
+              return "$" + value
+          },
           },
         },
       ],
@@ -165,23 +207,21 @@ function CoachDashboard(props) {
 
 
   return (
-    <>
-      <div>
-        <h2>Coach Dashboard</h2>
-      </div>
+    <div className={classes.coachDashboardContainer}>
 
-      <div>
-        <Doughnut data={dataDonut} options={optionsDonut} />
-        <Bar data={dataChart} options={optionsChart} />
-
-      <br />
-      <br />
+      <div className={classes.coachChartContainer}>
+        <div className={classes.coachDonutContainer}>
+          <Doughnut data={dataDonut} options={optionsDonut} />
+        </div>
+        <div className={classes.coachBarContainer}>
+          <Bar data={dataChart} options={optionsChart} />
+        </div>
       </div>
       <div className={classes.root, "center_table"} style={{  width: '80%', display: 'flex'}}>
         <DataGrid rowHeight={40} autoHeight={true} rows={payments} columns={columns} pageSize={12} checkboxSelection={false} onRowClick={(event)=>handleDetails(event.row.confirmation_number)}/>
 
       </div>
-    </>
+    </div>
   )
 }
 

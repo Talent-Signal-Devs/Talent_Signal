@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#DDDDDD',
     padding: '20px 0',
     borderRadius: '5px',
-
+    marginTop: '20px'
 
   },
   button: {
@@ -66,11 +66,11 @@ const useStyles = makeStyles(() => ({
     }
   },
   header: {
-    backgroundColor: '#0026FF',
+    backgroundColor: '#0352C0',
     color: 'white',
   },
   dialog: {
-    border: '1px solid #0026FF'
+    border: '1px solid #0352C0'
   }
 }))
 

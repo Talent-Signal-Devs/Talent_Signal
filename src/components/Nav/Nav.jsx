@@ -39,16 +39,18 @@ function Nav() {
         {/* Coach Nav Bar */}
         {user.clearance == 0 && (
           <>
-            
+            <Link className ="navLink" to="/coach/dashboard">
+            <HomeIcon /> <br/>Home
+            </Link>
             <Link className ="navLink" to="/coach/clientList">
-            <AccountCircleIcon/>Clients
+            <AccountCircleIcon/><br/> Clients
             </Link>
             {/* -- use pathname for link to determine if arrive at payment details via navbar or by coach dashboard. See Coach Payout Details component for further explanation.  */}
             <Link className="navLink" value='payments' 
             to={{pathname: `/coach/payoutDetails/${navLinkText}`}}
             
             >
-              <PaymentIcon/>Payouts
+              <PaymentIcon/><br/>Payouts
             </Link>
             <LogOutButton className="navLink" />
           </>

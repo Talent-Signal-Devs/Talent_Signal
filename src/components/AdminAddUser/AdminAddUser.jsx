@@ -30,7 +30,8 @@ const useStyles = makeStyles(() => ({
         justifyContent: "center",
         alignItems: "center",
         width: "20%",
-        // border: "2px solid blue"
+        background: '#ffffff',
+        borderRadius: '10px'
     },
     userForm: {
         display: "flex",
@@ -57,14 +58,20 @@ const useStyles = makeStyles(() => ({
         margin: "10px",
         display: "block",
         width: "225px",
-        background: "#031476",
+        background: "#0352C0",
         color: "#ffffff",
     },
     buttonCancel: {
         margin: "10px",
         display: "block",
         width: "225px",
+        background: '#CC1126',
+        color: '#ffffff'
     },
+    addUserTitle: {
+        textTransform: 'uppercase',
+        color: ''
+    }
 }))
 
 function AdminAddUser(props) {
@@ -164,11 +171,11 @@ function AdminAddUser(props) {
 
     return (
         <div className={classes.formPageContainer}>
-            <h1>Add a new user:</h1>
+            <h1 className={classes.addUserTitle}>Add a new user</h1>
             <div className={classes.userFormContainer}>
                 <form className={classes.userForm} onSubmit={addUser}>
                     <FormControl className={classes.input}>
-                        <InputLabel id="user-type-label">User Type:</InputLabel>
+                        <InputLabel id="user-type-label">Select User Type</InputLabel>
                         <Select
                             labelId="user-type-label"
                             id="user-type"

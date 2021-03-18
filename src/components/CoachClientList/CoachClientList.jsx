@@ -1,51 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 
 import { DataGrid } from '@material-ui/data-grid';
 const useStyles = makeStyles(() => ({
-  table: {
-    minWidth: '50%',
-    width: '80%',
-    margin: 'auto',
-    textAlign: 'center',
-    borderCollapse: 'collapse',
-  },
-  tableRow: {
-    backgroundColor: 'aliceblue',
-    '&:hover': {
-      opacity: '80%',
-      backgroundColor: 'lightblue'
-    }
-  },
   root: {
     "& .MuiInputBase-input": {
       width: "25ch",
     },
     margin: "5px"
   },
-  container: {
-    display: "flex",
-    flexFlow: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   header: {
     backgroundColor: '#0026FF',
     color: 'white',
   },
-  cell: {
-    align: 'center',
-  }
 }))
 
 
@@ -85,7 +54,7 @@ function CoachClientList() {
       headerName: 'Coaching Status',
       flex: 1,
       sort: true,
-      description: `Current coaching status of the client`,
+      description: `Denotes whether client is currently receiving job coaching or is currently employed`,
       headerClassName: classes.header
     },
     {
@@ -110,10 +79,9 @@ function CoachClientList() {
   return (
     <div>
       <h2>{heading}</h2>
-      <div className={classes.container}>
-        {/* <h1>History:</h1> */}
+      <div>
         <div style={{ width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
-          <DataGrid rowHeight={40} autoHeight={true} rows={clients} columns={columns} pageSize={15} checkboxSelection={false} onRowClick={handleRowClick} />
+          <DataGrid rowHeight={40} autoHeight={true} rows={clients} columns={columns} pageSize={15} sortModel={[{ field: 'full_name', sort: 'asc' },]} checkboxSelection={false} onRowClick={handleRowClick} />
         </div>
       </div>
     </div>

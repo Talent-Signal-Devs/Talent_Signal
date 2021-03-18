@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams, useHistory } from "react-router-dom"
-import Table from "@material-ui/core/Table"
-import TableBody from "@material-ui/core/TableBody"
-import TableCell from "@material-ui/core/TableCell"
-import TableContainer from "@material-ui/core/TableContainer"
-import TableHead from "@material-ui/core/TableHead"
-import TableRow from "@material-ui/core/TableRow"
-import Paper from "@material-ui/core/Paper"
-import ToolTip from "@material-ui/core/ToolTip"
 import Dialog from "@material-ui/core/Dialog"
 import DialogTitle from "@material-ui/core/DialogTitle"
 import FormControl from "@material-ui/core/FormControl"
@@ -35,6 +27,10 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#0026FF',
     color: 'white',
   },
+    input: {
+      width: "25ch",
+      margin: "10px",
+    },
 }))
 
 function AdminCoachDetails(props) {
@@ -52,6 +48,7 @@ function AdminCoachDetails(props) {
     programID: coachDetails.program_id,
     startDate: coachDetails.start_date,
     business: coachDetails.business_name,
+    active: coachDetails.active
   })
 
   const params = useParams()
@@ -72,6 +69,7 @@ function AdminCoachDetails(props) {
       programID: coachDetails.program_id,
       startDate: coachDetails.start_date,
       business: coachDetails.business_name,
+      active: coachDetails.active
     })
   }
 
@@ -134,6 +132,7 @@ function AdminCoachDetails(props) {
       headerName: 'Contract ID',
       flex: 1,
       sort: true,
+      description: 'Unique contract ID provided by Leif for the ISA agreement',
       headerClassName: classes.header
     },
     {
@@ -141,7 +140,7 @@ function AdminCoachDetails(props) {
       headerName: 'Coaching Status',
       flex: 1,
       sort: true,
-      description: 'Current coaching status of the client',
+      description: 'Denotes whether client is currently receiving job coaching or is currently employed',
       headerClassName: classes.header
     },
     {
@@ -174,6 +173,7 @@ function AdminCoachDetails(props) {
             <h3>{coachDetails.email}</h3>
             <h3>{coachDetails.phone}</h3>
             {totalRevenue > 1 && <h3>Product ID: {coachDetails.payments[0].product_id}</h3>}
+            {coachDetails.active ? <h3>Coach Status: Active</h3> : <h3>Coach Status: Inactive</h3>}
             <h3>Total Payouts: ${totalMoneyMade}</h3>
             <h3>Total Revenue: ${totalRevenue}</h3>
             <Button onClick={handleClickOpen}>Edit Details</Button>
@@ -221,43 +221,27 @@ function AdminCoachDetails(props) {
               onChange={handleCoachChange}
               value={newCoachDetails.business}
             />
+            <FormControl className={classes.input}>
+              <InputLabel id="coach-status">Change Status</InputLabel>
+              <Select
+                name="active"
+                value={coachDetails.active}
+                onChange={handleCoachChange}
+                labelId="coach-status"
+              >
+                <MenuItem value={true}>Set Coach As Active</MenuItem>
+                <MenuItem value={false}>Set Coach As Inactive</MenuItem>
+              </Select>
+            </FormControl>
             <Button onClick={updateCoach}>Update Coach</Button>
             <Button onClick={handleClose}>Cancel</Button>
           </Dialog>
 
-          <h3>Clients:</h3>
-          {coachDetails.clients[0] && 
-          <div style={{ width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
-            <DataGrid rowHeight={40} autoHeight={true} rows={coachDetails.clients} columns={columns} pageSize={5} checkboxSelection={false} onRowClick={handleRowClick} />
-          </div>}
-          {/* <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Name</TableCell>
-                    <TableCell>Contract ID</TableCell>
-                    <TableCell>Coaching Status</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {coachDetails?.clients.map((client) => (
-                    <TableRow key={client?.id}>
-                      <TableCell>
-                        {client?.first_name}{" "}
-                        {client?.last_name}
-                      </TableCell>
-                      <TableCell>
-                        {client?.contract_id}
-                      </TableCell>
-                      <TableCell>
-                        {client?.coaching_status}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>  */}
-
+          <h2>Clients:</h2>
+          {coachDetails.clients[0] &&
+            <div style={{ width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
+              <DataGrid rowHeight={40} autoHeight={true} rows={coachDetails.clients} columns={columns} sortModel={[{ field: 'name', sort: 'asc' },]} pageSize={10} checkboxSelection={false} onRowClick={handleRowClick} />
+            </div>}
         </>
       )}
     </div>

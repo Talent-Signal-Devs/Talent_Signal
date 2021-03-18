@@ -49,7 +49,9 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
     pool.query(sqlText, [clientID])
         .then((result) => {
-            res.send(result.rows);
+        
+          console.log('results are',result.rows);
+          res.send(result.rows)
         })
         .catch((error) => {
             console.log('error getting client details', error);

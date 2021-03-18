@@ -146,9 +146,10 @@ function AdminClientDetails(props) {
   ]
 
   // leave out everything in clientDetails.payments that equals null. 
-  const filteredPayments = clientDetails?.payments.filter(function (el) {
-    return el != null;
-  })
+    const filteredPayments = clientDetails?.payments.filter(function (el) {
+      return el != null;
+    })
+  
   return (
     <div>
       {clientDetails && (

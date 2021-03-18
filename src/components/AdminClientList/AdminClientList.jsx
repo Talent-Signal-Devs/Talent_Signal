@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import ToolTip from '@material-ui/core/ToolTip';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -23,13 +15,16 @@ const useStyles = makeStyles(() => ({
       backgroundColor: 'lightblue'
     }
   },
-  table: {
-    minWidth: '100px',
-    width: '1200px',
-    margin: 'auto',
-    textAlign: 'center',
-    borderCollapse: 'collapse',
-  },
+  root: {
+    "& .MuiInputBase-input": {
+        width: "25ch",
+    },
+    "& .MuiDataGrid-row": {
+      cursor: 'pointer',
+      color: '#333'
+    },
+    margin: "5px"
+},
   header: {
     backgroundColor: '#0352C0',
     color: 'white',
@@ -81,7 +76,7 @@ function AdminClientList(props) {
       field: 'contract_id',
       headerName: 'Contract ID',
       flex: .7,
-      description: 'Unique ID of signed ISA held between you and the client',
+      description: 'Unique ID of signed ISA held between Talent Signal and the job seeker',
       headerClassName: classes.header,
     },
     {
@@ -97,8 +92,8 @@ function AdminClientList(props) {
     dispatch({ type: 'FETCH_ADMIN_CLIENTS' });
   }, []);
 
-  const handleRowClick = (input) => {
-    // dispatch({type: 'GET_CLIENT_DETAILS', payload: input})
+  const handleRowClick = (event) => {
+    let input = event.row.id;
     history.push(`/admin/clientDetails/${input}`);
   }
 
@@ -110,8 +105,8 @@ function AdminClientList(props) {
       <br />
       <br />
       <div>
-        <div style={{ height: 600, width: '80%', display: 'flex', cursor: 'pointer'}} className="center_table">
-          <DataGrid rows={clients} columns={columns} pageSize={15} checkboxSelection={false} onRowClick={(event)=>handleRowClick(event.row.id)}/>
+        <div style={{width: '80%', display: 'flex'}} className={classes.root, "center_table"}>
+          <DataGrid rows={clients} columns={columns} autoHeight={true} pageSize={15} checkboxSelection={false} sortModel={[{ field: 'full_name', sort: 'asc' },]} onRowClick={handleRowClick}/>
         </div>
       </div>
     </div>

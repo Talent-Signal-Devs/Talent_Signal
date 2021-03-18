@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
     },
     "& .MuiDataGrid-row": {
       cursor: 'pointer',
-      color: '#333'
+      color: 'white',
     },
     margin: "5px"
 },
@@ -177,6 +177,7 @@ function CoachDashboard(props) {
   useEffect(() => {
     dispatch({ type: 'FETCH_COACH_PAYMENT_HISTORY' })
     dispatch({ type: 'FETCH_COACH_DONUT' })
+    dispatch({ type: 'FETCH_COACH_PAYMENTS' })
   }, [])
 
 
@@ -218,7 +219,7 @@ function CoachDashboard(props) {
         </div>
       </div>
       <div className={classes.root, "center_table"} style={{  width: '80%', display: 'flex'}}>
-        <DataGrid rowHeight={40} autoHeight={true} rows={payments} columns={columns} pageSize={12} checkboxSelection={false} onRowClick={(event)=>handleDetails(event.row.confirmation_number)}/>
+        <DataGrid rowHeight={40} autoHeight={true} rows={payments} columns={columns} pageSize={12} sortModel={[{ field: 'payout_date', sort: 'desc' },]} checkboxSelection={false} onRowClick={(event)=>handleDetails(event.row.confirmation_number)}/>
 
       </div>
     </div>

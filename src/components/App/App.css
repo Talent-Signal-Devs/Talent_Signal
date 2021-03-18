@@ -136,11 +136,14 @@ input {
   margin-bottom: 10px;
 }
 
-
+/* DataGrid Table styling */
 .center_table {
   margin: auto;
 }
 
+.MuiDataGrid-row:hover {
+  cursor: pointer;
+}
 
 .client-card{
   padding-left: 30px;

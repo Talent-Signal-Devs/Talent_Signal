@@ -2,13 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+
 
 import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,13 +23,14 @@ const useStyles = makeStyles(() => ({
   buttonContainer: {
     marginLeft: '2rem'
   },
+  
   root: {
     "& .MuiInputBase-input": {
         width: "25ch",
     },
-    "& .MuiDataGrid-row": {
+    ".MuiDataGrid-row": {
       cursor: 'pointer',
-      color: '#333'
+      color: 'white'
     },
     margin: "5px"
 },
@@ -78,6 +73,7 @@ function CoachPayoutDetails(props) {
       headerName: 'Scheduled Date',
       flex: 1,
       sort: true,
+      valueFormatter: (params) => new Date(params.value).toLocaleDateString("en-us"),
       description: `Date the client's payment was scheduled`,
       headerClassName: classes.header
     },
@@ -91,17 +87,19 @@ function CoachPayoutDetails(props) {
     },
     {
       field: 'amount',
-      headerName: 'Amount',
+      headerName: 'Total Payment',
       flex: 1,
       sort: true,
-      description: `Payment amount received by Talent Signal`,
+      valueFormatter: (params) => (params.value.toFixed(2)),
+      description: `Payment amount received by Talent Signal from job seeker`,
       headerClassName: classes.header
     },
     {
       field: 'total_paid',
-      headerName: 'Total Paid',
+      headerName: 'Payment Received',
       flex: 1,
       sort: true,
+      valueFormatter: (params) => (params.value.toFixed(2)),
       description: `Payment amount received by coach from Talent Signal`,
       headerClassName: classes.header
     },
@@ -151,7 +149,7 @@ function CoachPayoutDetails(props) {
             variant="contained"
             color="primary"
             onClick={handleClick}>
-            Get my DATA!
+            Submit
           </Button>
         </div>
       </div>
@@ -160,7 +158,7 @@ function CoachPayoutDetails(props) {
       <div className={classes.container}>
         {/* <h1>History:</h1> */}
         <div style={{  width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
-          <DataGrid rowHeight={40} autoHeight={true} rows={payments} columns={columns} pageSize={5} checkboxSelection={false} onRowClick={handleRowClick} />
+          <DataGrid className={classes.root} rowHeight={40} autoHeight={true} rows={payments} columns={columns} sortModel={[{ field: 'scheduled_date', sort: 'desc' },]} pageSize={10} checkboxSelection={false} onRowClick={handleRowClick} />
         </div>
       </div>
     </div>

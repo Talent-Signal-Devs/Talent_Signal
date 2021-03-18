@@ -158,60 +158,15 @@ function AdminCoachList(props) {
         </div>
         <br/>
         <br/>
-        {/*<div>
-        <TableContainer component={Paper} className={classes.table}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Phone</TableCell>
-                <TableCell>Date Joined</TableCell>
-                <TableCell>Number of Clients</TableCell>
-                <TableCell>Registration Status</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {seeActiveCoaches
-                ? activeCoaches.map((coach) => (
-                  <ToolTip title="click for details">
-                    <TableRow key={coach.id} className={classes.tableRow} onClick={() => { handleRowClick(coach.id) }}>
-                      <TableCell>{coach.first_name} {coach.last_name}</TableCell>
-                      <TableCell>{coach.email}</TableCell>
-                      <TableCell>{coach.phone}</TableCell>
-                      <TableCell>{coach.start_date}</TableCell>
-                      <TableCell>{coach.client_count}</TableCell>
-                      <TableCell>
-                        {coach.is_approved ? <h4>Approved</h4> : <h4>pending</h4>}
-                      </TableCell>
-                    </TableRow>
-                  </ToolTip>))
 
-                : nonActiveCoaches.map((coach) => (
-                  <ToolTip title="click for details">
-                    <TableRow key={coach.id} className={classes.tableRow} onClick={() => { handleRowClick(coach.id) }}>
-                      <TableCell>{coach.first_name} {coach.last_name}</TableCell>
-                      <TableCell>{coach.email}</TableCell>
-                      <TableCell>{coach.phone}</TableCell>
-                      <TableCell>{coach.start_date}</TableCell>
-                      <TableCell>{coach.client_count}</TableCell>
-                      <TableCell>
-                        {coach.is_approved ? <h4>Approved</h4> : <h4>pending</h4>}
-                      </TableCell>
-                    </TableRow>
-                  </ToolTip>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer> */}
-
+      {/* Display different table based on coach status selection */}
       {seeActiveCoaches 
       ? <div style={{ width: '80%', display: 'flex', }} className={classes.root, "center_table"}>
-        <DataGrid rowHeight={40} autoHeight={true} rows={activeCoaches} columns={columns} pageSize={12} checkboxSelection={false} onRowClick={handleRowClick} />
+        <DataGrid rowHeight={40} autoHeight={true} rows={activeCoaches} columns={columns} pageSize={12} sortModel={[{ field: 'name', sort: 'asc' },]} checkboxSelection={false} onRowClick={handleRowClick} />
 
       </div>
       : <div style={{ width: '80%', display: 'flex', }} className={classes.root, "center_table"}>
-      <DataGrid rowHeight={40} autoHeight={true} rows={nonActiveCoaches} columns={columns} pageSize={12} checkboxSelection={false} onRowClick={handleRowClick} />
+      <DataGrid rowHeight={40} autoHeight={true} rows={nonActiveCoaches} columns={columns} sortModel={[{ field: 'name', sort: 'asc' },]} pageSize={12} checkboxSelection={false} onRowClick={handleRowClick} />
 
     </div>}
     </div>

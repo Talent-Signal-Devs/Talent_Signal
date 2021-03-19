@@ -24,13 +24,32 @@ const useStyles = makeStyles(() => ({
     margin: "5px"
   },
   header: {
-    backgroundColor: '#0026FF',
+    backgroundColor: '#001844',
     color: 'white',
   },
     input: {
       width: "25ch",
       margin: "10px",
     },
+    tableTitle: {
+      position: 'relative',
+      left: '120px',
+      marginTop: '40px'
+    },
+   dialogForm: {
+     display: 'flex',
+     flexFlow: 'column',
+     padding: '10px'
+   },
+   updateButton: {
+     background: '#cce3f5',
+     color: '#001844',
+     marginBottom: '5px'
+   },
+   cancelButton: {
+     background: '#001844',
+     color: '#ffffff'
+   }
 }))
 
 function AdminCoachDetails(props) {
@@ -163,26 +182,31 @@ function AdminCoachDetails(props) {
 
   return (
     <div>
-      <h2>{heading}</h2>
       {coachDetails.first_name && (
         <>
-          <div>
+          <div className='details-box'>
+            <div>
             <h2>
               {coachDetails.first_name} {coachDetails.last_name}
             </h2>
             <h3>{coachDetails.email}</h3>
             <h3>{coachDetails.phone}</h3>
             {totalRevenue > 1 && <h3>Product ID: {coachDetails.payments[0].product_id}</h3>}
+            </div>
+            <div>
             {coachDetails.active ? <h3>Coach Status: Active</h3> : <h3>Coach Status: Inactive</h3>}
             <h3>Total Payouts: ${totalMoneyMade}</h3>
             <h3>Total Revenue: ${totalRevenue}</h3>
             <Button onClick={handleClickOpen}>Edit Details</Button>
+            </div>
+            
           </div>
           <Dialog
             open={open}
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
           >
+            <form className={classes.dialogForm}>
             <DialogTitle id="form-dialog-title">
               Edit Details
                         </DialogTitle>
@@ -233,15 +257,19 @@ function AdminCoachDetails(props) {
                 <MenuItem value={false}>Set Coach As Inactive</MenuItem>
               </Select>
             </FormControl>
-            <Button onClick={updateCoach}>Update Coach</Button>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={updateCoach} className={classes.updateButton}>Update Coach</Button>
+            <Button onClick={handleClose} className={classes.cancelButton}>Cancel</Button>
+            </form>
           </Dialog>
 
-          <h2>Clients:</h2>
+          
           {coachDetails.clients[0] &&
+          <>
+          <h2 className={classes.tableTitle}>Clients</h2>
             <div style={{ width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
               <DataGrid rowHeight={40} autoHeight={true} rows={coachDetails.clients} columns={columns} sortModel={[{ field: 'name', sort: 'asc' },]} pageSize={10} checkboxSelection={false} onRowClick={handleRowClick} />
-            </div>}
+            </div>
+            </>}
         </>
       )}
     </div>

@@ -17,19 +17,39 @@ const useStyles = makeStyles(() => ({
 
         margin: "5px"
     },
+    pageContainer: {
+        width: '100%'
+    },
     container: {
         display: "flex",
-        flexFlow: "column",
-        justifyContent: "center",
+        flexFlow: "row wrap",
+        justifyContent: "space-around",
         alignItems: "center",
+        padding: '40px'
     },
     header: {
-        backgroundColor: '#0026FF',
+        backgroundColor: '#99C0FF',
         color: 'white',
     },
     cell: {
         align: 'center',
-    }
+    },
+    donutContainer: {
+        position: "relative",
+        height: "50vh",
+        width: "30vw",
+        // top: "50px",
+        background: "#ffffff",
+        borderRadius: "20px",
+        boxShadow: '5px 5px 5px #BBBBBB'
+    },
+    pageTitle: {
+        display: 'inline-block',
+        marginTop: '60px',
+        marginBottom: '40px',
+        position: 'relative',
+        left: '7.5vw'
+    },
 }))
 
 
@@ -63,12 +83,18 @@ export default function AdminPayoutsHistory() {
         ]
     }
     const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        aspectRation: 1,
         scales: {
           yAxes: [
             {
               ticks: {
-                beginAtZero: true,
+                display: false,
               },
+              gridLines: {
+                display: false,
+            },
             },
           ],
         },
@@ -125,14 +151,17 @@ export default function AdminPayoutsHistory() {
     }, [])
 
     return (
-        <>
+        <div className={classes.pageContainer}>
+        <h1 className={classes.pageTitle}>Payout History</h1>
             <div className={classes.container}>
-                <h1>History:</h1>
-                <div style={{ height: 600, width: '80%', display: 'flex', cursor: 'pointer' }} className="center_table">
+                <div style={{ height: 600, width: '50%', display: 'flex', cursor: 'pointer' }} className="center_table">
                     <DataGrid rows={payoutsHistory} columns={columns} pageSize={15} checkboxSelection={false} sortModel={[{ field: 'payout_date', sort: 'desc' },]} onRowClick={(event)=>handleRowClick(event.row.confirmation_number)} />
                 </div>
+            
+            <div className={classes.donutContainer}>
+                <Doughnut data={data} options={options} />
             </div>
-            <Doughnut data={data} options={options} />
-        </>
+            </div>
+        </div>
     )
 }

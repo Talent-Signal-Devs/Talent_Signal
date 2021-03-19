@@ -12,8 +12,8 @@ const useStyles = makeStyles(() => ({
     margin: "5px"
   },
   header: {
-    backgroundColor: "#001844",
-    color: 'white',
+    backgroundColor: "#99C0FF",
+    color: '#001844',
   },
   coachPageTitle: {
     position: 'relative',

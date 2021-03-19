@@ -66,11 +66,11 @@ const useStyles = makeStyles(() => ({
     }
   },
   header: {
-    backgroundColor: '#0352C0',
-    color: 'white',
+    backgroundColor: '#99C0FF',
+    color: '#001844',
   },
   dialog: {
-    border: '1px solid #0352C0'
+    border: '1px solid #99C0FF'
   }
 }))
 

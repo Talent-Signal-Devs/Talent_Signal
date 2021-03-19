@@ -116,6 +116,11 @@ function CoachDashboard(props) {
         },
       ],
     },
+    title: {
+      display: true,
+      text: `Client Payment Statuses`,
+      fontSize: 24,
+  },
   }
 
 
@@ -123,7 +128,7 @@ function CoachDashboard(props) {
     labels: coachChart.labels,
     datasets: [
       {
-        label: '$ of Completed Payments',
+        label: '$ of Payout',
         data: coachChart.sums,
         backgroundColor: [
           "#001844",
@@ -158,9 +163,22 @@ function CoachDashboard(props) {
               return "$" + value
           },
           },
+          gridLines: {
+            display: false,
+        },
         },
       ],
+      xAxes: [{
+        gridLines: {
+          display: false,
+      },
+      }]
     },
+    title: {
+      display: true,
+      text: `Total Payouts`,
+      fontSize: 24,
+  },
   }
 
 

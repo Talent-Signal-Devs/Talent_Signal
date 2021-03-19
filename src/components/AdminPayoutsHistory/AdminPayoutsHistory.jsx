@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
             width: "25ch",
 
         },
-        
+
         margin: "5px"
     },
     container: {
@@ -41,7 +41,7 @@ export default function AdminPayoutsHistory() {
     const dispatch = useDispatch();
 
     const payoutsHistory = useSelector(store => store.payoutsHistory)
-    const chartData = useSelector(store=>store.chartData)
+    const chartData = useSelector(store=>store.adminChart)
     const classes = useStyles()
 
     const data = {

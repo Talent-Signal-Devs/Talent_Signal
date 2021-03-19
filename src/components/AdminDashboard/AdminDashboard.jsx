@@ -70,7 +70,7 @@ const useStyles = makeStyles(() => ({
     },
     coachInfoContainer: {
       position: 'relative',
-      left: '245px',
+      left: '13vw',
       bottom: '50px',
       background: '#0072cc',
       color: '#ffffff',
@@ -85,7 +85,7 @@ const useStyles = makeStyles(() => ({
       background: "#cce3f5",
       color: '#001844',
       borderRadius: '10px',
-      left: '620px',
+      left: '33vw',
       bottom: '134px',
       height: '200px',
       width: '35vh',

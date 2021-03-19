@@ -12,16 +12,21 @@ const useStyles = makeStyles(() => ({
     margin: "5px"
   },
   header: {
-    backgroundColor: '#0026FF',
+    backgroundColor: "#001844",
     color: 'white',
   },
+  coachPageTitle: {
+    position: 'relative',
+    left: '14vh',
+    marginTop: '40px'
+  }
 }))
 
 
 function CoachClientList() {
   
   const clients = useSelector((store) => store.coachClientReducer);
-  const [heading, setHeading] = useState('Coach Client List');
+  const [heading, setHeading] = useState('Clients');
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -78,7 +83,7 @@ function CoachClientList() {
 
   return (
     <div>
-      <h2>{heading}</h2>
+      <h2 className={classes.coachPageTitle}>{heading}</h2>
       <div>
         <div style={{ width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
           <DataGrid rowHeight={40} autoHeight={true} rows={clients} columns={columns} pageSize={15} sortModel={[{ field: 'full_name', sort: 'asc' },]} checkboxSelection={false} onRowClick={handleRowClick} />

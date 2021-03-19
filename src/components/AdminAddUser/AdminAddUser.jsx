@@ -58,14 +58,14 @@ const useStyles = makeStyles(() => ({
         margin: "10px",
         display: "block",
         width: "225px",
-        background: "#0352C0",
+        background: "#0072cc",
         color: "#ffffff",
     },
     buttonCancel: {
         margin: "10px",
         display: "block",
         width: "225px",
-        background: '#CC1126',
+        background: '#001844',
         color: '#ffffff'
     },
     addUserTitle: {

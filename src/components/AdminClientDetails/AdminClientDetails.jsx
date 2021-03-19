@@ -31,9 +31,19 @@ const useStyles = makeStyles(() => ({
     margin: "5px"
   },
   header: {
-    backgroundColor: '#0026FF',
+    backgroundColor: '#001844',
     color: 'white',
   },
+  tableTitle: {
+    position: 'relative',
+    left: '120px',
+    marginTop: '40px'
+  },
+  dialogForm: {
+    display: 'flex',
+    flexFlow: 'column',
+    padding: '10px'
+  }
 }))
 
 function AdminClientDetails(props) {
@@ -177,6 +187,7 @@ function AdminClientDetails(props) {
             onClose={handleClose}
             aria-labelledby="form-dialog-title"
           >
+            <form className={classes.dialogForm}>
             <DialogTitle id="form-dialog-title">Edit Details</DialogTitle>
             <TextField
               name="firstName"
@@ -269,8 +280,9 @@ function AdminClientDetails(props) {
             </FormControl>
             <Button onClick={updateClient}>Update Client</Button>
             <Button onClick={handleClose}>Cancel</Button>
+            </form>
           </Dialog>
-
+          <h2 className={classes.tableTitle}>Payments</h2>
           {clientDetails?.payments &&
           <div style={{ width: '85%', display: 'flex', }} className={classes.root, "center_table"}>
             <DataGrid rowHeight={40} autoHeight={true} sortModel={[{ field: 'due_date', sort: 'desc' },]} rows={filteredPayments} columns={columns} pageSize={12} checkboxSelection={false} />

@@ -14,16 +14,22 @@ const useStyles = makeStyles(() => ({
     alignContent: 'space-between'
   },
   pickerContainer: {
-    display: 'flex',
-    justifyContent: 'center',
+    position: 'relative',
+    left: '7.5vw',
+    // justifyContent: 'center',
     alignItems: 'center',
     alignContent: 'center',
     marginTop: '2rem'
   },
   buttonContainer: {
-    marginLeft: '2rem'
+    // marginLeft: '2rem'
+    marginTop: '20px'
   },
-  
+  coachPayoutHeading: {
+    marginTop: '40px',
+    position: 'relative',
+    left: '7vw'
+  },
   root: {
     "& .MuiInputBase-input": {
         width: "25ch",
@@ -41,7 +47,7 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
   },
   header: {
-    backgroundColor: '#0026FF',
+    backgroundColor: "#001844",
     color: 'white',
   },
   cell: {
@@ -56,7 +62,7 @@ function CoachPayoutDetails(props) {
   const classes = useStyles();
 
   const payments = useSelector((store) => store.coachPaymentDetailsReducer);
-  const [heading, setHeading] = useState('Coach Payout Details');
+  const [heading, setHeading] = useState('Payout Details');
 
   const [monthDate, setMonthDate] = useState('');
 
@@ -132,7 +138,7 @@ function CoachPayoutDetails(props) {
 
   return (
     <div>
-      <h2>{heading}</h2>
+      <h2 className={classes.coachPayoutHeading}>{heading}</h2>
       <div className={classes.pickerContainer}>
         <TextField
           id="pick month"

@@ -50,8 +50,8 @@ function AdminClientDetails(props) {
   const params = useParams()
   const classes = useStyles()
 
-  const clientDetails = useSelector((store) => store.clientDetailsReducer)
-  const coaches = useSelector((store) => store.adminCoachReducer)
+  const clientDetails = useSelector((store) => store.clientDetails)
+  const coaches = useSelector((store) => store.adminCoaches)
 
   const [heading, setHeading] = useState("Admin Client Details")
   const [open, setOpen] = useState(false)

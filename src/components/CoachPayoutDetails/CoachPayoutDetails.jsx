@@ -61,7 +61,7 @@ function CoachPayoutDetails(props) {
   const history = useHistory();
   const classes = useStyles();
 
-  const payments = useSelector((store) => store.coachPaymentDetailsReducer);
+  const payments = useSelector((store) => store.coachPaymentDetails);
   const [heading, setHeading] = useState('Payout Details');
 
   const [monthDate, setMonthDate] = useState('');

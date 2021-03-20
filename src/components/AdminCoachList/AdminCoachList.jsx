@@ -47,7 +47,7 @@ const useStyles = makeStyles(() => ({
 function AdminCoachList(props) {
 
   const classes = useStyles();
-  const coaches = useSelector((store) => store.adminCoachReducer);
+  const coaches = useSelector((store) => store.adminCoaches);
   const [heading, setHeading] = useState('Coaches');
   const [seeActiveCoaches, setSeeActiveCoaches] = useState(true);
   const dispatch = useDispatch();

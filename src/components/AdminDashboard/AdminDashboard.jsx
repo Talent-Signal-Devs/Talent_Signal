@@ -101,8 +101,8 @@ function AdminDashboard(props) {
 
     // Using hooks we're creating local state for a "heading" variable with
     // a default value of 'Functional Component'
-    const coaches = useSelector((store) => store.adminCoachReducer)
-    const clients = useSelector((store) => store.adminClientReducer)
+    const coaches = useSelector((store) => store.adminCoaches)
+    const clients = useSelector((store) => store.adminClients)
     const chartData = useSelector((store) => store.adminChart)
     const donutData = useSelector((store) => store.adminDonut)
 

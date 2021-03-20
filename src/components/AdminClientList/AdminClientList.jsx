@@ -48,7 +48,7 @@ const useStyles = makeStyles(() => ({
 function AdminClientList(props) {
 
   const classes = useStyles();
-  const clients = useSelector((store) => store.adminClientReducer);
+  const clients = useSelector((store) => store.adminClients);
 
   const [heading, setHeading] = useState('Clients');
 

@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
     },
     header: {
         backgroundColor: '#99C0FF',
-        color: 'white',
+        color: '#001844',
     },
     cell: {
         align: 'center',

@@ -18,10 +18,11 @@ const useStyles = makeStyles(() => ({
         flexFlow: "column",
         justifyContent: "center",
         alignItems: "center",
+        marginTop: '20px'
     },
     header: {
-        backgroundColor: '#0026FF',
-        color: 'white',
+        backgroundColor: '#99C0FF',
+        color: '#001844',
     },
     cell: {
         align: 'center',
@@ -70,10 +71,10 @@ export default function AdminPayoutsDetailsHistory() {
 
     return(
         <>
-        <h1>Payment Number:</h1>
-        <h2>{params.number}</h2>
+        <div className="details-box">
+        <h1>Payment Number: {params.number}</h1>
+        </div>
         <div className={classes.container}>
-                <h1>History:</h1>
                 <div style={{ height: 600, width: '80%', display: 'flex', cursor: 'pointer' }} className="center_table">
                     <DataGrid rows={details} columns={columns} pageSize={15} checkboxSelection={false} />
                 </div>

@@ -33,8 +33,8 @@ const useStyles = makeStyles(() => ({
     left: '19vh',
   },
   header: {
-    backgroundColor: '#0352C0',
-    color: 'white',
+    backgroundColor: '#99C0FF',
+    color: '#001844',
   },
   pageHeading: {
     position: 'relative',

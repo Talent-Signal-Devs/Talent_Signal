@@ -23,8 +23,8 @@ const useStyles = makeStyles(() => ({
     margin: "5px"
   },
   header: {
-    backgroundColor: '#0026FF',
-    color: 'white',
+    backgroundColor: '#99C0FF',
+    color: '#001844',
   },
 }))
 
@@ -120,16 +120,18 @@ function CoachClientDetails(props) {
 
   return (
     <div>
-      <h2>{heading}</h2>
-
       {clientDetails.first_name && (
         <>
+        <div className="details-box">
           <div>
             <h2>{clientDetails.first_name} {clientDetails.last_name}</h2>
             <h3>{clientDetails.email}</h3>
             <h3>{clientDetails.phone}</h3>
+          </div>
+          <div>
             <h3>coaching status: {clientDetails.coaching_status}</h3>
             <h3>contract id: {clientDetails.contract_id}</h3>
+          </div>
           </div>
           <div>
 
@@ -138,9 +140,10 @@ function CoachClientDetails(props) {
                 <div style={{ width: '80%', display: 'flex', }} className={classes.root, "center_table"}>
                   <DataGrid rowHeight={40} autoHeight={true} sortModel={[{ field: 'due_date', sort: 'desc' },]} rows={clientDetails.payments} columns={columns} pageSize={12} checkboxSelection={false} />
                 </div>
-
+              <div className="details-box">
                 <h3>Total amount paid by client: ${moneyMade}</h3>
                 <h3>Total money received: ${totalRevenue}</h3>
+                </div>
               </>}
           </div>
         </>

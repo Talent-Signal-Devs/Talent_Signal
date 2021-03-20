@@ -26,8 +26,8 @@ const useStyles = makeStyles(() => ({
     margin: "5px"
 },
   header: {
-    backgroundColor: '#0352C0',
-    color: 'white',
+    backgroundColor: '#99C0FF',
+    color: '#001844',
   },
   cell: {
     align: 'center',

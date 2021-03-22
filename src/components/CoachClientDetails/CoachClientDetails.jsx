@@ -113,9 +113,18 @@ function CoachClientDetails(props) {
 
   //handles the value for 'total_paid' column
   function getTotalPaid(params) {
-    let total = params.getValue('amount') * 0.75;
-    let totalToFixed = total.toFixed(2);
-    return totalToFixed;
+    let total = params.row.amount * 0.75;
+    let status = params.row.payment_status;
+    if (status != 'complete'){
+      return total = '0.00';
+    }else{
+      let totalToFixed = total.toFixed(2);
+      return totalToFixed;
+    }
+    // console.log(params);
+    // let total = params.row.amount * 0.75;
+    // let totalToFixed = total.toFixed(2);
+    // return totalToFixed;
   }
 
   return (

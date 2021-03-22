@@ -114,19 +114,21 @@ function CoachPayoutDetails(props) {
       headerName: 'Payment Received',
       flex: 1,
       sort: true,
-      // valueGetter: checkStatus,
-      valueFormatter: (params) => (params.value.toFixed(2)),
+      valueGetter: checkStatus,
+      // valueFormatter: checkStatus,
+      // valueFormatter: (params) => (params.value.toFixed(2)),
       description: `Payment amount received by coach from Talent Signal`,
       headerClassName: classes.header
     },
   ]
 
-  //check if payment status is complete or not. If no, return 0 for total paid
+  //check if payment status is complete or not. If no, return 0 for total paid.
   function checkStatus(params){
-    let total = params.getValue('total_paid');
-    let status = params.getValue('payment_status');
+    console.log('value Getter params are', params);
+    let total = params.row.total_paid
+    let status = params.row.payment_status;
     if(status != 'complete'){
-      return total = 0.00;
+      return total = '0.00';
     }else{
       let totalFixed = total.toFixed(2);
       return totalFixed;

@@ -123,7 +123,7 @@ function AdminClientDetails(props) {
       headerName: 'Due Date',
       flex: 1,
       sort: true,
-      description: `Date the client's payment is due`,
+      description: `Date the client's payment is due to Leif`,
       valueFormatter: (params) => new Date(params.value).toLocaleDateString("en-us"),
       type: 'date',
       headerClassName: classes.header
@@ -133,16 +133,25 @@ function AdminClientDetails(props) {
       headerName: 'Payment Status',
       flex: 1,
       sort: true,
-      description: `Status of the payment`,
+      description: `Status of the client's payment in the Leif system`,
       headerClassName: classes.header
     },
     {
       field: 'amount',
-      headerName: 'Total Payment',
+      headerName: 'Amount Due',
+      flex: 1,
+      sort: true,
+      description: `Payment amount due to Talent Signal from Leif`,
+      valueFormatter: (params) => (`$${params.value.toFixed(2)}`),
+      headerClassName: classes.header
+    },
+    {
+      field: 'payment_received',
+      headerName: 'Payment Received',
       flex: 1,
       sort: true,
       description: `Payment amount received by Talent Signal from Leif`,
-      valueFormatter: (params) => (params.value.toFixed(2)),
+      valueGetter: checkStatus,
       headerClassName: classes.header
     },
     {
@@ -154,6 +163,18 @@ function AdminClientDetails(props) {
       headerClassName: classes.header
     },
   ]
+
+  //check if payment status is complete or not. If no, return 0 for total paid. 
+  function checkStatus(params){
+    // console.log('value Getter params are', params);
+    let total = params.row.amount;
+    let status = params.row.payment_status;
+    if(status != 'complete'){
+      return total = '$0.00';
+    }else{
+      return `$${total.toFixed(2)}`;
+    }
+  }
 
   // leave out everything in clientDetails.payments that equals null. 
     const filteredPayments = clientDetails?.payments?.filter(function (el) {

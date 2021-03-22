@@ -214,11 +214,11 @@ function CoachDashboard(props) {
     },
     {
       field: 'total_paid',
-      headerName: 'Total Paid',
+      headerName: 'Payment Received',
       flex: 1,
       sort: true,
-      description: 'Total amount paid to coach by Talent Signal',
-      valueFormatter: (params) => (params.value.toFixed(2)),
+      description: 'Payment amount received by coach from Talent Signal',
+      valueFormatter: (params) => (`$${params.value.toFixed(2)}`),
       headerClassName: classes.header
     },
   ]

@@ -177,7 +177,7 @@ function AdminPayouts() {
               return (
                 <TableRow key={debt.user_id}>
                   <TableCell>{debt.full_name}</TableCell>
-                  <TableCell>{debt.total_owed * .75}</TableCell>
+                  <TableCell>`${debt.total_owed * .75}`</TableCell>
                   <TableCell>
                     <Button
                       color="primary"

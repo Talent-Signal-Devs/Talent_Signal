@@ -76,7 +76,7 @@ function CoachClientDetails(props) {
       headerName: 'Due Date',
       flex: 1,
       sort: true,
-      description: `Date the client's payment is due`,
+      description: `Date the client's payment is due to Leif`,
       // valueFormatter: (params) => params.value.getFullYear(),
       // valueFormatter: (params: ValueFormatterParams) => (params.value as Date).getFullYear(),
       valueFormatter: (params) => new Date(params.value).toLocaleDateString("en-us"),
@@ -88,16 +88,16 @@ function CoachClientDetails(props) {
       headerName: 'Payment Status',
       flex: 1,
       sort: true,
-      description: `Status of the payment`,
+      description: `Status of the client's payment in the Leif system`,
       headerClassName: classes.header
     },
     {
       field: 'amount',
-      headerName: 'Total Payment',
+      headerName: 'Amount Due',
       flex: 1,
       sort: true,
-      valueFormatter: (params) => (params.value.toFixed(2)),
-      description: `Payment amount received by Talent Signal from job seeker`,
+      valueFormatter: (params) => (`$${params.value.toFixed(2)}`),
+      description: `Payment amount due to Talent Signal from the job seeker`,
       headerClassName: classes.header
     },
     {
@@ -113,9 +113,18 @@ function CoachClientDetails(props) {
 
   //handles the value for 'total_paid' column
   function getTotalPaid(params) {
-    let total = params.getValue('amount') * 0.75;
-    let totalToFixed = total.toFixed(2);
-    return totalToFixed;
+    let total = params.row.amount * 0.75;
+    let status = params.row.payment_status;
+    if (status != 'complete'){
+      return total = '$0.00';
+    }else{
+      let totalToFixed = total.toFixed(2);
+      return `$${totalToFixed}`;
+    }
+    // console.log(params);
+    // let total = params.row.amount * 0.75;
+    // let totalToFixed = total.toFixed(2);
+    // return totalToFixed;
   }
 
   return (

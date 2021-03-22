@@ -39,8 +39,8 @@ const useStyles = makeStyles(() => ({
     alignContent: 'space-between'
   },
   header: {
-    backgroundColor: "#001844",
-    color: 'white',
+    backgroundColor: "#99C0FF",
+    color: '#001844',
   },
   tableRow: {
     cursor: 'pointer'
@@ -101,6 +101,9 @@ function CoachDashboard(props) {
     ]
   }
   const optionsDonut = {
+    animation: {
+      duration: 2000,
+  },
     responsive: true,
         maintainAspectRatio: false,
         aspectRation: 1,
@@ -151,6 +154,9 @@ function CoachDashboard(props) {
   }
 
   const optionsChart = {
+    animation: {
+      duration: 2000,
+  },
     responsive: true,
         maintainAspectRatio: false,
         aspectRation: 1,

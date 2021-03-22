@@ -47,8 +47,8 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
   },
   header: {
-    backgroundColor: "#001844",
-    color: 'white',
+    backgroundColor: "#99C0FF",
+    color: '#001844',
   },
   cell: {
     align: 'center',

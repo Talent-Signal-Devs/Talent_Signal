@@ -46,9 +46,9 @@ const useStyles = makeStyles(() => ({
     pageTitle: {
         display: 'inline-block',
         marginTop: '60px',
-        marginBottom: '40px',
+        marginBottom: '20px',
         position: 'relative',
-        left: '7.5vw'
+        left: '11vw'
     },
 }))
 
@@ -71,7 +71,7 @@ export default function AdminPayoutsHistory() {
                 label: 'Status Ratio',
                 data: chartData.counters,
                 backgroundColor: [
-                    '#311F99',
+                    '#001844',
                     '#99C0FF',
                     '#FFE434',
                     '#CC1126',
@@ -86,6 +86,9 @@ export default function AdminPayoutsHistory() {
         responsive: true,
         maintainAspectRatio: false,
         aspectRation: 1,
+        animation: {
+            duration: 2000,
+        },
         scales: {
           yAxes: [
             {
@@ -97,6 +100,11 @@ export default function AdminPayoutsHistory() {
             },
             },
           ],
+        },
+        title: {
+            display: true,
+            text: `Payment Status History`,
+            fontSize: 24,
         },
       }
 
@@ -154,13 +162,13 @@ export default function AdminPayoutsHistory() {
         <div className={classes.pageContainer}>
         <h1 className={classes.pageTitle}>Payout History</h1>
             <div className={classes.container}>
-                <div style={{ height: 600, width: '50%', display: 'flex', cursor: 'pointer' }} className="center_table">
+                <div style={{ height: 600, width: '80%', display: 'flex', cursor: 'pointer' }} className="center_table">
                     <DataGrid rows={payoutsHistory} columns={columns} pageSize={15} checkboxSelection={false} sortModel={[{ field: 'payout_date', sort: 'desc' },]} onRowClick={(event)=>handleRowClick(event.row.confirmation_number)} />
                 </div>
             
-            <div className={classes.donutContainer}>
+            {/* <div className={classes.donutContainer}>
                 <Doughnut data={data} options={options} />
-            </div>
+            </div> */}
             </div>
         </div>
     )

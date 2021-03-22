@@ -152,6 +152,9 @@ function AdminDashboard(props) {
         responsive: true,
         maintainAspectRatio: false,
         aspectRation: 1,
+        animation: {
+            duration: 2000,
+        },
         scales: {
             yAxes: [
                 {
@@ -199,6 +202,9 @@ function AdminDashboard(props) {
         ],
     }
     const optionsDonut = {
+        animation: {
+            duration: 2000,
+        },
         scales: {
             yAxes: [
                 {

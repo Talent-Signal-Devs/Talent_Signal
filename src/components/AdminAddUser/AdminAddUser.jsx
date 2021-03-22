@@ -31,13 +31,16 @@ const useStyles = makeStyles(() => ({
         alignItems: "center",
         width: "20%",
         background: '#ffffff',
-        borderRadius: '10px'
+        borderRadius: '10px',
+        
     },
     userForm: {
         display: "flex",
         flexFlow: "column",
         alignItems: "center",
         justifyContent: "space-around",
+        marginBottom: '10px',
+        marginTop: '5px'
     },
     inputContainer: {
         display: "flex",
@@ -49,21 +52,26 @@ const useStyles = makeStyles(() => ({
     },
     buttonContainer: {
         marginTop: "10px",
+        // border: '1px solid blue',
+        width: "100%",
+        display: 'flex',
+        flexFlow: 'column',
+        alignItems: 'center',
     },
     input: {
         width: "25ch",
         margin: "10px",
     },
     buttonSubmit: {
-        margin: "10px",
-        display: "block",
+        marginTop: "10px",
+        // display: "block",
         width: "225px",
         background: "#0072cc",
         color: "#ffffff",
     },
     buttonCancel: {
         margin: "10px",
-        display: "block",
+        // display: "block",
         width: "225px",
         background: '#001844',
         color: '#ffffff'
@@ -71,11 +79,11 @@ const useStyles = makeStyles(() => ({
     addUserTitle: {
         textTransform: 'uppercase',
         color: ''
-    }
+    },
 }))
 
 function AdminAddUser(props) {
-    const coaches = useSelector((store) => store.adminCoachReducer)
+    const coaches = useSelector((store) => store.adminCoaches)
     const [heading, setHeading] = useState("Admin Add User")
 
     useEffect(() => {
@@ -144,6 +152,7 @@ function AdminAddUser(props) {
     const handleClientChange = (e) => {
         const value = e.target.value
         setNewClient({ ...newClient, [e.target.name]: value })
+        console.log(newClient)
     }
 
     const handleCancel = () => {
@@ -169,6 +178,30 @@ function AdminAddUser(props) {
         location.reload()
     }
 
+    const fillCoachForm = () => {
+        console.log('in fill coach form')
+        setNewCoach({
+            firstName: "Alexander",
+            lastName: "O'Neal",
+            email: "dontcriticizealexanderoneal@gmail.com",
+            phone: "333-444-5555",
+            programID: "funk42bfubw4",
+            startDate: "3/1/2021",
+            business: "The Time",
+        })
+    }
+
+    const fillClientForm = () => {
+        setNewClient({
+            ...newClient,
+            firstName: "Jesse",
+            lastName: "Johnson",
+            email: "jessejohnson@gmail.com",
+            phone: "555-666-7777",
+            contractID: "jesse",
+        })
+    }
+
     return (
         <div className={classes.formPageContainer}>
             <h1 className={classes.addUserTitle}>Add a new user</h1>
@@ -187,7 +220,8 @@ function AdminAddUser(props) {
                         </Select>
                     </FormControl>
                     {userType === "coach" && (
-                        <div className={classes.inputContainer}>
+                        <>
+                        <div className={classes.inputContainer} >
                             <TextField
                                 required
                                 name="firstName"
@@ -226,6 +260,7 @@ function AdminAddUser(props) {
                                 name="programID"
                                 label="Program ID"
                                 onChange={handleCoachChange}
+                                value={newCoach.programID}
                                 className={classes.input}
                             />
                             <TextField
@@ -245,10 +280,29 @@ function AdminAddUser(props) {
                                 className={classes.input}
                             />
                         </div>
+                         <div className={classes.buttonContainer} onClick={fillCoachForm}>
+                         <Button
+                             type="submit"
+                             variant="contained"
+                             className={classes.buttonSubmit}
+                         >
+                             Add User
+                         </Button>
+                         <Button
+                             onClick={handleCancel}
+                             variant="contained"
+                             className={classes.buttonCancel}
+                         >
+                             Cancel
+                         </Button>
+                     </div>
+                     </>
+                        
                     )}
 
                     {userType === "client" && (
-                        <div className={classes.inputContainer}>
+                        <>
+                        <div className={classes.inputContainer} >
                             <TextField
                                 required
                                 name="firstName"
@@ -362,23 +416,25 @@ function AdminAddUser(props) {
                                 </Select>
                             </FormControl>
                         </div>
+                         <div className={classes.buttonContainer} onClick={fillClientForm}>
+                         <Button
+                             type="submit"
+                             variant="contained"
+                             className={classes.buttonSubmit}
+                         >
+                             Add User
+                         </Button>
+                         <Button
+                             onClick={handleCancel}
+                             variant="contained"
+                             className={classes.buttonCancel}
+                         >
+                             Cancel
+                         </Button>
+                     </div>
+                     </>
                     )}
-                    <div className={classes.buttonContainer}>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            className={classes.buttonSubmit}
-                        >
-                            Add User
-                        </Button>
-                        <Button
-                            onClick={handleCancel}
-                            variant="contained"
-                            className={classes.buttonCancel}
-                        >
-                            Cancel
-                        </Button>
-                    </div>
+                   
                 </form>
             </div>
         </div>

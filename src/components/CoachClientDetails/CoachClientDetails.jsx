@@ -96,7 +96,7 @@ function CoachClientDetails(props) {
       headerName: 'Amount Due',
       flex: 1,
       sort: true,
-      valueFormatter: (params) => (params.value.toFixed(2)),
+      valueFormatter: (params) => (`$${params.value.toFixed(2)}`),
       description: `Payment amount due to Talent Signal from the job seeker`,
       headerClassName: classes.header
     },
@@ -116,10 +116,10 @@ function CoachClientDetails(props) {
     let total = params.row.amount * 0.75;
     let status = params.row.payment_status;
     if (status != 'complete'){
-      return total = '0.00';
+      return total = '$0.00';
     }else{
       let totalToFixed = total.toFixed(2);
-      return totalToFixed;
+      return `$${totalToFixed}`;
     }
     // console.log(params);
     // let total = params.row.amount * 0.75;

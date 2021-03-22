@@ -133,7 +133,7 @@ export default function AdminPayoutsHistory() {
             headerName: 'Amount Paid',
             flex: 1,
             sortable: true,
-            valueFormatter: (params) => (params?.value?.toFixed(2)),
+            valueFormatter: (params) => (`$${params?.value?.toFixed(2)}`),
             description: 'Total paid to coach on a specific date',
             headerClassName: classes.header,
         },

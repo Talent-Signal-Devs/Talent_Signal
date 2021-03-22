@@ -52,6 +52,7 @@ export default function AdminPayoutsDetailsHistory() {
             headerName: 'Amount Paid',
             flex: 1,
             sortable: true,
+            valueFormatter: (params) => (`$${params.value.toFixed(2)}`),
             description: '75% of the client\'s payment to Leif. This does not account for the 5% to Leif or the 20% in administrative fees to Talent Signal',
             headerClassName: classes.header,
         },

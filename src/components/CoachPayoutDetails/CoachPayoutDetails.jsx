@@ -105,7 +105,7 @@ function CoachPayoutDetails(props) {
       headerName: 'Amount Due',
       flex: 1,
       sort: true,
-      valueFormatter: (params) => (params.value.toFixed(2)),
+      valueFormatter: (params) => (`$${params.value.toFixed(2)}`),
       description: `Payment amount due to Talent Signal from the job Seeker`,
       headerClassName: classes.header
     },
@@ -128,10 +128,10 @@ function CoachPayoutDetails(props) {
     let total = params.row.total_paid
     let status = params.row.payment_status;
     if(status != 'complete'){
-      return total = '0.00';
+      return total = '$0.00';
     }else{
       let totalFixed = total.toFixed(2);
-      return totalFixed;
+      return `$${totalFixed}`;
     }
   }
   // get payment details when month picker is used. 

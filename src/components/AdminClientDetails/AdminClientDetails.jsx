@@ -142,7 +142,7 @@ function AdminClientDetails(props) {
       flex: 1,
       sort: true,
       description: `Payment amount due to Talent Signal from Leif`,
-      valueFormatter: (params) => (params.value.toFixed(2)),
+      valueFormatter: (params) => (`$${params.value.toFixed(2)}`),
       headerClassName: classes.header
     },
     {
@@ -170,9 +170,9 @@ function AdminClientDetails(props) {
     let total = params.row.amount;
     let status = params.row.payment_status;
     if(status != 'complete'){
-      return total = '0.00';
+      return total = '$0.00';
     }else{
-      return total.toFixed(2);
+      return `$${total.toFixed(2)}`;
     }
   }
 

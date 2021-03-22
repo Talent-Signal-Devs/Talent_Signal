@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
 
 function CoachClientDetails(props) {
   const classes = useStyles();
-  const clientDetails = useSelector((store) => store.clientDetailsReducer);
+  const clientDetails = useSelector((store) => store.clientDetails);
   const [heading, setHeading] = useState('Coach Client Details');
   const params = useParams();
   const dispatch = useDispatch();

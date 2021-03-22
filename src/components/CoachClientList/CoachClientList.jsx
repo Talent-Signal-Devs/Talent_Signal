@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
 
 function CoachClientList() {
   
-  const clients = useSelector((store) => store.coachClientReducer);
+  const clients = useSelector((store) => store.coachClients);
   const [heading, setHeading] = useState('Clients');
   const classes = useStyles();
   const dispatch = useDispatch();

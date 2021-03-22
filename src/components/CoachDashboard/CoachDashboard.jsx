@@ -191,7 +191,7 @@ function CoachDashboard(props) {
 
 
 
-  const payments = useSelector((store) => store.coachPaymentReducer);
+  const payments = useSelector((store) => store.coachPayments);
   const [heading, setHeading] = useState('Coach Dashboard');
 
 

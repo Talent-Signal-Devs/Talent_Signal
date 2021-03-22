@@ -55,7 +55,7 @@ const useStyles = makeStyles(() => ({
 function AdminCoachDetails(props) {
   const classes = useStyles();
   const history = useHistory();
-  const coachDetails = useSelector((store) => store.coachDetailsReducer)
+  const coachDetails = useSelector((store) => store.coachDetails)
   const [heading, setHeading] = useState("Admin Coach Details")
   const [open, setOpen] = useState(false)
   const [newCoachDetails, setNewCoachDetails] = useState({

@@ -89,7 +89,7 @@ function CoachPayoutDetails(props) {
       flex: 1,
       sort: true,
       valueFormatter: (params) => new Date(params.value).toLocaleDateString("en-us"),
-      description: `Date the client's payment was scheduled`,
+      description: `Date the client's payment was scheduled to Leif`,
       headerClassName: classes.header
     },
     {
@@ -97,16 +97,16 @@ function CoachPayoutDetails(props) {
       headerName: 'Payment Status',
       flex: 1,
       sort: true,
-      description: `Status of the payment`,
+      description: `Status of the client's payment in the Leif system`,
       headerClassName: classes.header
     },
     {
       field: 'amount',
-      headerName: 'Total Payment',
+      headerName: 'Amount Due',
       flex: 1,
       sort: true,
       valueFormatter: (params) => (params.value.toFixed(2)),
-      description: `Payment amount received by Talent Signal from job seeker`,
+      description: `Payment amount due to Talent Signal from the job Seeker`,
       headerClassName: classes.header
     },
     {

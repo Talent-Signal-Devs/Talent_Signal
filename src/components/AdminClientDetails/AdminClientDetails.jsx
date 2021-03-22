@@ -123,7 +123,7 @@ function AdminClientDetails(props) {
       headerName: 'Due Date',
       flex: 1,
       sort: true,
-      description: `Date the client's payment is due`,
+      description: `Date the client's payment is due to Leif`,
       valueFormatter: (params) => new Date(params.value).toLocaleDateString("en-us"),
       type: 'date',
       headerClassName: classes.header
@@ -133,12 +133,12 @@ function AdminClientDetails(props) {
       headerName: 'Payment Status',
       flex: 1,
       sort: true,
-      description: `Status of the payment`,
+      description: `Status of the client's payment in the Leif system`,
       headerClassName: classes.header
     },
     {
       field: 'amount',
-      headerName: 'Total Due',
+      headerName: 'Amount Due',
       flex: 1,
       sort: true,
       description: `Payment amount due to Talent Signal from Leif`,

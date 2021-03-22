@@ -76,7 +76,7 @@ function CoachClientDetails(props) {
       headerName: 'Due Date',
       flex: 1,
       sort: true,
-      description: `Date the client's payment is due`,
+      description: `Date the client's payment is due to Leif`,
       // valueFormatter: (params) => params.value.getFullYear(),
       // valueFormatter: (params: ValueFormatterParams) => (params.value as Date).getFullYear(),
       valueFormatter: (params) => new Date(params.value).toLocaleDateString("en-us"),
@@ -88,16 +88,16 @@ function CoachClientDetails(props) {
       headerName: 'Payment Status',
       flex: 1,
       sort: true,
-      description: `Status of the payment`,
+      description: `Status of the client's payment in the Leif system`,
       headerClassName: classes.header
     },
     {
       field: 'amount',
-      headerName: 'Total Payment',
+      headerName: 'Amount Due',
       flex: 1,
       sort: true,
       valueFormatter: (params) => (params.value.toFixed(2)),
-      description: `Payment amount received by Talent Signal from job seeker`,
+      description: `Payment amount due to Talent Signal from the job seeker`,
       headerClassName: classes.header
     },
     {

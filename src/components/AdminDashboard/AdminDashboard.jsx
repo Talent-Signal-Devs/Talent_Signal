@@ -39,7 +39,10 @@ const useStyles = makeStyles(() => ({
         height: "100px",
         width: "250px",
         fontSize: "20px",
-        boxShadow: '5px 5px 5px #BBBBBB'
+        boxShadow: '5px 5px 5px #BBBBBB',
+        '&:hover': {
+            background: '#99C0FF',
+        }
     },
     chartContainer: {
         display: "flex",

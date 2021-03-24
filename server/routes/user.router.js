@@ -38,7 +38,7 @@ router.post('/register', (req, res, next) => {
         pool
           .query(queryText, [password, 'TRUE', email])
           .then((results) => {
-            console.log(results.rows)
+            // console.log(results.rows)
             res.sendStatus(201)
           })
           .catch((err) => {

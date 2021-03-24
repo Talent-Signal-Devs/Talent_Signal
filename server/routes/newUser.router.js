@@ -10,11 +10,10 @@ const authToken = process.env.TWILIO_AUTH_TOKEN
 
 const client = require('twilio')(accountSid, authToken)
 
+// add new coach to the system 
 router.post('/coach', async (req, res) => {
-    console.log(req.body)
-
+    // console.log(req.body)
     const connection = await pool.connect()
-
     try {
         await connection.query('BEGIN;')
         const query = `INSERT INTO "users" (first_name, last_name, email, phone, start_date, business_name, program_id) 
@@ -40,23 +39,19 @@ router.post('/coach', async (req, res) => {
     } finally {
         connection.release()
     }
-    
 })
 
+// add new client to the system 
 router.post('/client', async (req, res) => {
-    console.log(req.body)
-
+    // console.log(req.body)
     const connection = await pool.connect()
-
     try {
         await connection.query('BEGIN;')
         const query = `INSERT INTO client (first_name, last_name, email, phone, contract_id, user_id, contract_status, coaching_status)
                         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
 
         await connection.query(query, [req.body.firstName, req.body.lastName, req.body.email, req.body.phone, req.body.contractID, req.body.coachID, req.body.contractStatus, req.body.coachingStatus])
-        
         await connection.query('COMMIT;')
-        
     } catch(err) {
         console.log(err)
         await connection.query('ROLLBACK;')

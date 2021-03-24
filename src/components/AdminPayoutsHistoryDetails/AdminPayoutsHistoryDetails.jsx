@@ -1,18 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import { useParams } from "react-router-dom"
 import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from "@material-ui/core/styles"
 
 const useStyles = makeStyles(() => ({
-    root: {
-        "& .MuiInputBase-input": {
-            width: "25ch",
-
-        },
-        margin: "5px"
-    },
     container: {
         display: "flex",
         flexFlow: "column",
@@ -24,11 +16,7 @@ const useStyles = makeStyles(() => ({
         backgroundColor: '#99C0FF',
         color: '#001844',
     },
-    cell: {
-        align: 'center',
-    }
 }))
-
 
 export default function AdminPayoutsDetailsHistory() {
 
@@ -80,7 +68,6 @@ export default function AdminPayoutsDetailsHistory() {
                     <DataGrid rows={details} columns={columns} pageSize={15} checkboxSelection={false} />
                 </div>
             </div>
-
         </>
     )
 }

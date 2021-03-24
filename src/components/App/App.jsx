@@ -5,18 +5,10 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch } from 'react-redux';
-
 import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
-
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ProtectedAdmin from '../ProtectedAdmin/ProtectedAdmin';
-
-import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
@@ -38,12 +30,6 @@ import AdminPayouts from '../AdminPayouts/AdminPayouts';
 import AdminUpload from '../AdminUpload/AdminUpload'
 import AdminPayoutsHistory from '../AdminPayoutsHistory/AdminPayoutsHistory'
 import AdminPayoutsHistoryDetails from '../AdminPayoutsHistoryDetails/AdminPayoutsHistoryDetails'
-
-// spike component
-import ParseSpike from '../ParseSpike/ParseSpike'
-
-//Add User Component
-import UserForm from '../UserForm/UserForm'
 
 
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles';
@@ -74,7 +60,7 @@ function App() {
   return (
     <ThemeProvider theme ={theme}>
     <Router>
-    <Nav />
+      <Nav/>
       <div className='main'>
         
         <Switch>
@@ -142,10 +128,6 @@ function App() {
             <AdminDashboard/>
           </ProtectedAdmin>
 
-          <Route path="/addUser" >
-          <UserForm />
-          </Route>
-
           <ProtectedAdmin
           exact
           path='/admin/addUser'>
@@ -205,7 +187,6 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-        {/* <Footer /> */}
       </div>
     </Router>
     </ThemeProvider>

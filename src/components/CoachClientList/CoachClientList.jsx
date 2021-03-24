@@ -5,12 +5,6 @@ import { useHistory } from 'react-router-dom';
 
 import { DataGrid } from '@material-ui/data-grid';
 const useStyles = makeStyles(() => ({
-  root: {
-    "& .MuiInputBase-input": {
-      width: "25ch",
-    },
-    margin: "5px"
-  },
   header: {
     backgroundColor: "#99C0FF",
     color: '#001844',

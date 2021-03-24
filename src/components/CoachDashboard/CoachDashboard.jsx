@@ -1,26 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import Paper from '@material-ui/core/Paper';
 import { DataGrid } from '@material-ui/data-grid';
-import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-
-
 import { Doughnut, Bar } from 'react-chartjs-2';
 
 const useStyles = makeStyles(() => ({
-  root: {
-    "& .MuiInputBase-input": {
-        width: "25ch",
-    },
-    "& .MuiDataGrid-row": {
-      cursor: 'pointer',
-      color: 'white',
-    },
-    margin: "5px"
-},
   coachDashboardContainer: {
     display: 'flex',
     flexFlow: 'column',
@@ -103,10 +88,10 @@ function CoachDashboard(props) {
   const optionsDonut = {
     animation: {
       duration: 2000,
-  },
+    },
     responsive: true,
-        maintainAspectRatio: false,
-        aspectRation: 1,
+    maintainAspectRatio: false,
+    aspectRation: 1,
     scales: {
       yAxes: [
         {
@@ -115,7 +100,7 @@ function CoachDashboard(props) {
           },
           gridLines: {
             display: false,
-        },
+          },
         },
       ],
     },
@@ -123,9 +108,8 @@ function CoachDashboard(props) {
       display: true,
       text: `Client Payment Statuses`,
       fontSize: 24,
-  },
+    },
   }
-
 
   const dataChart = {
     labels: coachChart.labels,
@@ -135,17 +119,17 @@ function CoachDashboard(props) {
         data: coachChart.sums,
         backgroundColor: [
           "#001844",
-                    "#0352C0",
-                    "#0595F2",
-                    "#03AEF5",
-                    "#001844",
-                    "#0352C0",
-                    "#0595F2",
-                    "#03AEF5",
-                    "#001844",
-                    "#0352C0",
-                    "#0595F2",
-                    "#03AEF5",
+          "#0352C0",
+          "#0595F2",
+          "#03AEF5",
+          "#001844",
+          "#0352C0",
+          "#0595F2",
+          "#03AEF5",
+          "#001844",
+          "#0352C0",
+          "#0595F2",
+          "#03AEF5",
 
         ],
         borderWidth: 1,
@@ -156,10 +140,10 @@ function CoachDashboard(props) {
   const optionsChart = {
     animation: {
       duration: 2000,
-  },
+    },
     responsive: true,
-        maintainAspectRatio: false,
-        aspectRation: 1,
+    maintainAspectRatio: false,
+    aspectRation: 1,
     scales: {
       yAxes: [
         {
@@ -167,40 +151,33 @@ function CoachDashboard(props) {
             beginAtZero: true,
             callback: function (value, index, values) {
               return "$" + value
-          },
+            },
           },
           gridLines: {
             display: false,
-        },
+          },
         },
       ],
       xAxes: [{
         gridLines: {
           display: false,
-      },
+        },
       }]
     },
     title: {
       display: true,
       text: `Total Payouts`,
       fontSize: 24,
-  },
+    },
   }
 
-
-
-
-
   const payments = useSelector((store) => store.coachPayments);
-  const [heading, setHeading] = useState('Coach Dashboard');
-
 
   useEffect(() => {
     dispatch({ type: 'FETCH_COACH_PAYMENT_HISTORY' })
     dispatch({ type: 'FETCH_COACH_DONUT' })
     dispatch({ type: 'FETCH_COACH_PAYMENTS' })
   }, [])
-
 
   const columns = [
     {
@@ -223,16 +200,16 @@ function CoachDashboard(props) {
     },
   ]
   // push pathname with confirmation number
-  function handleDetails(number){
-    history.push({pathname: `/coach/payoutDetails/${number}`})
+  function handleDetails(number) {
+    history.push({ pathname: `/coach/payoutDetails/${number}` })
   }
 
 
   return (
     <div className={classes.coachDashboardContainer}>
       <h1 className={classes.coachDashboardTitle}>Payout History</h1>
-      <div className={classes.root, "center_table"} style={{  width: '80%', display: 'flex'}}>
-        <DataGrid rowHeight={40} autoHeight={true} rows={payments} columns={columns} pageSize={12} sortModel={[{ field: 'payout_date', sort: 'desc' },]} checkboxSelection={false} onRowClick={(event)=>handleDetails(event.row.confirmation_number)}/>
+      <div className={classes.root, "center_table"} style={{ width: '80%', display: 'flex' }}>
+        <DataGrid rowHeight={40} autoHeight={true} rows={payments} columns={columns} pageSize={12} sortModel={[{ field: 'payout_date', sort: 'desc' },]} checkboxSelection={false} onRowClick={(event) => handleDetails(event.row.confirmation_number)} />
 
       </div>
       <div className={classes.coachChartContainer}>

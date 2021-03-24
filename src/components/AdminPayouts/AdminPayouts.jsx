@@ -100,11 +100,9 @@ function AdminPayouts() {
       clients: clientArray,
       confirmation_number: date.getTime()
     }
-
-    console.log('new check equals', newCheck)
+    // console.log('new check equals', newCheck)
     dispatch({ type: 'PAY_COACH', payload: newCheck })
     setVisible(true)
-
   }
 
   //navs to payouts history view, gets ALL payouts
@@ -160,7 +158,6 @@ function AdminPayouts() {
       </DialogActions>
     </Dialog> : <span></span>}
 
-      {/* placeholder button for manual GET if list  doesn't load*/}
       <TableContainer component={Paper} className={classes.table}>
         <Table>
           <TableHead>

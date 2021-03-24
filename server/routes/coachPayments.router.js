@@ -6,8 +6,6 @@ const router = express.Router();
 
 // get payments for a coach based with the user_id and if it has been paid yet. 
 // the amount refers to total payment received. the coach only receives 75% of this. 
-// In this data, we will also receive the confirmation number which we can use to get the details for that month. 
-// for the monthly breakdown, select * from payments with the confirmation id. and also some stuff to get the client info up there as well. 
 router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT "payments".payout_date, SUM("amount" * 0.75) as "total_paid", ARRAY_AGG("payments".id), "payments".confirmation_number, "payments".confirmation_number AS "id" FROM "payments"
     JOIN "client" ON "client".contract_id = "payments".contract_id
@@ -25,8 +23,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     })
 });
 
-// get payment details for a month given the confirmation number 
-//with the array/list of paymentIds
+// get payment details given the confirmation number 
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   const confirmation_number = req.params.id
 
@@ -64,11 +61,6 @@ router.get('/date/:id', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
   })
 });
-/**
- * POST route template
- */
-router.post('/', rejectUnauthenticated,(req, res) => {
-    // POST route code here
-});
+
 
 module.exports = router;

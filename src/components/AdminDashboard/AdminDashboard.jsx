@@ -4,16 +4,8 @@ import Button from "@material-ui/core/Button"
 import { makeStyles } from "@material-ui/core/styles"
 import { useHistory } from "react-router-dom"
 import { Bar, Doughnut } from "react-chartjs-2"
-import { AutorenewTwoTone } from "@material-ui/icons"
 
 const useStyles = makeStyles(() => ({
-    // root: {
-    //   "& .MuiInputBase-input": {
-    //     width: "25ch",
-
-    //   },
-    //   margin: "5px"
-    // },
     dashboard: {
         height: "100%",
     },
@@ -102,8 +94,6 @@ function AdminDashboard(props) {
     const classes = useStyles()
     const history = useHistory()
 
-    // Using hooks we're creating local state for a "heading" variable with
-    // a default value of 'Functional Component'
     const coaches = useSelector((store) => store.adminCoaches)
     const clients = useSelector((store) => store.adminClients)
     const chartData = useSelector((store) => store.adminChart)
@@ -213,9 +203,6 @@ function AdminDashboard(props) {
                 {
                     ticks: {
                         display: false,
-                        // callback: function() {
-                        //   return undefined
-                        // }
                     },
                     gridLines: {
                         display: false,
@@ -240,8 +227,6 @@ function AdminDashboard(props) {
     return (
         <div>
             <div className={classes.container}>
-                {/* <h1>Welcome! Where would you like to go:</h1> */}
-
                 <div className={classes.buttonContainer}>
                     <Button
                         variant="contained"

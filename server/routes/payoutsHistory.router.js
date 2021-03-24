@@ -7,7 +7,7 @@ const {
 const { object } = require('prop-types');
 
 // /api/admin/paymentshistory is base address
-// gets record of all payments
+// gets record of all payments that have been paid
 router.get('/', rejectUnauthenticated, (req, res) => {
     if (req.user.clearance === 1) {
         const queryText = `
@@ -20,7 +20,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         ORDER BY "payout_date" DESC;
         `
         pool.query(queryText).then((response)=>{
-            console.log(response);
+            // console.log(response);
             res.send(response.rows);
         }).catch((error)=>{
             console.log('error getting history:', error);
@@ -34,7 +34,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     }
 });
 
-
+// get payout history details of payments with same confirmation number
 router.get(`/:confirmationNumber`, rejectUnauthenticated, (req, res)=>{
     if (req.user.clearance === 1){
         const params = [Number(req.params.confirmationNumber)]
@@ -47,7 +47,7 @@ router.get(`/:confirmationNumber`, rejectUnauthenticated, (req, res)=>{
             ORDER BY "payout_date" DESC;
         `
         pool.query(queryText, params).then((response)=>{
-            console.log(response);
+            // console.log(response);
             res.send(response.rows)
         }).catch((error)=>{
             console.log('error getting details', error);
@@ -62,14 +62,15 @@ router.get(`/:confirmationNumber`, rejectUnauthenticated, (req, res)=>{
 
 //gets data for chart.js, if admin it gets everything. if coach, it gets data specific to coach
 router.get('/visual/graph', rejectUnauthenticated, (req, res)=>{
+    // for admins
     if(req.user.clearance === 1){
-        console.log('in VISUAL server')
+        // console.log('in VISUAL server')
         const queryText = `
         SELECT "payments".payment_status, COUNT("payments".payment_status) FROM "payments"
         GROUP BY "payments".payment_status;
         `
         pool.query(queryText).then((response)=>{
-            console.log(response.rows);
+            // console.log(response.rows);
             let responseObject = arraySorter(response.rows)
             res.send(responseObject)
         }).catch((error)=>{
@@ -77,8 +78,9 @@ router.get('/visual/graph', rejectUnauthenticated, (req, res)=>{
             res.sendStatus(500)
         })
     }
+    // for coaches
     else if(req.user.clearance === 0){
-        console.log('in as coach to visual')
+        // console.log('in as coach to visual')
         const coachID = [req.user.id]
         const queryText = `
         SELECT "payments".payment_status, COUNT("payments".payment_status) FROM "payments"
@@ -88,14 +90,13 @@ router.get('/visual/graph', rejectUnauthenticated, (req, res)=>{
         GROUP BY "payments".payment_status;
         `
         pool.query(queryText, coachID).then((response)=>{
-            console.log(response.rows)
+            // console.log(response.rows)
             let coachResponseObject = arraySorter(response.rows)
             res.send(coachResponseObject)
         }).catch((error)=>{
             console.log('error with coach statuses', error);
             res.sendStatus(500)
         })
-
     }
     else{
         res.sendStatus(403)

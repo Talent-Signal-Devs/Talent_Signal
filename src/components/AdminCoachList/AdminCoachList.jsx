@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Paper from '@material-ui/core/Paper';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { DataGrid } from '@material-ui/data-grid';
@@ -131,7 +128,6 @@ function AdminCoachList(props) {
       nonActiveCoaches.push(coach);
     }
   }
-
 
   const handleChange = (event) => {
     setSeeActiveCoaches(event.target.value);

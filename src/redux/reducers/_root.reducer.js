@@ -7,17 +7,13 @@ import payout from './payout.reducer';
 import clientDetails from './clientDetails.reducer';
 import coachPayments from './coachPayment.reducer';
 import coachPaymentDetails from './coachPaymentDetails.reducer';
-
 import coachDetails from './coachDetails.reducer';
-
 import payoutsHistory from './payoutsHistory.reducer'
 import coachClients from './coachClient.reducer'
 import adminChart from './adminChart.reducer'
 import adminDonut from './adminDonut.reducer'
 import coachDonut from './coachDonut.reducer'
 import coachChart from './coachChart.reducer'
-
-
 
 
 // rootReducer is the primary reducer for our entire project
@@ -31,10 +27,8 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   adminClients, // contains clients and their info for the admin view
   adminCoaches, // contains coaches and their info for the admin view
-
   coachPayments, // contains coach payout info for coach dashboard view
   coachPaymentDetails, // contains coach payment details for a specific month/confirmation number
-
   coachClients, // contains coaches' client info
   payout,//stores information for AdminPayouts Component
   clientDetails, // stores a selected client's information for the admin client details view

@@ -92,12 +92,12 @@ function AdminClientDetails(props) {
   const handleClientChange = (e) => {
     const value = e.target.value
     setEditClient({ ...editClient, [e.target.name]: value })
-    console.log(editClient)
+    // console.log(editClient)
   }
 
   const updateClient = (e) => {
     e.preventDefault()
-    console.log(editClient)
+    // console.log(editClient)
     dispatch({ type: 'UPDATE_CLIENT_DETAILS', payload: editClient })
     setOpen(false)
   }

@@ -4,9 +4,9 @@ import axios from 'axios';
 //fires from manualPackage
 function* csvSubmitManual(action) {
   try {
-    console.log('in csvSumbitManual with', action.payload)
+    // console.log('in csvSumbitManual with', action.payload)
     yield axios.post('/api/csv', action.payload);
-    console.error('back from server after upload')
+    // console.error('back from server after upload')
     yield put({type: 'GET_PAYMENT'})
 
 

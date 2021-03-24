@@ -2,19 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-
 import { DataGrid } from '@material-ui/data-grid';
 
-
-
 const useStyles = makeStyles(() => ({
-  tableRow: {
-    backgroundColor: 'aliceblue',
-    '&:hover': {
-      opacity: '80%',
-      backgroundColor: 'lightblue'
-    }
-  },
   root: {
     "& .MuiInputBase-input": {
         width: "25ch",

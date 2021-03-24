@@ -31,9 +31,9 @@ function* fetchAdminCoachesDropdown() {
 function* getClientDetails(action) {
     try {
         const client = action.payload;
-        console.log(client)
+        // console.log(client)
         const response = yield axios.get(`/api/admin/client/${client}`);
-        console.log(response.data)
+        // console.log(response.data)
         yield put({ type: 'SET_CLIENT_DETAILS', payload: response.data[0] })
     } catch (error) {
         console.log('error getting client details', error);
@@ -53,7 +53,7 @@ function* getCoachDetails(action) {
 function* updateClientDetails(action) {
     try {
         const response = yield axios.put(`/api/admin/client/edit`, action.payload)
-        console.log(response.data)
+        // console.log(response.data)
         yield put({ type: 'GET_CLIENT_DETAILS', payload: response.data[0].id})
     } catch(err) {
         console.log(err)
@@ -84,7 +84,7 @@ function* fetchDonutData() {
         const response = yield axios.get('/api/admin/data/donut')
         yield put({ type: 'SET_DONUT_DATA', payload: response.data})
     } catch(err) {
-        consol.log(err)
+        console.log(err)
     }
 }
 

@@ -5,6 +5,7 @@ const {
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
+require('dotenv').config()
 const accountSid = process.env.TWILIO_ACCOUNT_SID
 const authToken = process.env.TWILIO_AUTH_TOKEN
 
@@ -17,6 +18,16 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   // Send back user object from the session (previously queried from the database)
   res.send(req.user);
 });
+
+router.post('/code', (req, res) => {
+
+  client.verify
+        .services('VAef954ff50685181185cb8c27ccccd58b')
+        .verifications.create({ to: req.body.email, channel: 'email'})
+        .then(verification => {
+            console.log(verification.sid)
+        })
+})
 
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen

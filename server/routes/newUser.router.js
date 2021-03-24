@@ -4,11 +4,15 @@ const router = express.Router();
 const {
     rejectUnauthenticated,
   } = require('../modules/authentication-middleware');
+const { isJSDocReadonlyTag, getParsedCommandLineOfConfigFile } = require('typescript');
 require('dotenv').config()
 const accountSid = process.env.TWILIO_ACCOUNT_SID
 const authToken = process.env.TWILIO_AUTH_TOKEN
 
+
 const client = require('twilio')(accountSid, authToken)
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 router.post('/coach', async (req, res) => {
     console.log(req.body)
@@ -24,12 +28,34 @@ router.post('/coach', async (req, res) => {
 
         await connection.query('COMMIT;')
 
-        client.verify
-        .services('VAef954ff50685181185cb8c27ccccd58b')
-        .verifications.create({ to: req.body.email, channel: 'email'})
-        .then(verification => {
-            console.log(verification.sid)
+        const msg = {
+            to: req.body.email,
+            from: 'jordan.ashbacher@gmail.com',
+            templateId: 'd-97af3aac35d54d11a10657514ffe2799', 
+
+            // dynamic_template_data: {
+            //     subject: 'Testing Template',
+            //     name: 'someone',
+            //     text: 'denver'
+            // }
+        }
+
+        sgMail.send(msg)
+        .then(m => {
+            console.log('message sent')
         })
+        .catch(error => {
+            console.log(error)
+        })
+
+        
+
+        // client.verify
+        // .services('VAef954ff50685181185cb8c27ccccd58b')
+        // .verifications.create({ to: req.body.email, channel: 'email'})
+        // .then(verification => {
+        //     console.log(verification.sid)
+        // })
         
         res.sendStatus(201)
 

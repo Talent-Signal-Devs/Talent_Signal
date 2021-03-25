@@ -30,14 +30,9 @@ router.post('/coach', async (req, res) => {
 
         const msg = {
             to: req.body.email,
-            from: 'jordan.ashbacher@gmail.com',
-            templateId: 'd-97af3aac35d54d11a10657514ffe2799', 
+            from: 'talentsignalio@gmail.com',
+            templateId: 'd-f36ff019d4074b29bd8465b092279f16', 
 
-            // dynamic_template_data: {
-            //     subject: 'Testing Template',
-            //     name: 'someone',
-            //     text: 'denver'
-            // }
         }
 
         sgMail.send(msg)
@@ -48,14 +43,6 @@ router.post('/coach', async (req, res) => {
             console.log(error)
         })
 
-        
-
-        // client.verify
-        // .services('VAef954ff50685181185cb8c27ccccd58b')
-        // .verifications.create({ to: req.body.email, channel: 'email'})
-        // .then(verification => {
-        //     console.log(verification.sid)
-        // })
         
         res.sendStatus(201)
 

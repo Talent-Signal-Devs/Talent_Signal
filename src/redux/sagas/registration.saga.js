@@ -26,19 +26,9 @@ function* registerUser(action) {
   }
 }
 
-function* requestCode(action) {
-  try {
-    console.log('in request code saga')
-    console.log(action.payload)
-    yield axios.post('/api/user/code', action.payload)
-  } catch(err) {
-    console.log(err)
-  }
-}
-
 function* registrationSaga() {
   yield takeLatest('REGISTER', registerUser);
-  yield takeEvery('REQUEST_CODE', requestCode)
+  // yield takeEvery('REQUEST_CODE', requestCode)
 }
 
 export default registrationSaga;

@@ -6,8 +6,8 @@ const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
 require('dotenv').config()
-const accountSid = process.env.TWILIO_ACCOUNT_SID
-const authToken = process.env.TWILIO_AUTH_TOKEN
+const accountSid = process.env.TWILIO_SID
+const authToken = process.env.TWILIO_TOKEN
 
 const client = require('twilio')(accountSid, authToken)
 
@@ -19,48 +19,53 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
-router.post('/code', (req, res) => {
+// router.post('/code', (req, res) => {
+//   console.log('in code request router')
+//   console.log(req.body.email)
 
-  client.verify
-        .services('VAef954ff50685181185cb8c27ccccd58b')
-        .verifications.create({ to: req.body.email, channel: 'email'})
-        .then(verification => {
-            console.log(verification.sid)
-        })
-})
+//   client.verify
+//         .services('VA3729f5257b25bacd7aff0b95c897c428')
+//         .verifications.create({ to: 'jordan.ashbacher@gmail.com', channel: 'email'})
+//         .then(verification => {
+//             console.log(verification.sid)
+//         })
+// })
 
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post('/register', (req, res, next) => {
+router.post('/register', async (req, res, next) => {
   const email = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
-  const code = req.body.code
+  // const code = req.body.code
 
-  client.verify
-    .services('VAef954ff50685181185cb8c27ccccd58b')
-    .verificationChecks.create({ to: email, code: code })
-    .then(verification_check => {
-      if (verification_check.status === "approved") {
-        const queryText = `UPDATE "users" 
-                            SET password = $1, is_approved = $2
-                            WHERE email = $3
-                            RETURNING id`;
-        pool
-          .query(queryText, [password, 'TRUE', email])
-          .then((results) => {
-            console.log(results.rows)
-            res.sendStatus(201)
-          })
-          .catch((err) => {
-            console.log('User registration failed: ', err);
-            res.sendStatus(500);
-          });
-      }
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  const connection = await pool.connect()
+
+  try {
+    await connection.query('BEGIN;')
+    const query = `SELECT id FROM users
+                    WHERE email = $1`
+
+    const result = await connection.query(query, [email])
+
+    if (result.rows[0].id > 0) {
+      const queryText = `UPDATE "users" 
+                          SET password = $1, is_approved = $2
+                          WHERE email = $3
+                          RETURNING id`;
+
+      const result = await connection.query(queryText, [password, 'TRUE', email])
+      await connection.query('COMMIT;')
+      console.log(result.rows)
+      res.sendStatus(201)
+    }
+  } catch(err) {
+    console.log(err)
+    await connection.query('ROLLBACK;')
+    res.sendStatus(500)
+  } finally {
+    connection.release()
+  }
 
 });
 

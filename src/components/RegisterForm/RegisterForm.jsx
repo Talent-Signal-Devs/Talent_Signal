@@ -16,18 +16,13 @@ function RegisterForm() {
       payload: {
         username: email,
         password: password,
-        code: code,
       },
     });
   }; // end registerUser
 
-  const requestCode = () => {
-    dispatch({ type: 'REQUEST_CODE', payload: {email: email}})
-  }
-
   return (
     <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+      <h2>Register Your Account</h2>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
@@ -47,7 +42,7 @@ function RegisterForm() {
       </div>
       <div>
         <label htmlFor="password">
-          Create Password:
+          Password:
           <input
             type="password"
             name="password"
@@ -56,21 +51,6 @@ function RegisterForm() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </label>
-      </div>
-      <div>
-        <label htmlFor="verification_code">
-          Verification Code:
-          <input
-            type="text"
-            name="verification_code"
-            value={code}
-            required
-            onChange={(event) => setCode(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn"  type="button" name="verifyBtn" value="Request Verification Code" onClick={requestCode}/>
       </div>
       <div>
         <input className="btn" type="submit" name="submit" value="Register" />

@@ -1,6 +1,7 @@
 
 const payoutsHistoryReducer = (state = [], action) => {
     switch (action.type) {
+      //adds an incremental id to each object for datagrid. otherwise it gets real mad. 
       case 'SET_PAYOUTS_HISTORY':
         let dataID = []
         let newID = 0;
@@ -12,6 +13,7 @@ const payoutsHistoryReducer = (state = [], action) => {
         }
         return dataID;
       case 'SET_PAYOUTS_HISTORY_DETAIL':
+        // 
         let details = []
         for(let object of action.payload){
             object.payout_date = new Date(object.payout_date).toLocaleDateString();

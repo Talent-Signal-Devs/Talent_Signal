@@ -4,12 +4,9 @@ import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import csvSaga from './csv.saga';
 import adminSaga from './admin.saga';
-
 import coachSaga from './coach.saga';
-
 import payoutSaga from './payout.saga'
 import userForm from './userForm.saga'
-
 
 
 // rootSaga is the primary saga.
@@ -27,9 +24,7 @@ export default function* rootSaga() {
     csvSaga(), //saga to handle new csv information
     userForm(), //saga to handle new user form data
     adminSaga(), // saga to populate admin related reducers
-
     coachSaga(), // saga to handle all coach related requests
-
     payoutSaga(), //saga to return information on invoices paid and not paid
 
 

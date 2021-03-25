@@ -115,8 +115,7 @@ function AdminCoachDetails(props) {
   let totalPayout = [];
   let moneyMade = 0;
 
-
-
+  // filter out all payments that are null 
   if (coachDetails?.payments) {
     const filteredPayments = coachDetails?.payments.filter(function (el) {
       return el != null;

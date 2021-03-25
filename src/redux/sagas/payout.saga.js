@@ -4,9 +4,9 @@ import axios from 'axios';
 //GETs all unpaid dues from DB
 function* getPayoutDetails() {
   try {
-    console.log('in getPayoutDetails ')
+    // console.log('in getPayoutDetails ')
     const response = yield axios.get('/api/csv')
-    console.log('server response getting payouts', response.data)
+    // console.log('server response getting payouts', response.data)
     //goes to payout reducer
     yield put({type: 'SET_PAYMENT', payload: response.data})
 
@@ -20,7 +20,7 @@ function* getPayoutsHistory() {
   try {
     console.log('in getPayoutsHistory')
     const response = yield axios.get('/api/admin/paymentshistory')
-    console.log('server response getting payoutsHistory', response.data)
+    // console.log('server response getting payoutsHistory', response.data)
     //goes to payout reducer
     yield put({type: 'SET_PAYOUTS_HISTORY', payload: response.data})
 
@@ -32,9 +32,9 @@ function* getPayoutsHistory() {
 //GETs data for charting on admin payouts page
 function* getPayoutsVisual() {
   try {
-    console.log('in getPayoutsHistoryVisual')
+    // console.log('in getPayoutsHistoryVisual')
     const response = yield axios.get('/api/admin/paymentshistory/visual/graph')
-    console.log('server response getting payoutsHistoryVisual', response.data)
+    // console.log('server response getting payoutsHistoryVisual', response.data)
     //goes to payout reducer
     yield put({type: 'SET_CHART_DATA', payload: response.data})
 
@@ -47,9 +47,9 @@ function* getPayoutsVisual() {
 //GET details for a specific payment by check no.
 function* seeFullPaymentDetails(action) {
   try {
-    console.log('in seeFullPaymentDetails saga');
+    // console.log('in seeFullPaymentDetails saga');
     const response = yield axios.get(`/api/admin/paymentshistory/${action.payload}`)
-    console.log('server response getting payoutsHistory', response.data)
+    // console.log('server response getting payoutsHistory', response.data)
     //goes to payout reducer
     yield put({type: 'SET_PAYOUTS_HISTORY_DETAIL', payload: response.data})
 
@@ -62,7 +62,7 @@ function* seeFullPaymentDetails(action) {
 
 function* payCoach(action){
     try{
-        console.log('in payCoach with payload', action.payload)
+        // console.log('in payCoach with payload', action.payload)
         yield axios.put('/api/csv/pay', action.payload)
         yield put({type: 'GET_PAYMENT'})
     } catch(error){

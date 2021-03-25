@@ -5,18 +5,10 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch } from 'react-redux';
-
 import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
-
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import ProtectedAdmin from '../ProtectedAdmin/ProtectedAdmin';
-
-import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
@@ -39,8 +31,6 @@ import AdminUpload from '../AdminUpload/AdminUpload'
 import AdminPayoutsHistory from '../AdminPayoutsHistory/AdminPayoutsHistory'
 import AdminPayoutsHistoryDetails from '../AdminPayoutsHistoryDetails/AdminPayoutsHistoryDetails'
 
-// spike component
-import ParseSpike from '../ParseSpike/ParseSpike'
 
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import './App.css';
@@ -70,7 +60,7 @@ function App() {
   return (
     <ThemeProvider theme ={theme}>
     <Router>
-    <Nav />
+      <Nav/>
       <div className='main'>
         
         <Switch>
@@ -197,7 +187,6 @@ function App() {
             <h1>404</h1>
           </Route>
         </Switch>
-        {/* <Footer /> */}
       </div>
     </Router>
     </ThemeProvider>

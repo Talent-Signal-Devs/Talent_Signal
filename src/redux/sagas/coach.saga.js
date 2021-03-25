@@ -15,7 +15,7 @@ function* fetchCoachPayments() {
 // get coach payments when "details" button clicked on dashboard table
 function* fetchCoachPaymentDetailsNumber(action){
   const confirmation_number=action.payload;
-  console.log('in paymentDetails Saga with ids',action.payload);
+  // console.log('in paymentDetails Saga with ids',action.payload);
   try{
     const response = yield axios.get(`/api/coach/payments/${confirmation_number}`)
     yield put({type: 'SET_COACH_PAYMENT_DETAILS', payload: response.data})
@@ -29,7 +29,7 @@ function* fetchCoachPaymentDetailsNumber(action){
 //get coach payments when select month/year input on payout details view
 function* fetchCoachPaymentDetails(action){
   const date=action.payload;
-  console.log('in fetchCoachParmentDetailsDate Saga');
+  // console.log('in fetchCoachParmentDetailsDate Saga');
   try{
     const response = yield axios.get(`/api/coach/payments/date/${date}`)
     yield put({type: 'SET_COACH_PAYMENT_DETAILS', payload: response.data})
@@ -49,7 +49,7 @@ function* fetchCoachClients() {
 //saga to get data for charts for coaches and their payment history
 function* fetchCoachPaymentHistory() {
     try {
-        console.log('in fetchCoachPaymentHistory')
+        // console.log('in fetchCoachPaymentHistory')
         const response = yield axios.get('/api/coach/data')
         //sends data to coachChart
         yield put({ type: 'SET_COACH_CHART', payload: response.data})
@@ -60,7 +60,7 @@ function* fetchCoachPaymentHistory() {
 //saga to get data for coaches and their history of statuses
 function* fetchCoachDonut() {
     try {
-        console.log('in fetchCoachDonut')
+        // console.log('in fetchCoachDonut')
         const response = yield axios.get('/api/admin/paymentshistory/visual/graph')
         //sends data to coachDonut reducer
         yield put({ type: 'SET_COACH_DONUT', payload: response.data})

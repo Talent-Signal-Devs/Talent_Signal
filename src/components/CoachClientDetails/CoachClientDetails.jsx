@@ -1,27 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import { DataGrid } from '@material-ui/data-grid';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
-  root: {
-    "& .MuiInputBase-input": {
-      width: "25ch",
-    },
-    "& .MuiDataGrid-row": {
-      cursor: 'pointer',
-      color: '#333'
-    },
-    margin: "5px"
-  },
   header: {
     backgroundColor: '#99C0FF',
     color: '#001844',
@@ -32,7 +15,6 @@ const useStyles = makeStyles(() => ({
 function CoachClientDetails(props) {
   const classes = useStyles();
   const clientDetails = useSelector((store) => store.clientDetails);
-  const [heading, setHeading] = useState('Coach Client Details');
   const params = useParams();
   const dispatch = useDispatch();
 
@@ -56,12 +38,8 @@ function CoachClientDetails(props) {
     totalMoneyMade.push(moneyMade);
   }
 
-  // console.log(clientDetails.payments !== [null])
-
   // total money that the coach has brought in for the company
   let totalRevenue = totalMoneyMade[0] * 0.75;
-
-
 
   const columns = [
     {
@@ -77,8 +55,6 @@ function CoachClientDetails(props) {
       flex: 1,
       sort: true,
       description: `Date the client's payment is due to Leif`,
-      // valueFormatter: (params) => params.value.getFullYear(),
-      // valueFormatter: (params: ValueFormatterParams) => (params.value as Date).getFullYear(),
       valueFormatter: (params) => new Date(params.value).toLocaleDateString("en-us"),
       type: 'date',
       headerClassName: classes.header
@@ -111,7 +87,7 @@ function CoachClientDetails(props) {
     },
   ]
 
-  //handles the value for 'total_paid' column
+  //handles the value for 'Payment Received' column
   function getTotalPaid(params) {
     let total = params.row.amount * 0.75;
     let status = params.row.payment_status;
@@ -121,10 +97,6 @@ function CoachClientDetails(props) {
       let totalToFixed = total.toFixed(2);
       return `$${totalToFixed}`;
     }
-    // console.log(params);
-    // let total = params.row.amount * 0.75;
-    // let totalToFixed = total.toFixed(2);
-    // return totalToFixed;
   }
 
   return (

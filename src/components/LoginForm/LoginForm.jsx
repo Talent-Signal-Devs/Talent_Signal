@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
-import {Button, InputBase, Box} from '@material-ui/core'
+import { useSelector } from 'react-redux';
+import { Button, InputBase, Box } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles({
   button: {
     background: '#0026ff',
     color: '#f4f4f4',
-    
+
   },
   input: {
     width: "100%",
@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     padding: '1rem',
     border: "2px solid #333",
     color: '#333',
-    marginTop:'5px'
+    marginTop: '5px'
   }
 })
 
@@ -55,34 +55,31 @@ function LoginForm() {
         <label htmlFor="email">
           Email:
         </label>
-          <InputBase
-            className = {classes.input}
-            type="text"
-            name="email"
-            required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="Username (Email)"
-          />
+        <InputBase
+          className={classes.input}
+          type="text"
+          name="email"
+          required
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="Username (Email)"
+        />
       </div>
       <div>
-        
-          <InputBase
-            className={classes.input}
-            type="password"
-            name="password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            placeholder="Password"
-          />
-       
+        <InputBase
+          className={classes.input}
+          type="password"
+          name="password"
+          required
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          placeholder="Password"
+        />
       </div>
       <Box mt={2}>
-        <Button  color="primary" variant = "contained" type="submit" name="submit" value="Log In"> Log In
+        <Button color="primary" variant="contained" type="submit" name="submit" value="Log In"> Log In
         </Button>
       </Box>
-      
     </form>
   );
 }

@@ -4,7 +4,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import { TextField, Button } from '@material-ui/core';
 
 //datepicker packages
-
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
@@ -38,16 +37,6 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
     left: '7vw'
   },
-  root: {
-    "& .MuiInputBase-input": {
-        width: "25ch",
-    },
-    ".MuiDataGrid-row": {
-      cursor: 'pointer',
-      color: 'white'
-    },
-    margin: "5px"
-},
   container: {
     display: "flex",
     flexFlow: "column",
@@ -58,9 +47,6 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "#99C0FF",
     color: '#001844',
   },
-  cell: {
-    align: 'center',
-  }
 }))
 
 function CoachPayoutDetails(props) {
@@ -71,8 +57,6 @@ function CoachPayoutDetails(props) {
 
   const payments = useSelector((store) => store.coachPaymentDetails);
   const [heading, setHeading] = useState('Payout Details');
-
-  //datepicker stuff
   const [selectedDate, setSelectedDate] = useState(Date());
 
   const columns = [
@@ -115,8 +99,6 @@ function CoachPayoutDetails(props) {
       flex: 1,
       sort: true,
       valueGetter: checkStatus,
-      // valueFormatter: checkStatus,
-      // valueFormatter: (params) => (params.value.toFixed(2)),
       description: `Payment amount received by coach from Talent Signal`,
       headerClassName: classes.header
     },
@@ -134,36 +116,32 @@ function CoachPayoutDetails(props) {
       return `$${totalFixed}`;
     }
   }
+
   // get payment details when month picker is used. 
   const handleClick = () => {
     let isoDate = new Date(selectedDate).toISOString('en-us');
     let realDate = isoDate.substring(0,7);
     // console.log('dispatch with ', monthDate);
     dispatch({ type: 'FETCH_COACH_PAYMENT_DETAILS', payload: realDate })
-    console.log('value of date picker is now: ', realDate);
+    // console.log('value of date picker is now: ', realDate);
   }
 
   useEffect(() => {
     // If arrived via navbar, the page.id will = payments. Just sit here and wait for user to select a month. 
     if (page.id == 'payments') {
-      console.log('Do nothing and select the dropdown month selector');
+      // console.log('Do nothing and select the dropdown month selector');
     }
     // get payment details for this month. Can get them with the page.id because this is the payment confirmation number from the Dashboard
     else {
       dispatch({ type: 'FETCH_COACH_PAYMENT_DETAILS_NUMBER', payload: page.id })
     }
   }, [])
-  // console.log(`page id is ${page.id}`);
-  // console.log(typeof page.id)
-  // console.log(`selected value is now ${monthDate}`);
 
   const handleRowClick = (event) => {
     let userId = event.row.clientId;
     history.push(`/coach/clientDetails/${userId}`);
   }
 
-  
-  
   return (
     <div>
       <h2 className={classes.coachPayoutHeading}>{heading}</h2>
@@ -179,25 +157,10 @@ function CoachPayoutDetails(props) {
             onChange={(date) =>
               setSelectedDate(date)
             }
-            // onChange={(event)=> setSelectedDate(event.target.value)}
             KeyboardButtonProps={{
               'aria-label': 'change date',
             }}
           />
-        {/* <DatePicker
-            disableToolbar
-            variant="inline"
-            format="MM/yyyy"
-            views={["year", "month"]}
-            margin="normal"
-            id="date-picker-inline"
-            label="Date picker inline"
-            value={selectedDate}
-            onChange={setSelectedDate}
-            KeyboardButtonProps={{
-              'aria-label': 'change date',
-            }}
-          /> */}
           </MuiPickersUtilsProvider>
         <div className={classes.buttonContainer}>
           <Button
@@ -208,30 +171,9 @@ function CoachPayoutDetails(props) {
           </Button>
         </div>
       </div>
-      {/* <div className={classes.pickerContainer}>
-        <TextField
-          id="pick month"
-          label="Month Picker"
-          type="month"
-          value={monthDate}
-          onChange={(event) => setMonthDate(event.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <div className={classes.buttonContainer}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleClick}>
-            Submit
-          </Button>
-        </div>
-      </div> */}
       <br></br>
       <br></br>
       <div className={classes.container}>
-        {/* <h1>History:</h1> */}
         <div style={{  width: '85%', display: 'flex' }} className={classes.root, "center_table"}>
           <DataGrid className={classes.root} rowHeight={40} autoHeight={true} rows={payments} columns={columns} sortModel={[{ field: 'scheduled_date', sort: 'desc' },]} pageSize={10} checkboxSelection={false} onRowClick={handleRowClick} />
         </div>

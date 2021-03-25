@@ -15,7 +15,7 @@ function* loginUser(action) {
     // send the action.payload as the body
     // the config includes credentials which
     // allow the server session to recognize the user
-    console.log('login payload, login saga', action.payload)
+    // console.log('login payload, login saga', action.payload)
     yield axios.post('/api/user/login', action.payload, config);
 
     // after the user has logged in

@@ -129,7 +129,7 @@ function AdminAddUser(props) {
                 business: "",
             })
         } else if (userType === "client") {
-            console.log(newClient)
+            // console.log(newClient)
             dispatch({ type: "ADD_NEW_CLIENT", payload: newClient })
             setNewClient({
                 firstName: "",
@@ -152,7 +152,7 @@ function AdminAddUser(props) {
     const handleClientChange = (e) => {
         const value = e.target.value
         setNewClient({ ...newClient, [e.target.name]: value })
-        console.log(newClient)
+        // console.log(newClient)
     }
 
     const handleCancel = () => {

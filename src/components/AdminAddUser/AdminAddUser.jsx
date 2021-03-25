@@ -280,7 +280,7 @@ function AdminAddUser(props) {
                                 className={classes.input}
                             />
                         </div>
-                         <div className={classes.buttonContainer} onClick={fillCoachForm}>
+                         <div className={classes.buttonContainer}>
                          <Button
                              type="submit"
                              variant="contained"
@@ -416,7 +416,7 @@ function AdminAddUser(props) {
                                 </Select>
                             </FormControl>
                         </div>
-                         <div className={classes.buttonContainer} onClick={fillClientForm}>
+                         <div className={classes.buttonContainer}>
                          <Button
                              type="submit"
                              variant="contained"

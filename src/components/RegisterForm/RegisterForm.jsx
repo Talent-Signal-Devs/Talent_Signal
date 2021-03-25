@@ -16,14 +16,13 @@ function RegisterForm() {
       payload: {
         username: email,
         password: password,
-        code: code,
       },
     });
   }; // end registerUser
 
   return (
     <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+      <h2>Register Your Account</h2>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
@@ -50,18 +49,6 @@ function RegisterForm() {
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="verification_code">
-          Verification Code:
-          <input
-            type="text"
-            name="verification_code"
-            value={code}
-            required
-            onChange={(event) => setCode(event.target.value)}
           />
         </label>
       </div>
